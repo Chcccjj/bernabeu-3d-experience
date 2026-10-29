@@ -1,29 +1,33 @@
+**English** | [简体中文](README.zh-CN.md)
+
 # Santiago Bernabéu 3D Experience
 
-[English introduction](README.en.md) · [在线体验](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=zh) · [使用手册](docs/USER_GUIDE.md) · [制作过程](docs/DEVELOPMENT.md)
+[Live experience](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=en) · [User guide](docs/USER_GUIDE.md) · [Development process](docs/DEVELOPMENT.md)
 
-以翻新后的圣地亚哥·伯纳乌为原型的实时三维建筑探索作品。亲自控制镜头，从银色百叶外立面飞入看台，打开屋顶，观察六段草坪收纳，再把自己的机位导出为照片或视频。
+Explore a real-time 3D interpretation of the renovated Santiago Bernabéu. Take control of the camera, fly past the silver louvered façade and into the stands, open the roof, watch six turf trays move underground, and turn your own viewpoints into photos or videos.
 
-![伯纳乌三维体验：实际运行画面](docs/images/exterior-zh.png)
+![Actual application screenshot in English](docs/images/exterior-en.png)
 
-这是基于 Three.js / WebGL 的可交互三维场景，`index.html` 为工程入口。建筑几何、座椅、草坪、机械结构和城市由代码生成，运行时不依赖 CDN。界面支持 **中文、English、Español**。
+The application uses **Three.js / WebGL**, with `index.html` as its entry point. Stadium geometry, seats, turf, mechanical structures and the surrounding city are generated in code. Runtime assets are local, with no CDN dependency. The interface supports **English, 中文 and Español**.
 
-> 本作品为独立的程序化建筑重建，与皇家马德里无隶属关系。机构、虚拟席位和城市经过简化，不是官方测绘模型、票务系统或施工数字孪生。
+> An independent procedural architectural reconstruction. The mechanisms, virtual seats and city are simplified. This project is not affiliated with Real Madrid and does not provide an official survey, ticketing service or construction digital twin.
 
-## 文档导航
+## Documentation
 
-| 文档 | 内容 |
-| --- | --- |
-| [使用手册](docs/USER_GUIDE.md) | 安装运行、镜头操作、屋顶与草坪、选座步行、图片视频导出、分享和常见问题 |
-| [制作过程](docs/DEVELOPMENT.md) | 从参考研究、程序建模、材质光照到交互、三语与打包的实现过程 |
-| [验证记录](docs/VALIDATION.md) | 自动测试范围、实际浏览器验证和未覆盖的边界 |
-| [资源署名](public/ASSET-LICENSES.txt) | HDR 环境、依赖及第三方许可证出处 |
+Each guide has an **English | 简体中文** link at the top. Navigation stays in the selected documentation language.
 
-在线体验：[中文](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=zh) · [English](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=en) · [Español](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=es)
+| Guide | Contents | 中文 |
+| --- | --- | --- |
+| [User guide](docs/USER_GUIDE.md) | Setup, controls, roof and pitch, seating, walking, photo/video export, sharing and troubleshooting | [使用手册](docs/USER_GUIDE.zh-CN.md) |
+| [Development process](docs/DEVELOPMENT.md) | Reference research, procedural modeling, materials, lighting, interaction, localization and packaging | [制作过程](docs/DEVELOPMENT.zh-CN.md) |
+| [Validation scope](docs/VALIDATION.md) | Automated checks, actual browser verification and remaining limits | [验证记录](docs/VALIDATION.zh-CN.md) |
+| [Asset acknowledgements](public/ASSET-LICENSES.txt) | HDR environment, dependencies and third-party notices | — |
 
-## 立即运行
+Live application: [English](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=en) · [中文](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=zh) · [Español](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=es)
 
-使用 Node.js 22.12 或更新版本：
+## Quick start
+
+Requires **Node.js 22.12 or newer**.
 
 ```sh
 git clone https://github.com/Chcccjj/bernabeu-3d-experience.git
@@ -32,76 +36,71 @@ npm ci
 npm run dev
 ```
 
-打开终端显示的本地地址，通常是 http://127.0.0.1:5173/ 。首次下载依赖后，开发与生产预览都可离线运行。
+Open the address printed by Vite, normally `http://127.0.0.1:5173/`. Installing dependencies initially requires a network connection; development and production previews can then run offline.
 
-另附 **[伯纳乌球场.html](伯纳乌球场.html)**：完整离线单文件，包含代码、样式及 HDR 环境资源。下载原始文件后可尝试直接打开；若浏览器限制本地文件，请通过本地 HTTP 服务器访问。工程版 `index.html` 需要通过开发或预览服务器访问。GitHub 的文件预览页不会执行这个应用。
+The included **[伯纳乌球场.html](伯纳乌球场.html)** is a self-contained offline edition containing JavaScript, CSS and the HDR environment. Download the raw file to use it. If your browser restricts local files, serve it over HTTP. The project's `index.html` needs a development or preview server; GitHub's file preview does not execute the application.
 
 ```sh
-npm test                # 20 项工程、交互状态与三语完整性测试
-npm run build          # 生成 dist/，包含单文件离线版
-npm run preview        # 预览正式构建，通常使用 4173 端口
+npm test          # 20 engineering, interaction-state and localization tests
+npm run build     # dist/ plus the self-contained offline HTML edition
+npm run preview   # production preview, normally on port 4173
 ```
 
-## 可操作内容
+## Explore and create
 
-- **语言切换**：页头和工具面板右上角可选择中文、English、Español；导航、介绍、工具、提示、机械进度、导出结果和无障碍标签同步翻译。切换不会重载场景，用户输入的机位名称保留原文。
-- 默认依次采用链接中的 `?lang=zh|en|es`、当前浏览器保存的选择、浏览器语言；无匹配时使用中文。语言选择会保存到浏览器；分享机位链接会附上当前语言。
-- **Exterior**：外部透视环绕；左键旋转、滚轮缩放、右键平移，带阻尼。触屏单指旋转、双指缩放和平移。
-- **Interior**：通过屋顶开口飞入看台，观察完整草坪、分层座席、VIP 区、钢结构与 360° 视频屏。
-- **Pitch View**：草坪中央的低机位视角，可拖动环顾。
-- **Cinematic**：36 秒连续曲线路径，经过城市鸟瞰、立面掠飞、屋顶和内部；Esc 或关闭按钮可停止。
-- **Free Explore**：W/A/S/D 或方向键移动，Q/E 升降，Shift 加速；拖动环顾。提供外壳与固定屋顶边界约束。
-- **Day / Night / Match**：白昼空场、夜景空场、蓝白观众比赛日；实际改变环境光、建筑灯光、泛光灯和屏幕内容。
-- **Retractable roof**：两侧 PTFE 膜顶沿轨道伸缩的可逆动画。跨越室内外的相机行程会先打开屋顶。
-- **Pitch transformation**：六块 105 米长的草坪按顺序横移至侧方槽口，再下降至不同地下层；恢复时沿原路径返回。两次点击可在途中反转。
-- **高清拍照**：六个真实三维机位、16:9 / 9:16 / 3:4 / 1:1 构图、视角与曝光调节；导出 PNG / JPEG，不包含界面。桌面长边最高 3840，窄屏长边最高 2048，且受 GPU 纹理上限约束；导出后恢复浏览分辨率。
-- **运镜录像**：15 秒外观环绕、36 秒飞入球场、15 秒屋顶开合；实际录制画布，可预览、提前停止和保存。桌面长边 1920，窄屏 1280，目标 30 fps，实际帧率随设备变化。自动选择浏览器支持的 MP4 或 WebM，文件扩展名与实际格式一致。页面进入后台会结束并保存当前片段，避免导出冻结画面。
-- **探索 → 选座**：64 排、四个方向与三层看台选择；镜头进入模型中实际座椅的人眼位置，也可点击座椅换位。排号和席位为本模型的虚拟编号，不对应官方票务。
-- **探索 → 路线**：球员通道引导步行与草坪自由步行，W/A/S/D 移动、Shift 加快，触屏提供方向按钮。范围约束避开看台和球门，缓坡连接通道与场地。环境声、脚步声按需开启，由程序合成，不访问麦克风。
-- **探索 → 建筑 / 剖面**：六个建筑热点、细节介绍与自然过渡；剖面使用球场中同一批托盘，展示地下支架与真实的分段收纳动画。
-- **分享与收藏**：链接记录相机、视角、昼夜、屋顶、草坪及剖面状态。接收者可在公开站点恢复机位；最多 8 个收藏仅保存在当前浏览器，可单独删除。
-- 画质选择、相机复位、全屏及隐藏 UI 均有实际功能。拍照和录像不需要远程服务；录像要求浏览器支持 `captureStream` 与 `MediaRecorder`，不支持时会明确提示。
-- **H** 隐藏 / 显示界面；**F** 全屏；**Home** 复位相机。
+- **Camera views:** Exterior orbit, Interior, Pitch view, a continuous 36-second cinematic tour, and Free explore. View changes use smooth camera transitions.
+- **Controls:** Left-drag to orbit or look, wheel to zoom, right-drag to pan. Touch screens support one-finger rotation and two-finger pan/zoom. Free explore uses W/A/S/D or arrows, Q/E for height and Shift for speed, with shell and fixed-roof boundaries.
+- **Day / Night / Match day:** Change environmental light, façade lighting, floodlights, screen content and crowds. The displayed score is demonstration content.
+- **Retractable roof:** Operate reversible membrane-roof movement along the tracks. Camera journeys into the stadium open the roof first.
+- **Pitch transformation:** Six 105 m-long trays move one at a time into a side transfer corridor, then descend to different underground levels. Restoring the pitch follows the same path in reverse; movement can reverse partway through.
+- **High-resolution photos:** Six 3D presets, 16:9 / 9:16 / 3:4 / 1:1 composition, field-of-view and exposure controls, PNG/JPEG export without the interface. Desktop long-edge size reaches 3840 px; narrow screens reach 2048 px, subject to GPU texture limits. Browsing resolution is restored after export.
+- **Camera-motion recording:** A 15-second exterior orbit, a 36-second cinematic tour or a 15-second roof sequence. Actual canvas recording, preview, early stop and download are supported. Desktop video long edge is 1920 px; narrow screens use 1280 px. Target frame rate is 30 fps, with actual performance depending on the device. MP4 or WebM is selected from real browser support, and the extension matches the container. Moving the page into the background ends and preserves the current clip.
+- **Virtual seats:** Choose among 64 rows, four directions and three seating tiers, then move to the eye position of a seat in the model. Click a 3D seat to change position. These virtual identifiers do not correspond to official ticketing.
+- **Walking routes:** Follow the player tunnel or walk freely around the pitch using W/A/S/D, Shift or a touch direction pad. Walking boundaries avoid the stands and goals. Optional ambience and footsteps are synthesized without microphone access.
+- **Architectural details and cutaway:** Inspect six hotspots with camera transitions and explanatory text. The underground cutaway shows the same six moving turf trays and their supporting racks.
+- **Sharing and bookmarks:** Links encode the camera, field of view, lighting, roof, pitch and cutaway states. Recipients can restore viewpoints on the public site. Up to eight bookmarks are stored in the current browser and can be deleted individually.
+- **Three-language interface:** Menus, descriptions, controls, progress, export results and accessibility labels update without reloading the scene. User-entered viewpoint names retain their original text. Language precedence is URL parameter, saved selection, a supported browser language, then Chinese fallback. Shared viewpoints include the selected language.
+- **Display controls:** Quality selection, camera reset, fullscreen and interface hiding work directly. Use **H** to hide/show the UI, **F** for fullscreen and **Home** to reset. Recording requires `captureStream` and `MediaRecorder`; unsupported browsers receive a clear message.
 
-![内部看台：实际运行画面](docs/images/interior-zh.png)
+## Model and rendering
 
-## 模型和渲染
+- A perspective scene in meters, with a 105 × 68 m pitch and an approximately 240 × 220 m rounded-rectangle building envelope.
+- 48 curved metal louver courses with closed cross-sections, varying contours, panel joints, ground-floor glazing and entrances.
+- 64 rows and 53,318 instanced seats across three primary seating tiers, with two VIP glazing bands, stairs, railings and blue/white seat lettering. These are parameters of this model, not official capacity or construction figures.
+- Radial roof trusses, an inner ring, suspension elements, tracks, folding membrane sections and a continuous video display.
+- Goals, nets, corner flags, benches, pitch-side LEDs, turf trays and their supporting structures.
+- Physically based metal, HDR reflections, sun shadows, ACES tone mapping, multisampling and restrained Bloom. High quality enables half-resolution SSAO.
+- Curtain-wall mullions, door handles, entrance canopies, plaza seating and planters; the walking tunnel has a geometric opening, ramp, walls and ceiling.
+- Instanced seats, crowds, steel members, vehicles, trees and city buildings. Louvers, seats, city geometry and crowd sections use LOD. Reduced-motion preferences disable crowd movement. Automatic quality adjusts pixel ratio based on sustained frame time and gradually recovers when performance improves; photo export uses its own resolution and detailed louver/seat geometry.
+- Window resizing, background suspension, WebGL context interruption and GPU resource disposal are handled.
 
-- 米制透视场景，105 × 68 米足球场；外部体量参考约 240 × 220 米的圆角矩形轮廓。
-- 48 道具备闭合截面的曲面金属百叶，含起伏轮廓、面板接缝、底层玻璃及入口。
-- 64 排、53,318 把座椅实例，三个主要看台区间、两道 VIP 玻璃带、楼梯与栏杆，蓝白座椅文字。以上是本程序模型的构件数，不代表官方容量或施工参数。
-- 屋顶径向桁架、内环、吊杆、轨道、折叠膜顶及连续视频显示屏。
-- 球门与球网、角旗、替补席、场边 LED、分段草坪托盘及底部支撑。
-- PBR 金属、真实 HDR 环境反射、太阳阴影、ACES 色调映射、多重采样及轻量 Bloom；精细模式启用半分辨率 SSAO。
-- 底层幕墙竖梃、门把手、入口遮阳构件、广场座椅与种植池；球员通道有真实开口、缓坡、墙面与顶棚。
-- 座椅、观众、钢梁、车辆、树木与城市建筑采用实例化；百叶、座椅、城市与分区观众采用 LOD。比赛日观众有轻微运动；减少动态效果偏好会停用观众运动。自动画质根据持续帧耗时降低像素比，并在性能恢复后逐步提高；拍照独立使用目标分辨率和完整百叶 / 座椅几何。
-- 处理窗口缩放、后台暂停、WebGL 上下文中断和页面退出时的 GPU 资源释放。
+## Source structure
 
-## 源码结构
+| Path | Responsibility |
+| --- | --- |
+| `src/scene.js` | Renderer, HDR, lighting, post-processing, assembly, quality and resource lifecycle |
+| `src/camera.js` | OrbitControls, transitions, cinematic paths, free movement and boundaries |
+| `src/model/` | Louver envelope, seating bowl, roof, six-tray pitch, city and shared geometry |
+| `src/main.js`, `styles.css` | UI, accessible status updates, lighting and mechanism controls |
+| `src/features/` | Photos, recording, seating, walking, sharing, cutaway and synthesized ambience |
+| `src/i18n/` | Chinese, English and Spanish messages, preferences, text updates and language controls |
+| `src/assets/` | Local HDR environment; attribution in `public/ASSET-LICENSES.txt` |
+| `tests/` | Engineering, interaction-state and localization regression tests |
+| `tools/build_standalone.mjs` | Pure Node.js offline HTML packager; the earlier Python version is retained |
+| `docs/` | Paired English/Chinese guides, validation notes and actual screenshots |
+| `dist/` | Prebuilt static site and offline HTML, reproducible with `npm run build` |
+| `.openai/hosting.example.json` | Example static Sites configuration for your own deployment |
 
-- `src/scene.js`：渲染器、HDR、光照、后期、装配、质量与资源生命周期。
-- `src/camera.js`：OrbitControls、自然过渡、曲线导览、自由移动与边界。
-- `src/model/`：百叶外壳、看台、屋顶、六段草坪、城市以及共用几何。
-- `src/main.js`、`styles.css`：界面、无障碍状态、模式与机械控制。
-- `src/features/`：拍照、录像、选座、步行、分享、剖面与程序环境声。
-- `src/i18n/`：中文 / 英文 / 西班牙文词库、语言偏好、局部文本更新与语言选择控件。
-- `src/assets/`：本地 HDR 环境；授权与出处见 `public/ASSET-LICENSES.txt`。
-- `tests/engineering.test.js`、`tests/experience.test.js`、`tests/i18n.test.js`：工程、交互状态、三语完整性与语言链接回归测试。
-- `tools/build_standalone.mjs`：生产构建的离线单文件打包器，仅依赖 Node.js；保留 Python 版供旧流程使用。
-- `docs/`：使用手册、制作过程、验证记录和实际运行截图。
-- `dist/`：已经构建的静态站点与离线单文件，可由 `npm run build` 重新生成。
-- `.openai/hosting.example.json`：Sites 静态部署配置示例；使用自己的站点身份，不复用原作者的部署绑定。
+## Build and deploy
 
-## 构建与部署
+Run `npm run build`, then deploy the entire `dist/` directory to static hosting. Vite uses relative asset paths (`base: './'`) for subdirectory hosting. See the [deployment steps](docs/USER_GUIDE.md#build-and-deploy).
 
-运行 `npm run build` 后，将整个 `dist/` 目录部署到支持静态文件的托管服务。Vite 配置使用相对资源路径 `base: './'`，可用于子目录托管。完整步骤见[使用手册](docs/USER_GUIDE.md#构建与部署)。
+The repository includes the current source, dependency lockfile, required HDR, tests, build scripts, third-party notices, production output and offline HTML. Dependencies, local backups, temporary verification files and account-specific deployment bindings are excluded.
 
-公开仓库包含当前项目源码、锁定的依赖清单、所需 HDR 资源、测试、构建脚本、第三方声明、构建结果和离线 HTML。`node_modules`、本地备份、临时验证文件和账户部署绑定不随仓库发布。
+## References and accuracy
 
-## 参考与准确性边界
+Reference index: [sbp structural information](https://www.sbp.de/en/project/santiago-bernabeu-stadium/), [L35 project description](https://www.l35.com/en/projects/santiago-bernabeu-stadium.html), [gmp project material](https://www.gmp.de/de/bernabeu), and the [official documentary introduction](https://bernabeu.realmadrid.com/en-US/news/bernabeu-documentary). Reference photos informed the reconstruction and are not used as stadium images or background textures.
 
-建筑参考：[sbp 结构资料](https://www.sbp.de/en/project/santiago-bernabeu-stadium/)、[L35 建筑说明](https://www.l35.com/en/projects/santiago-bernabeu-stadium.html)、[gmp 实景与设计资料](https://www.gmp.de/de/bernabeu)、[球场官方纪录片介绍](https://bernabeu.realmadrid.com/en-US/news/bernabeu-documentary)。参考照片仅用于研究，没有作为网页画面或背景贴图使用。
+The urban context is approximate, the tunnel is a visitor space designed for this experience, and the roof folding, storage chamber and transfer mechanism are simplified. Demonstration timings are compressed. The project has no affiliation with Real Madrid.
 
-本作品为独立的程序化建筑重建，非官方测绘模型或工程数字孪生。周边城市为概括场景，未逐栋测绘；通道为本作品设计的游览空间；屋顶折叠、草坪储存舱与机构经过简化，演示时长压缩，不能作为施工或设备操作依据。比赛日比分为展示内容。与皇家马德里无隶属关系。
-
-第三方资源与依赖声明保留在 `public/` 和 `dist/` 中。本仓库暂未指定原创源码的开源许可证。
+Third-party notices remain in `public/` and `dist/`. No open-source license has yet been specified for the original project code.

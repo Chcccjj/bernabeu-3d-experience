@@ -1,41 +1,47 @@
-# 验证记录与范围
+**English** | [简体中文](VALIDATION.zh-CN.md)
 
-[返回项目首页](../README.md)
+# Validation scope
 
-以下记录对应项目 2.2.0 及上传前的验证。截图来自实际应用；自动测试、浏览器实测与兼容性目标分别说明，不将它们混为同一种证明。
+[Project home](../README.md) · [User guide](USER_GUIDE.md) · [Development process](DEVELOPMENT.md)
 
-## 自动测试
+These records cover project 2.2.0 and its pre-publication checks. Screenshots come from the running application. Automated checks, browser verification and compatibility targets are described separately.
 
-运行 `npm test`，共 20 项：
+## Automated checks
 
-| 测试文件 | 数量 | 覆盖内容 |
+Run `npm test` for 20 checks:
+
+| File | Count | Coverage |
 | --- | --- | --- |
-| `tests/engineering.test.js` | 9 | 六段草坪完整覆盖与纹理连续、单通道转运、地下分层、轨迹连续与反向、看台法线、周界采样、相机边界与通道开口 |
-| `tests/experience.test.js` | 6 | 图片尺寸与纹理限制、分享状态校验、受限或损坏的本地存储、步行区域、录制容器选择、自动画质恢复 |
-| `tests/i18n.test.js` | 5 | 三语完整性与占位符、语言优先级、动态文本及数字格式、分享链接保留状态、界面键名覆盖 |
+| `tests/engineering.test.js` | 9 | Complete six-tray coverage and continuous textures, single-corridor transfers, underground stacking, continuous/reversible paths, bowl normals, perimeter sampling, camera boundaries and the tunnel opening |
+| `tests/experience.test.js` | 6 | Export dimensions and texture limits, shared-state validation, blocked/corrupt storage, walking regions, recording-container selection and adaptive-quality recovery |
+| `tests/i18n.test.js` | 5 | Complete translations and matching placeholders, language precedence, dynamic text/number formats, state-preserving language links and UI key coverage |
 
-`npm run build` 生成 `dist/` 与完整单文件，纯 Node.js 构建，不依赖 Python。
+`npm run build` generates `dist/` and the self-contained HTML through a pure Node.js build, without Python.
 
-## 已进行的浏览器实测
+## Completed browser verification
 
-Chromium 浏览器，桌面以及 390 × 844、320 × 640 窄屏布局：
+Chromium was used for desktop and 390 × 844 / 320 × 640 narrow-screen layouts:
 
-- 三维场景载入、外部与内部视角、自然镜头切换、屋顶开合和草坪收纳恢复。
-- 实际导出 3840 × 2160 PNG、3:4 JPEG 与手机竖版 PNG，并检查文件尺寸。
-- 三种录像预设实际录制、下载并解码；片段有不同时间帧，非静态画面。
-- 1080 × 1920 H.264 + AAC 竖版样片约 15 秒；容器与扩展名一致。实际格式取决于当前浏览器。
-- 虚拟选座与三维座椅拾取、通道引导与键盘/触屏步行、程序声音启动、剖面内同一批托盘运动。
-- 分享链接重新加载后恢复相机与机构状态；收藏可保存与单独删除。
-- 中文、英语、西班牙语切换，刷新后偏好恢复，标题、工具、热点、动态状态与导出结果同步翻译。
-- 屋顶动画和实际录像过程中切换语言，场景与录制持续运行。
-- 西语长文本、手机页头、工具栏、摄影面板无横向溢出。
-- 正式构建及在线版本检查未捕获控制台 error / warn。
+- Scene loading, exterior/interior views, smooth transitions, roof movement and pitch storage/restoration.
+- Actual 3840 × 2160 PNG, 3:4 JPEG and portrait narrow-screen PNG exports, with file dimensions inspected.
+- All three camera-recording presets recorded, downloaded and decoded; time-separated frames changed as expected.
+- A roughly 15-second 1080 × 1920 H.264 + AAC portrait sample, with a matching extension/container. The selected format depends on browser support.
+- Virtual seating, 3D seat picking, guided tunnel and keyboard/touch walking, synthesized audio startup, and motion of the same turf trays in the cutaway.
+- Shared links restored the camera and mechanism states after reload; bookmarks could be saved and individually removed.
+- Chinese, English and Spanish switching, saved preference recovery, translated titles, tools, hotspots, progress and export results.
+- Language changes during roof animation and an actual recording while both continued running.
+- Spanish long text, narrow-screen headers, toolbars and photo controls without horizontal overflow.
+- No console error/warn entries captured in the checked production build and live version.
 
-## 兼容性与性能边界
+## Documentation verification
 
-- Chrome、Safari、Edge 是目标桌面浏览器；当前记录主要基于 Chromium，不宣称 Safari / Edge 全部实机验证通过。
-- 手机尺寸检查属于浏览器视口测试，不等同于所有手机硬件实测。
-- WebGL 2、硬件加速、`captureStream`、`MediaRecorder` 和编码器支持影响可用功能；缺少录制支持时显示明确提示。
-- 帧率受 GPU、分辨率、比赛日观众、导出尺寸和后台负载影响，没有跨设备固定帧率保证。
-- 独立 HTML 经 HTTP 实际载入；`file://` 行为可能受浏览器策略影响，遇到限制请通过本地服务器访问。
-- 席位、比分、城市和机械系统的准确性限制见项目首页，不作为票务或工程依据。
+The repository opens with an English README. Its language link opens the complete Chinese README, which links back to English. User, development and validation guides have matching language links and keep their cross-document navigation in the selected language. Documentation links and referenced files are checked when the repository documentation changes.
+
+## Compatibility and performance limits
+
+- Chrome, Safari and Edge are desktop targets. These records are primarily from Chromium and do not establish full Safari/Edge verification.
+- Narrow viewport checks do not constitute tests on every physical mobile device.
+- WebGL 2, hardware acceleration, `captureStream`, `MediaRecorder` and encoder support affect feature availability. Missing recording support receives a clear message.
+- Frame rate depends on GPU, resolution, match-day spectators, export dimensions and other workloads; no fixed rate is guaranteed across devices.
+- The standalone HTML was loaded over HTTP. Browser policies may restrict `file://`; use a local server when needed.
+- Model seats, scores, city details and mechanisms have the accuracy limits described on the project home page and are not ticketing or engineering data.

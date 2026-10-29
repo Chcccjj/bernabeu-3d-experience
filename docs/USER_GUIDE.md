@@ -1,16 +1,18 @@
-# 使用手册
+**English** | [简体中文](USER_GUIDE.zh-CN.md)
 
-[返回项目首页](../README.md) · [制作过程](DEVELOPMENT.md)
+# User guide
 
-## 三种打开方式
+[Project home](../README.md) · [Development process](DEVELOPMENT.md) · [Validation scope](VALIDATION.md)
 
-### 在线体验
+## Three ways to open the experience
 
-直接打开[伯纳乌 3D Experience](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=zh)。这是当前发布的站点，适合浏览、分享机位和导出图片视频。
+### Live site
 
-### 开发运行
+Open the [Bernabéu 3D Experience](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=en) to browse, share viewpoints and export photos or videos.
 
-安装 Node.js 22.12 或更新版本，然后执行：
+### Development server
+
+Install Node.js 22.12 or newer, then run:
 
 ```sh
 git clone https://github.com/Chcccjj/bernabeu-3d-experience.git
@@ -19,102 +21,104 @@ npm ci
 npm run dev
 ```
 
-打开终端显示的地址，默认通常为 `http://127.0.0.1:5173/`。依赖首次安装需要网络；应用运行时不从 CDN 加载代码或场景资源。
+Open the URL printed by the terminal, normally `http://127.0.0.1:5173/`. The initial dependency installation needs a network connection. The running application does not load code or scene assets from a CDN.
 
-### 离线单文件
+### Offline HTML
 
-仓库根目录和 `dist/` 中的 `伯纳乌球场.html` 是同一份自包含版本。下载原始 HTML，保存在本地后打开。若浏览器阻止本地文件运行，使用本地静态服务器；也可以通过 `npm run preview` 访问 `dist/` 中的文件。
+The `伯纳乌球场.html` files at the repository root and in `dist/` are identical self-contained editions. Download the raw HTML and open it locally. If your browser restricts local-file execution, use a static server or access the file through `npm run preview`.
 
-工程入口 `index.html` 含模块引用，不能当作离线单文件使用。GitHub 的文件预览只展示源码。
+The project entry point, `index.html`, contains module references and needs a development or preview server. GitHub's file preview displays source code.
 
-## 镜头与视角
+## Camera views and controls
 
-| 视角 | 用途 | 操作 |
+| View | Purpose | Controls |
 | --- | --- | --- |
-| 外部环绕 | 鸟瞰建筑与银色百叶 | 左键拖动旋转，滚轮缩放，右键平移 |
-| 内部看台 | 看台、球场与环屏 | 拖动和缩放，观察整个内部空间 |
-| 草坪视角 | 在低机位感受看台尺度 | 拖动环顾 |
-| 电影导览 | 约 36 秒的连续运镜 | 从城市外观飞向屋顶，再进入球场；Esc 可停止 |
-| 自由探索 | 自己控制移动方向 | W/A/S/D 或方向键，Q/E 升降，Shift 加速，拖动环顾 |
+| Exterior | Building overview and silver louvers | Left-drag to orbit, wheel to zoom, right-drag to pan |
+| Interior | Stands, pitch and wraparound screen | Drag and zoom to inspect the interior |
+| Pitch view | Experience the scale of the stands from a low camera | Drag to look around |
+| Cinematic | A continuous journey of about 36 seconds | Fly from the city to the roof and into the stadium; Esc stops the tour |
+| Free explore | Control movement yourself | W/A/S/D or arrows, Q/E for height, Shift for speed, drag to look |
 
-触屏使用单指旋转、双指缩放和平移；自由移动和步行时提供屏幕方向按钮。相机具备边界约束，但不是完整的城市漫游物理系统。
+Touch screens support one-finger rotation and two-finger pan/zoom. Free movement and walking provide on-screen direction controls. Camera boundaries constrain movement around the shell and roof; city exploration uses a simplified movement system.
 
-快捷键：`H` 隐藏或显示界面，`F` 切换全屏，`Home` 复位相机。退出电影导览可按 `Esc` 或点击关闭按钮。
+Shortcuts: **H** hides/shows the interface, **F** toggles fullscreen, and **Home** resets the camera. Stop the cinematic tour with **Esc** or its close button.
 
-## 昼夜、屋顶和草坪
+## Lighting, roof and pitch
 
-在右侧“场景设置”中切换白昼、夜晚和比赛日。窄屏上先展开设置面板。
+Use the Scene settings panel on the right. Expand it first on narrow screens.
 
-- **白昼**：自然光与空场。
-- **夜晚**：建筑灯光、内部泛光灯和夜空环境。
-- **比赛日**：蓝白观众、比赛氛围与动态屏幕；比分属于演示内容。
-- **可伸缩屋顶**：点击开关，观看膜顶沿轨道伸缩。再次操作可反转运动；需要进入内部的相机行程会先打开屋顶。
-- **草坪变换**：六段草坪依次进入侧向转运通道，再降到地下不同层。再次点击按相同路径恢复。球门和角旗先让开转运范围。
+- **Day:** Natural light and an empty stadium.
+- **Night:** Façade lighting, stadium floodlights and a night environment.
+- **Match day:** Blue/white spectators, match ambience and animated displays. Scores are demonstration content.
+- **Retractable roof:** Toggle the switch to move the membrane along its tracks. Operating it again can reverse the motion. Camera journeys into the stadium open the roof first.
+- **Pitch transformation:** Six turf trays enter a side transfer corridor in sequence, then descend to different underground levels. Operate it again to restore the pitch along the same path. Goals and corner flags first move clear of the transfer area.
 
-屋顶与地下机构均为简化演示，运动时长经过压缩。
+The roof and underground systems are simplified demonstrations with compressed timings.
 
-## 高清拍照
+## High-resolution photos
 
-点击左上工具栏“拍照”：
+Open **Photo** in the tool strip:
 
-1. 选择全景、金属细节、屋顶、看台、草坪或夜景预设，也可继续操作镜头。
-2. 选择 16:9、9:16、3:4 或 1:1 画幅。
-3. 调整视角、曝光和构图参考线。
-4. 选择长边尺寸与 PNG/JPEG，点击导出。
+1. Choose an exterior, metal-detail, roof, seating, pitch or night preset, or continue adjusting the camera yourself.
+2. Select 16:9, 9:16, 3:4 or 1:1 framing.
+3. Adjust the field of view, exposure and composition guides.
+4. Choose the long-edge size and PNG/JPEG format, then export.
 
-桌面长边最高为 3840 px，窄屏最高为 2048 px，同时受 GPU 最大纹理尺寸限制。界面和参考线不会进入图片。导出结束后恢复浏览分辨率；“再次保存”可重新下载最近的结果。
+Desktop output reaches a 3840 px long edge; narrow screens reach 2048 px. Both are subject to the GPU's maximum texture size. The interface and guides are excluded from the image. Browsing resolution is restored after export, and the download link can save the latest result again.
 
-## 运镜录像
+## Camera-motion recording
 
-点击“录像”，选择外观环绕、电影导览或屋顶开合，再选择横竖画幅和是否包含程序环境声。
+Open **Video**, choose the exterior orbit, cinematic tour or roof sequence, select the frame shape and decide whether to include synthesized ambience.
 
-- 外观环绕和屋顶预设约 15 秒，电影导览约 36 秒。
-- 实际录制 WebGL 画布，目标 30 fps；实际帧率由设备性能决定。
-- 桌面视频长边为 1920 px，窄屏为 1280 px。
-- 自动选择当前浏览器支持的 MP4 或 WebM；保存扩展名与实际格式一致。
-- 可提前停止，随后预览并下载。开始录制后请保持页面在前台；切到后台会结束并保留已经录制的片段。
-- 环境声由程序合成，不调用麦克风。无录制接口或编码支持时会明确提示。
+- Exterior orbit and roof presets last about 15 seconds; the cinematic tour lasts about 36 seconds.
+- The actual WebGL canvas is recorded, targeting 30 fps. Actual performance depends on the device.
+- Desktop video long edge is 1920 px; narrow screens use 1280 px.
+- The browser selects a supported MP4 or WebM format. The saved extension matches the real container.
+- Stop early if needed, then preview and download. Keep the page in the foreground during recording; moving it into the background ends and preserves the current clip.
+- Ambience is synthesized without microphone access. Missing capture or encoder support produces a clear message.
 
-切换语言不会重新加载页面，也不会中断正在运行的录像。
+Changing the interface language does not reload the page or interrupt a recording.
 
-## 选座、步行和建筑剖面
+## Seating, walking and architectural cutaway
 
-打开“探索”面板：
+Open **Explore**:
 
-| 标签 | 操作 |
+| Tab | What to do |
 | --- | --- |
-| 选座 | 选择四个方向、下中上层、排数和席位，再点击进入；也可以点击三维座椅换位 |
-| 路线 | 选择球员通道引导或草坪自由步行；W/A/S/D 移动，Shift 加快；可打开环境声和音量 |
-| 建筑 | 点击六个建筑热点，镜头自然靠近并显示介绍；场景中的数字标记也可点击 |
-| 剖面 | 隐藏外壳与地面，观察地下支架以及同一批草坪托盘的收纳与恢复 |
+| Seats | Choose a direction, lower/middle/upper tier, row and seat, then visit it. Click a 3D seat to change position. |
+| Routes | Choose the guided player tunnel or free pitch walking. Move with W/A/S/D, use Shift for speed, or use the touch direction pad. Optional ambience has a volume control. |
+| Details | Select one of six hotspots for a camera transition and explanation. The numbered markers in the scene are also clickable. |
+| Section | Hide the shell and ground to inspect the underground racks and the same six turf trays moving into storage or returning. |
 
-64 排和席位编号属于程序模型，不对应官方购票席位。步行范围限定在通道与场地区域，会避开看台和球门。
+The 64 rows and seat identifiers are virtual model data and do not correspond to official tickets. Walking stays within the tunnel and pitch area, avoiding stands and goals.
 
-## 语言、分享与收藏
+## Language, sharing and bookmarks
 
-页头与工具面板右上角均可选择中文、English 或 Español。语言采用以下优先顺序：链接的 `?lang=zh|en|es`、保存的选择、支持的浏览器语言、中文默认值。
+The page header and workbench both offer **English, 中文 and Español**. Application language precedence is the URL parameter (`?lang=zh|en|es`), the saved preference, a supported browser language, then Chinese fallback.
 
-语言切换会同步标题、菜单、设置、介绍、进度、导出结果和无障碍标签，不重建三维场景。西语数字使用对应的小数格式；自己输入的机位名称保留原文。
+Language changes update the page title, menus, settings, descriptions, progress, accessible labels and export results while retaining the 3D scene. Spanish numbers use locale-specific formatting. User-entered viewpoint names keep their original text.
 
-在“分享”中复制当前机位链接。链接记录相机位置、目标、视角、昼夜、屋顶、草坪、剖面及语言。公开站点的接收者可以直接恢复该状态。本地开发产生的 `localhost` 链接只适用于本机；对外分享请使用在线站点。
+Open **Share** to copy a viewpoint link containing camera position, target, field of view, lighting, roof, pitch, cutaway and language. Recipients can restore the state on the public site. A `localhost` link from a development session only works on that computer; use the live site for external sharing.
 
-机位收藏最多 8 个，存放在当前浏览器的本地存储里，不会跨设备同步。更换浏览器或清理站点数据后收藏可能不再存在。
+Up to eight bookmarks are stored in the current browser. They do not sync between devices and may be lost when browser site data is cleared.
 
-## 画质与常见问题
+The repository documentation has its own **English | 简体中文** links. The repository opens in English; these documentation links are independent of the live application's three-language preference.
 
-| 情况 | 处理方式 |
+## Quality and troubleshooting
+
+| Situation | Suggested action |
 | --- | --- |
-| 黑屏或初始化提示 | 使用支持 WebGL 2 的浏览器，确认启用硬件加速；按错误面板重试 |
-| 比赛日或高分辨率下较慢 | 将渲染画质切到“流畅”或“自动适配”，关闭不需要的其他重负载页面 |
-| 没有 4K 选项 | 窄屏或 GPU 纹理限制会降低可选导出尺寸 |
-| 下载为 WebM | 当前浏览器选择了实际支持的容器，不是仅改了扩展名 |
-| 录像短于预设 | 可能手动停止或切换到了后台；结果会提示原因 |
-| 环境声没有声音 | 先点击开启声音并检查音量；浏览器需要用户手势来启动音频 |
-| 刷新后语言没有记住 | 链接中的 `lang` 优先于本地偏好；隐私模式或存储限制也会影响记忆 |
+| Black screen or initialization error | Use a WebGL 2-capable browser with hardware acceleration, then retry through the error panel. |
+| Slow match-day or high-resolution rendering | Choose Performance or Automatic quality and reduce other demanding browser workloads. |
+| No 4K option | Narrow screens or GPU texture limits reduce the available export sizes. |
+| Video downloads as WebM | This is the format supported by the current browser; the extension matches its container. |
+| Recording is shorter than the preset | It may have been stopped manually or moved into the background. The result displays the reason. |
+| No ambience | Enable it with a click and check the volume. Browser audio needs a user gesture to start. |
+| Language does not appear remembered | A URL `lang` parameter takes precedence; privacy mode or storage restrictions can affect persistence. |
 
-自动画质会根据持续帧耗时降低像素比，并在性能恢复后逐渐提高。没有针对所有设备作统一帧率保证。
+Automatic quality lowers the pixel ratio after sustained high frame times and gradually raises it when performance recovers. There is no fixed frame-rate guarantee across devices.
 
-## 构建与部署
+## Build and deploy
 
 ```sh
 npm test
@@ -122,8 +126,8 @@ npm run build
 npm run preview
 ```
 
-`npm run build` 先生成 Vite 静态输出，再用纯 Node.js 打包器生成根目录和 `dist/` 中的离线 HTML，不需要 Python。
+The build first produces Vite's static output, then runs a pure Node.js packager to create the offline HTML at the root and in `dist/`. Python is not required.
 
-部署任意静态托管时上传整个 `dist/`，保留 `assets/`、许可证文件与相对目录。无需数据库、服务端密钥或远程渲染服务。
+For static hosting, upload the entire `dist/` directory, retaining `assets/`, license files and relative paths. No database, server-side keys or remote rendering service is needed.
 
-若使用 Sites，参考 `.openai/hosting.example.json` 的 `static.directory` 配置，创建自己的站点并写入其返回的身份。公开仓库不包含作者的账户部署绑定。
+For Sites, use the `static.directory` configuration in `.openai/hosting.example.json`, create your own site, and use the identity returned for that site. The public repository excludes the author's account-specific deployment binding.

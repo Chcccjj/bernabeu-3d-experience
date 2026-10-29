@@ -1,117 +1,121 @@
-# 制作过程
+**English** | [简体中文](DEVELOPMENT.zh-CN.md)
 
-[返回项目首页](../README.md) · [使用手册](USER_GUIDE.md) · [验证记录](VALIDATION.md)
+# Development process
 
-这份记录按项目的实现阶段梳理关键决定与代码入口，说明画面和交互如何构成。它不是逐条聊天记录，也不为制作时长、人工测绘精度或全设备帧率作推断。
+[Project home](../README.md) · [User guide](USER_GUIDE.md) · [Validation scope](VALIDATION.md)
 
-## 1. 从目标中确定建筑特征
+This guide follows the implementation stages and points to the code behind the visuals and interaction. It describes the decisions supported by the current project, without estimating production hours, survey precision or frame rates for untested devices.
 
-最初的目标是让使用者像驾驶无人机一样探索翻新后的伯纳乌：先看到具有辨识度的完整建筑，再自然进入内部，而不是把一张照片或一个椭圆筒当作球场。
+## 1. Identify the architectural features
 
-参考索引包括 [sbp 结构资料](https://www.sbp.de/en/project/santiago-bernabeu-stadium/)、[L35 项目说明](https://www.l35.com/en/projects/santiago-bernabeu-stadium.html)、[gmp 项目资料](https://www.gmp.de/de/bernabeu)和[官方纪录片介绍](https://bernabeu.realmadrid.com/en-US/news/bernabeu-documentary)。照片用于观察外形、层次和构件关系，没有被放在场景中伪装成模型。
+The initial goal was to let visitors explore the renovated Bernabéu as though piloting a drone: see the complete building, approach its façade and continue naturally into the stadium.
 
-实现时优先保留四个特征：圆角矩形体量、连续起伏的银色百叶、可进入的蓝色看台、固定屋顶与中央开口。周边城市作为尺度参照，采用概括表达。
+The reference index includes [sbp structural material](https://www.sbp.de/en/project/santiago-bernabeu-stadium/), [L35's project description](https://www.l35.com/en/projects/santiago-bernabeu-stadium.html), [gmp project material](https://www.gmp.de/de/bernabeu), and the [official documentary introduction](https://bernabeu.realmadrid.com/en-US/news/bernabeu-documentary). Photographs informed the massing, layers and relationships between components; the experience renders those components as geometry.
 
-## 2. 建立可运行的核心场景
+Four features set the modeling priorities: the rounded-rectangle volume, continuous undulating silver louvers, an accessible blue seating bowl, and a fixed roof surrounding a central opening. An approximate city provides a sense of scale.
 
-工程采用 HTML、CSS 和原生 ES 模块，入口是 `index.html`，用 Vite 开发和打包。Three.js 负责场景，GSAP 负责镜头与机构动画，OrbitControls 负责环绕交互。
+## 2. Build the core scene
+
+The project uses HTML, CSS and native ES modules, with `index.html` as its entry point and Vite for development and packaging. Three.js manages the scene, GSAP animates the camera and mechanisms, and OrbitControls handles orbit interaction.
 
 ```mermaid
 flowchart TD
-  Entry[index.html] --> Main[src/main.js 界面与启动]
-  Main --> Scene[src/scene.js 渲染与生命周期]
-  Scene --> Model[src/model 程序化建筑]
-  Scene --> Camera[src/camera.js 镜头与移动]
-  Main --> Features[src/features 拍照 录像 探索 分享]
-  Main --> I18n[src/i18n 三语界面]
+  Entry[index.html] --> Main[src/main.js UI and startup]
+  Main --> Scene[src/scene.js rendering and lifecycle]
+  Scene --> Model[src/model procedural architecture]
+  Scene --> Camera[src/camera.js camera and movement]
+  Main --> Features[src/features photos video exploration sharing]
+  Main --> I18n[src/i18n three-language interface]
   Features --> Scene
   Features --> I18n
 ```
 
-球场采用米制尺度；105 × 68 米草坪是内部空间的尺度锚点。场景装配完成前展示加载进度，完成后淡入并推进镜头。窗口缩放、后台暂停、错误提示和 GPU 资源释放统一放在场景生命周期里。
+The scene uses meters, with the 105 × 68 m pitch anchoring the interior scale. A progress display covers scene assembly, followed by a fade-in and camera approach. Resizing, background suspension, errors and GPU resource disposal belong to the scene lifecycle.
 
-代码入口：[`src/main.js`](../src/main.js)、[`src/scene.js`](../src/scene.js)。
+Code: [`src/main.js`](../src/main.js), [`src/scene.js`](../src/scene.js).
 
-## 3. 用程序几何建立外立面
+## 3. Generate the façade geometry
 
-外壳从可调指数的圆角矩形轮廓生成，不使用简单椭圆柱。各层轮廓叠加高度波动与外鼓，形成有起伏的包裹感。
+The envelope starts with a rounded-rectangle outline whose exponent can be adjusted. Height variation and outward swelling change the outline between levels to form the continuous skin.
 
-48 道百叶分别沿轮廓采样。每道使用具有厚度、斜面和闭合边界的截面，随后合并到较少的几何批次中；面板接缝沿同一曲面连接，避免出现独立的笼状线框。底层再加入幕墙、立柱、门把手、入口遮棚和标识。
+Each of 48 louver courses samples the perimeter and sweeps a cross-section with thickness, angled faces and closed boundaries. The geometry is batched to reduce draw overhead. Panel joints follow the same varying surface; curtain-wall glazing, columns, door handles, entrance canopies and signs complete the ground level.
 
-近距离保留真实百叶几何，远距离切换为经过过滤的表面表达。这样可以减少无人机视角下细密缝隙的闪烁，同时让近看仍有构件厚度。
+Close views retain the full louver geometry. Distant views use a filtered surface representation, reducing shimmer from dense, subpixel gaps while preserving the building's overall appearance.
 
-代码入口：[`src/model/envelope.js`](../src/model/envelope.js)、[`src/model/geometry.js`](../src/model/geometry.js)。
+Code: [`src/model/envelope.js`](../src/model/envelope.js), [`src/model/geometry.js`](../src/model/geometry.js).
 
-## 4. 完成内部看台与设备
+## 4. Complete the seating bowl and equipment
 
-看台按三组阶梯参数生成：22 排、20 排和 22 排，总计 64 排。每一排沿周界布置座椅，预留楼梯通道；蓝白配色形成座椅文字。最终生成 53,318 个座椅位置记录，供实例化绘制、拾取和虚拟选座共同使用。
+Three stepped tiers contain 22, 20 and 22 rows, for a total of 64. Seats follow each row's perimeter with gaps for stairs, while blue/white colors create seat lettering. The final 53,318 seat-position records support instanced rendering, picking and virtual seat selection.
 
-座椅有近景细节和远景简化几何，不为每把椅子创建独立材质。VIP 玻璃带、层间结构、栏杆、屋顶内环、桁架、360° 屏幕和场边 LED 补齐内部层次。
+Seats share materials and have detailed near geometry and simpler distant geometry. VIP glazing bands, floor structures, railings, the roof's inner ring and trusses, the wraparound screen and pitch-side LEDs add interior depth.
 
-草坪纹理与标线由 Canvas 程序绘制。球门、线框球网、角旗、替补席和托盘底部支撑都是场景中的几何对象。
+Canvas drawing generates the turf texture and pitch markings. Goals, line-based nets, corner flags, benches and tray supports are geometric objects in the scene.
 
-代码入口：[`src/model/bowl.js`](../src/model/bowl.js)、[`src/model/roof.js`](../src/model/roof.js)、[`src/model/pitch.js`](../src/model/pitch.js)。
+Code: [`src/model/bowl.js`](../src/model/bowl.js), [`src/model/roof.js`](../src/model/roof.js), [`src/model/pitch.js`](../src/model/pitch.js).
 
-## 5. 让屋顶与草坪真正运动
+## 5. Animate the roof and turf trays
 
-屋顶分成固定部分和可动膜顶；动画改变可动构件的位置与折叠状态。相机需要穿越屋顶时先打开开口，减少镜头穿模。
+The roof separates fixed structure from movable membrane sections. Animation changes the movable components' positions and folding state. Camera journeys through the roof first open the central passage to reduce intersections.
 
-草坪采用六个 105 米长的托盘，每个宽度为 `68 / 6` 米。统一的 `trayPose(index, progress)` 把一个总进度分成六段，并为每块托盘计算横移、等待和下降阶段。
+The pitch has six 105 m-long trays, each `68 / 6` m wide. A shared `trayPose(index, progress)` function divides the total progress into six phases and computes each tray's translation, pause and lowering stage.
 
-关键约束是：同一转运通道内，一块托盘先移入并降低，下一块才进入。恢复时反向读取相同轨迹。草坪分块纹理连续，收纳后分处不同地下高度；剖面展示的就是这六个对象，并非另一段预制动画。
+The transfer corridor accepts one tray at a time: a tray enters and lowers before the next arrives. Restoration reads the same trajectory in reverse. Texture coordinates remain continuous between trays, which finish at different underground heights. The cutaway exposes these same objects and their storage racks.
 
-代码入口：[`trayPose`](../src/model/pitch.js)、[`tests/engineering.test.js`](../tests/engineering.test.js)。
+Code: [`trayPose`](../src/model/pitch.js), [`tests/engineering.test.js`](../tests/engineering.test.js).
 
-## 6. 镜头、游览和虚拟选座
+## 6. Add camera journeys, walking and virtual seats
 
-外部环绕使用带阻尼的 OrbitControls。视角切换对位置和观察目标一起插值，电影导览沿连续曲线经过外观、立面、屋顶和内部，避免突然跳转。
+The exterior uses damped OrbitControls. Transitions interpolate both the camera position and target. The cinematic journey follows continuous paths through the exterior, façade, roof and interior.
 
-自由探索加入外壳、屋顶等边界；步行则使用单独的可行走范围和眼高函数，限制在球员通道、缓坡与草坪附近。通道对应真实几何开口，同时移除入口处穿插的 LED 三角形。
+Free exploration constrains movement around the envelope and roof. Walking uses a separate allowed region and eye-height function for the player tunnel, ramp and pitch. The tunnel has a geometric opening, and intersecting LED triangles were removed at its entrance.
 
-选座功能复用建模阶段的座椅位置记录。二维面板选中排号与方向后，镜头移到对应座椅的人眼位置；三维拾取也能选中实例并高亮。虚拟编号不冒充官方票务数据。
+Virtual seating reuses the position records generated with the model. A direction and row selection moves the camera to a seat's eye position. Instance picking also selects and highlights seats. The numbering belongs to this model.
 
-代码入口：[`src/camera.js`](../src/camera.js)、[`src/features/index.js`](../src/features/index.js)、[`src/features/state.js`](../src/features/state.js)。
+Code: [`src/camera.js`](../src/camera.js), [`src/features/index.js`](../src/features/index.js), [`src/features/state.js`](../src/features/state.js).
 
-## 7. 材质、环境与性能
+## 7. Refine materials, lighting and performance
 
-金属立面采用 PBR 材质与本地 HDR 环境反射，结合太阳阴影、ACES 色调映射、抗锯齿与克制的 Bloom。精细模式启用半分辨率 SSAO；夜晚和比赛日改变光照、屏幕及观众表现。
+The façade combines physically based metal with local HDR reflections, sun shadows, ACES tone mapping, antialiasing and restrained Bloom. High quality enables half-resolution SSAO. Night and match-day modes change lighting, screens and crowd presentation.
 
-HDR 来自 Poly Haven 的 Potsdamer Platz，署名与授权出处保留在[资源声明](../public/ASSET-LICENSES.txt)。它用于照明和反射，不是球场背景照片。
+The environment is Poly Haven's Potsdamer Platz. Its source and attribution remain in the [asset acknowledgements](../public/ASSET-LICENSES.txt). It provides illumination and reflections.
 
-座椅、观众、城市、树木、车辆和钢梁等重复对象使用实例化。百叶、座椅、城市和观众按距离使用 LOD；自动画质通过持续帧耗时调整像素比，并在有余量时逐步恢复。拍照导出独立使用目标尺寸，完成后恢复浏览设置。
+Repeated seats, spectators, city buildings, trees, vehicles and steel members use instancing. Louvers, seats, city objects and crowd sections use LOD. Automatic quality adjusts pixel ratio after sustained frame-time changes, with gradual recovery when headroom returns. Photo export uses a separate target resolution and restores browsing settings afterward.
 
-代码入口：[`src/materials.js`](../src/materials.js)、[`src/scene.js`](../src/scene.js)、[`adaptiveRatio`](../src/features/state.js)。
+Code: [`src/materials.js`](../src/materials.js), [`src/scene.js`](../src/scene.js), [`adaptiveRatio`](../src/features/state.js).
 
-## 8. 从观看扩展到创作与分享
+## 8. Add creation and sharing tools
 
-拍照工具临时改变画布尺寸与相机画幅，渲染纯三维画面并导出 PNG/JPEG；界面仍是独立 DOM 层，不进入图片。
+Photo export temporarily changes canvas dimensions and camera framing, renders the scene, and generates PNG/JPEG files. The interface remains a separate DOM layer and is excluded from the output.
 
-录像使用 `captureStream` 和 `MediaRecorder` 录制真实画布。容器根据浏览器实际支持的 MIME 类型选择，不通过改扩展名伪装格式。录像结束后预览并保存；切入后台时保留已经录制的片段。
+Recording uses `captureStream` and `MediaRecorder` to capture real canvas frames. Container selection follows the browser's supported MIME types, and the output extension matches that selection. A completed clip can be previewed and saved; entering the background preserves the portion already recorded.
 
-环境声使用 Web Audio 程序合成，只有使用者开启后才运行，不访问麦克风。分享链接将相机和场景状态编码进 URL hash；读取时先校验格式和数值范围。本地收藏与语言偏好存在当前浏览器，不依赖服务器账户。
+Web Audio synthesizes optional ambience after the visitor enables it, without microphone access. Viewpoint links encode camera and scene state in the URL hash; loading validates the format and numeric ranges first. Bookmarks and language preferences stay in the current browser.
 
-代码入口：[`src/features/recorder.js`](../src/features/recorder.js)、[`ambience.js`](../src/features/ambience.js)、[`state.js`](../src/features/state.js)。
+Code: [`src/features/recorder.js`](../src/features/recorder.js), [`ambience.js`](../src/features/ambience.js), [`state.js`](../src/features/state.js).
 
-## 9. 加入中文、英语和西班牙语
+## 9. Localize the application and documentation
 
-界面采用一份 297 项的三语词库，使用稳定键名管理静态标签与动态文本。进度、错误、导出尺寸和录像停止原因都保留语义键与参数，因此已经显示的结果也能即时翻译。
+The application has a 297-key Chinese, English and Spanish catalog. Stable keys describe static labels and dynamic messages. Progress, errors, export sizes and recording stop reasons retain their keys and parameters, allowing already displayed results to translate immediately.
 
-翻译更新文字节点和无障碍属性，保留按钮图标、输入值与场景对象。切换语言不刷新页面，不重启相机或录像。页头与工作台内各有语言控件，拍照和录像时也能使用。
+Text nodes and accessibility attributes update while icons, input values and scene objects stay intact. Language changes do not reload the page, reset the camera or restart recording. Controls appear in both the page header and the workbench.
 
-西语长文本经过桌面和 320/390 px 窄屏检查；数字采用对应语言格式。语言优先顺序为链接参数、已保存选择、支持的浏览器语言和中文默认值。分享链接带上当前语言，使用者输入的机位名称保留原文。
+Spanish long text was checked on desktop and at 320/390 px widths. Numbers follow the selected locale. Application language precedence is URL parameter, saved choice, supported browser language, then Chinese fallback. Shared links carry the chosen language; user-entered viewpoint names remain unchanged.
 
-代码入口：[`src/i18n/catalog.js`](../src/i18n/catalog.js)、[`src/i18n/index.js`](../src/i18n/index.js)。
+Repository documentation uses an English `README.md` and a paired `README.zh-CN.md`. User, development and validation guides have corresponding English and `.zh-CN.md` files, each with a language link and navigation in that language. The older `README.en.md` address links to the canonical English README. This documentation choice is independent of the application's three-language setting.
 
-## 10. 打包、验证与公开展示
+Code: [`src/i18n/catalog.js`](../src/i18n/catalog.js), [`src/i18n/index.js`](../src/i18n/index.js).
 
-Vite 输出可部署的 `dist/`。纯 Node.js 打包器再内联代码、样式和 HDR，生成完整离线 HTML；运行时不需要远程渲染或 CDN。
+## 10. Package and validate the work
 
-测试分成两层：自动测试检查机械、几何、状态与三语一致性；真实浏览器检查画面、交互、导出文件、录制结果和窄屏布局。自动测试通过不能代替视觉检查。验证范围与限制单独记录在[验证记录](VALIDATION.md)。
+Vite produces the deployable `dist/` directory. A pure Node.js packager then inlines code, styles and HDR into a complete offline HTML file. Runtime operation needs neither remote rendering nor a CDN.
 
-本次 GitHub 整理提供当前源码快照、构建产物、运行截图和文档。账户部署绑定、本地备份与临时文件不进入公开仓库。
+Automated tests check mechanisms, geometry, state and localization consistency. Actual browser checks cover visuals, interaction, exported files, recording and narrow-screen layouts. The [validation guide](VALIDATION.md) records their scope and limits separately.
 
-## 仍然保留的边界
+The GitHub repository contains a current source snapshot, production output, actual screenshots and bilingual documentation. Account-specific deployment bindings, local backups and temporary files remain outside the public repository.
 
-这是程序化建筑可视化作品。外观比例与空间关系以参考资料和视觉判断为依据，没有官方 BIM、测绘点云或设备控制数据。周边城市未逐栋还原，球员通道为本作品的游览空间，地下收纳与屋顶连接经过简化。
+## Remaining limits
 
-下一步可以在取得合适授权和数据后改进真实构件细节、城市环境与机构约束，并扩大 Safari、Edge 和不同移动 GPU 的实测范围。这些方向没有被列为当前已完成功能。
+This is a procedural architectural visualization. Proportions and spatial relationships follow reference material and visual judgment, without official BIM, survey point clouds or equipment-control data. The city is approximate, the tunnel is a visitor route designed for this experience, and the roof connections and underground system are simplified.
+
+Future work could improve component detail, urban context and mechanical constraints when suitable data and permissions are available, and expand testing across Safari, Edge and mobile GPUs. These are future directions.
