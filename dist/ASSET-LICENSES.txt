@@ -1,0 +1,15 @@
+Santiago Bernabéu 3D Experience — asset acknowledgements
+
+Potsdamer Platz, 1K HDR environment
+Author: Greg Zaal / Poly Haven
+Source: https://polyhaven.com/a/potsdamer_platz
+License: CC0 1.0, https://polyhaven.com/license
+Used as a lighting and reflection environment, not a background photograph.
+
+All stadium geometry, urban context, grass/markings, signs, seats, and interface
+are generated locally by the source code. No official club assets are included.
+
+Three.js: MIT, https://github.com/mrdoob/three.js/blob/dev/LICENSE
+GSAP: Standard License, https://gsap.com/standard-license
+Vite: MIT, https://github.com/vitejs/vite/blob/main/LICENSE
+Installed package license files remain in node_modules.

@@ -1,0 +1,14 @@
+.DS_Store
+.backups/
+qa/
+*.tar.gz
+node_modules/
+.env
+.env.*
+!.env.example
+*.log
+*.tar
+github-export/
+
+# Account-specific Sites deployment binding
+.openai/hosting.json

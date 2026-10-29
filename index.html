@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#10161c" />
+    <meta name="description" content="亲自驾驶镜头，探索全新伯纳乌。实时 WebGL 三维建筑体验，银色金属立面、完整看台、可动屋顶与六段式草坪收纳。" />
+    <title>Santiago Bernabéu — A New Perspective</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23121820'/%3E%3Cpath d='M12 28q20-15 40 0v18q-20 10-40 0zM12 34q20 10 40 0M12 40q20 10 40 0' stroke='%23ded4ba' stroke-width='2' fill='none'/%3E%3Cellipse cx='32' cy='27' rx='10' ry='4' fill='none' stroke='%23ded4ba' stroke-width='2'/%3E%3C/svg%3E" />
+  </head>
+  <body>
+    <svg class="symbols" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+      <symbol id="i-stadium" viewBox="0 0 24 24"><path d="M3 9c5-4 13-4 18 0v9c-5 4-13 4-18 0zM3 13c5 4 13 4 18 0M3 16c5 4 13 4 18 0"/><ellipse cx="12" cy="8.7" rx="4" ry="1.7"/></symbol>
+      <symbol id="i-orbit" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="10" ry="5" transform="rotate(-28 12 12)"/><path d="m18 3 2 4 3-2M12 8v8m-4-4h8"/></symbol>
+      <symbol id="i-interior" viewBox="0 0 24 24"><path d="M3 4v16h18V4M3 9h5v5h4v6m9-11h-5v5h-4M8 4h8"/></symbol>
+      <symbol id="i-pitch" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M12 5v14M3 9h3v6H3m18-6h-3v6h3"/><circle cx="12" cy="12" r="3"/></symbol>
+      <symbol id="i-play" viewBox="0 0 24 24"><path d="m9 5 11 7-11 7z"/></symbol>
+      <symbol id="i-free" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m16 8-2 6-6 2 2-6z"/></symbol>
+      <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1 1m12 12 1 1M5 19l1-1M18 6l1-1"/></symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.5 14A9 9 0 0 1 10 3.5 9 9 0 1 0 20.5 14Z"/></symbol>
+      <symbol id="i-match" viewBox="0 0 24 24"><path d="m12 3 2.5 5 5.5.8-4 3.9.9 5.5-4.9-2.6-4.9 2.6.9-5.5-4-3.9L9.5 8z"/></symbol>
+      <symbol id="i-roof" viewBox="0 0 24 24"><path d="m2 11 10-6 10 6-10 6zM2 15l10 6 10-6M12 5v12"/></symbol>
+      <symbol id="i-transform" viewBox="0 0 24 24"><path d="M4 5h16v4H4zM4 12h10v4H4zm0 7h6v3H4M18 12v10m-3-3 3 3 3-3"/></symbol>
+      <symbol id="i-reset" viewBox="0 0 24 24"><path d="M3 10a9 9 0 1 1 1 7M3 4v6h6"/></symbol>
+      <symbol id="i-fullscreen" viewBox="0 0 24 24"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></symbol>
+      <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+      <symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 7h16M4 17h16M8 4v6m8 4v6"/></symbol>
+      <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v1"/></symbol>
+      <symbol id="i-camera" viewBox="0 0 24 24"><path d="M3 7h5l2-3h4l2 3h5v13H3z"/><circle cx="12" cy="13" r="4"/></symbol>
+      <symbol id="i-language" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18M5 6h14M5 18h14"/></symbol>
+      <symbol id="i-close" viewBox="0 0 24 24"><path d="m5 5 14 14M19 5 5 19"/></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></symbol>
+    </defs></svg>
+
+    <main id="experience" aria-label="伯纳乌三维探索">
+      <canvas id="scene" tabindex="0" aria-label="可交互的伯纳乌三维世界。拖动旋转，滚轮缩放，右键平移。自由探索中用 W A S D 移动，Q E 升降。"></canvas>
+      <div class="vignette" aria-hidden="true"></div>
+      <div id="interface" class="interface">
+        <header class="header">
+          <a class="brand" href="#" aria-label="重置伯纳乌视角"><svg><use href="#i-stadium"/></svg><span>SANTIAGO BERNABÉU<small>THE HOME OF REAL MADRID</small></span></a>
+          <div class="header-right"><div id="language-slot"></div><span class="location">MADRID, ESPAÑA<small>40°27′11″N &nbsp; 3°41′18″W</small></span><span class="header-divider"></span><button class="icon-button" id="info-button" aria-label="项目说明" title="项目说明"><svg><use href="#i-info"/></svg></button><button class="icon-button" id="hide-ui" aria-label="隐藏界面" title="隐藏界面 · H"><svg><use href="#i-eye"/></svg></button><button class="icon-button" id="fullscreen" aria-label="进入全屏" title="全屏 · F"><svg><use href="#i-fullscreen"/></svg></button></div>
+        </header>
+
+        <div class="scene-indicator"><span class="live-dot"></span><span id="scene-label">DAYLIGHT EXPLORATION</span><span class="indicator-line"></span><span>3D EXPERIENCE</span></div>
+        <div class="intro-copy" id="intro-copy"><p class="eyebrow">A LEGACY. A NEW PERSPECTIVE.</p><h1>Bernabéu<span>Reimagined.</span></h1><p class="intro-cn">亲临传奇的未来。</p><button class="tour-link" id="hero-tour">开启电影导览 <span>36 SEC JOURNEY</span><svg><use href="#i-arrow"/></svg></button></div>
+        <div class="view-caption" id="view-caption" hidden><span id="view-number">02 / THE BOWL</span><h2 id="view-title">Inside the legend.</h2><p id="view-description">环抱球场的皇家蓝，从每一个座位开始。</p></div>
+
+        <button id="settings-toggle" class="settings-toggle glass" aria-label="切换场景设置" aria-expanded="true"><svg><use href="#i-settings"/></svg><span>场景设置</span></button>
+        <aside class="settings glass" id="settings-panel" aria-label="场景设置">
+          <div class="panel-title"><span>YOUR EXPERIENCE</span><span>01—03</span></div>
+          <fieldset><legend><span>01</span> 光影与氛围</legend><div class="atmosphere" role="group" aria-label="场景氛围"><button data-mode="day" aria-pressed="true" aria-label="Day 白昼"><svg><use href="#i-sun"/></svg><span>Day</span></button><button data-mode="night" aria-pressed="false" aria-label="Night 夜晚"><svg><use href="#i-moon"/></svg><span>Night</span></button><button data-mode="match" aria-pressed="false" aria-label="Match 比赛日"><svg><use href="#i-match"/></svg><span>Match</span></button></div></fieldset>
+          <fieldset class="mechanism"><legend><span>02</span> 建筑之变</legend><button id="roof-toggle" class="switch-button" role="switch" aria-checked="false" aria-label="关闭屋顶"><span class="mechanism-name"><svg><use href="#i-roof"/></svg><span>Retractable roof<small id="roof-status">屋顶已开启</small></span></span><span class="switch-track"><span></span></span></button><div class="mechanism-rule"><span id="roof-rule"></span></div><button id="pitch-toggle" class="transform-button" aria-pressed="false" aria-label="收纳草坪"><svg><use href="#i-transform"/></svg><span>Pitch transformation<small id="pitch-status">六段草坪 · 足球场模式</small></span><span class="transform-arrow">↗</span></button><div class="mechanism-rule"><span id="pitch-rule"></span></div></fieldset>
+          <fieldset class="quality"><legend><span>03</span> 展示设置</legend><div class="quality-row"><label for="quality-select">渲染画质</label><select id="quality-select" aria-label="渲染画质"><option value="auto">自动适配</option><option value="high">精细</option><option value="performance">流畅</option></select></div><div class="panel-actions"><button id="reset-camera"><svg><use href="#i-reset"/></svg>重置视角</button><button id="capture"><svg><use href="#i-camera"/></svg>保存画面</button></div></fieldset>
+          <div class="panel-footer"><i></i><span>EXPLORE EVERY PERSPECTIVE</span></div>
+        </aside>
+
+        <div class="flight-pad" id="flight-pad" aria-label="自由探索移动" hidden><button class="glass fly-forward" data-fly="KeyW" aria-label="向前移动">↑</button><button class="glass fly-left" data-fly="KeyA" aria-label="向左移动">←</button><button class="glass fly-back" data-fly="KeyS" aria-label="向后移动">↓</button><button class="glass fly-right" data-fly="KeyD" aria-label="向右移动">→</button><button class="glass fly-up" data-fly="KeyE" aria-label="上升">＋</button><button class="glass fly-down" data-fly="KeyQ" aria-label="下降">−</button></div>
+        <div class="tour-progress glass" id="tour-progress" hidden><div><span id="tour-chapter">01 / THE APPROACH</span><button id="stop-tour" aria-label="停止电影导览"><svg><use href="#i-close"/></svg></button></div><div class="tour-track"><span id="tour-bar"></span></div><p>掠过银色外衣，走进传奇的主场。</p></div>
+        <nav class="view-dock glass" aria-label="相机视角"><button data-view="exterior" aria-pressed="true" aria-label="Exterior 外部环绕"><svg><use href="#i-orbit"/></svg><span>Exterior</span><small>01</small></button><button data-view="interior" aria-pressed="false" aria-label="Interior 内部看台"><svg><use href="#i-interior"/></svg><span>Interior</span><small>02</small></button><button data-view="pitch" aria-pressed="false" aria-label="Pitch View 草坪视角"><svg><use href="#i-pitch"/></svg><span>Pitch View</span><small>03</small></button><span class="dock-divider"></span><button data-view="tour" aria-pressed="false" aria-label="Cinematic Tour 电影导览"><svg><use href="#i-play"/></svg><span>Cinematic</span><small>04</small></button><button data-view="free" aria-pressed="false" aria-label="Free Explore 自由探索"><svg><use href="#i-free"/></svg><span>Free Explore</span><small>05</small></button></nav>
+        <footer class="footer"><span class="footer-left"><span class="footer-star">✦</span> AN INDEPENDENT ARCHITECTURAL EXPERIENCE</span><span class="interaction-hint" id="interaction-hint"><span>拖动旋转</span><i>·</i><span>滚轮缩放</span><i>·</i><span>右键平移</span></span><span class="footer-right"><span data-i18n="footer.established">EST. 1947</span> <b>—</b> <span data-i18n="footer.reimagined">REIMAGINED</span></span></footer>
+        <div class="compass" aria-hidden="true"><span>N</span><svg id="compass-needle" viewBox="0 0 44 44"><circle cx="22" cy="22" r="19"/><path d="m22 8-5 16 5-3 5 3z"/><path class="compass-south" d="m22 36 5-12-5 3-5-3z"/></svg></div>
+      </div>
+      <button id="show-ui" class="show-ui glass" hidden><svg><use href="#i-eye"/></svg>显示界面 <kbd>H</kbd></button>
+      <div id="loader" class="loader"><div class="loader-mark"><svg><use href="#i-stadium"/></svg></div><p class="loader-kicker">MADRID, ESPAÑA</p><h2>BERNABÉU<span>THE EXTRAORDINARY, REIMAGINED.</span></h2><div class="loading-track"><span id="loading-bar"></span></div><div class="loading-info"><span id="loading-label">初始化实时三维世界</span><span id="loading-percent">0%</span></div><p class="loading-bottom">SANTIAGO BERNABÉU 3D EXPERIENCE</p></div>
+      <div id="error" class="error glass" role="alert" hidden><h2>暂时无法开启三维世界</h2><p id="error-detail">请使用支持 WebGL 2 的新版浏览器，并开启硬件加速。</p><button id="retry">重新载入</button></div>
+      <div id="toast" role="status" aria-live="polite"></div>
+      <span class="sr-only" id="announcement" aria-live="polite"></span>
+    </main>
+
+    <dialog id="about"><button id="close-about" class="icon-button" aria-label="关闭项目说明"><svg><use href="#i-close"/></svg></button><p class="eyebrow">THE ARCHITECTURE BEHIND THE EXPERIENCE</p><h2>传奇的轮廓。<br><em>未来的主场。</em></h2><p>这是依据翻新后伯纳乌的建筑特征制作的实时三维交互作品。连续的银色百叶、包裹式屋顶、分层看台与环绕显示屏，构成这座球场的空间语言。</p><div class="about-facts"><div><strong>105 × 68</strong><span>草坪尺度 / 米</span></div><div><strong>360°</strong><span>环绕视频显示屏</span></div><div><strong>06</strong><span>活动草坪模块</span></div></div><p class="about-note">非官方测绘模型。周边城市为程序化概括；屋顶开合与地下草坪收纳为基于机械逻辑的简化演示，动画时长经过压缩。比赛日比分为展示内容。与皇家马德里俱乐部无隶属关系。</p><div class="source-links"><a href="https://www.sbp.de/en/project/santiago-bernabeu-stadium/" target="_blank" rel="noopener noreferrer">sbp · 屋顶结构 ↗</a><a href="https://www.l35.com/en/projects/santiago-bernabeu-stadium.html" target="_blank" rel="noopener noreferrer">L35 · 建筑设计 ↗</a><a href="https://bernabeu.realmadrid.com/en-US/news/bernabeu-documentary" target="_blank" rel="noopener noreferrer">Bernabéu · 官方介绍 ↗</a></div><div class="about-controls"><span data-i18n="shortcut.label">快捷键</span> <kbd>H</kbd> <span data-i18n="shortcut.hide">隐藏界面</span> <kbd>F</kbd> <span data-i18n="shortcut.fullscreen">全屏</span> <kbd>Esc</kbd> <span data-i18n="shortcut.stop">停止导览</span><br><span data-i18n="shortcut.free">自由探索</span> <kbd>W A S D</kbd> <span data-i18n="shortcut.move">移动</span> <kbd>Q E</kbd> <span data-i18n="shortcut.height">升降</span> <kbd>Shift</kbd> <span data-i18n="shortcut.speed">加速</span></div></dialog>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
