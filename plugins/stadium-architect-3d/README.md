@@ -1,6 +1,6 @@
 # StadiumArchitect 3D · Plugin source
 
-This directory contains the source of the **StadiumArchitect 3D v1.0.0** ChatGPT/Codex skills-based plugin.
+This directory contains the source of the **StadiumArchitect 3D v1.1.0** ChatGPT/Codex skills-based plugin.
 
 It lives inside [bernabeu-3d-experience](https://github.com/Chcccjj/bernabeu-3d-experience) as a **separate plugin package** and does not replace the existing Bernabéu website or its root-level dependencies.
 
@@ -44,3 +44,7 @@ For a production build run `npm run build`. For optional browser checks install 
 ## Distribution note
 
 This repository is public, but a public source copy **does not** change the original installed plugin's private visibility or publish it in the ChatGPT plugin directory. Do not include API keys, credentials, or personal contact details in shared package files.
+
+## UI refinement in v1.1.0
+
+The on-screen interface now follows a restrained, Apple-inspired architectural style: no S/A logo, no V1/V2 or “精修版” visitor labels, a discreet stadium heading, and a slim translucent control dock. See [`skills/stadium-architect/references/ui-design.md`](skills/stadium-architect/references/ui-design.md) for the design contract. The existing generated stadium websites require their own source updates; updating the plugin does not rewrite old builds.

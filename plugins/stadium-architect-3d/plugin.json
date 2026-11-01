@@ -1,29 +1,10 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "stadium-architect-3d",
+  "version": "1.1.0",
+  "description": "Build a recognizable, runnable Three.js stadium V1; pause for the user's review; refine to V2 only after approval.",
   "author": {
     "name": "CHRIS"
-  },
-  "description": "Build a recognizable, runnable Three.js stadium V1; pause for the user's review; refine to V2 only after approval.",
-  "extensions": {
-    "com.openai": {
-      "interface": {
-        "capabilities": [
-          "Interactive"
-        ],
-        "category": "Developer Tools",
-        "composerIcon": "./assets/icon.svg",
-        "defaultPrompt": [
-          "生成皇家马德里伯纳乌球场的可运行 V1，先交给我验收，不要直接做 V2。",
-          "帮我用 StadiumArchitect 创建安联球场的 Three.js 交互网页 V1。",
-          "根据我的 V1 反馈修改球场；得到我批准后再进入 V2。"
-        ],
-        "developerName": "CHRIS",
-        "displayName": "StadiumArchitect 3D",
-        "logo": "./assets/icon.svg",
-        "longDescription": "输入球队或球场名称，先构建具备真实建筑辨识度的可运行 Three.js V1 项目并测试；将可预览成果交给用户检查，在明确批准后才根据反馈精修 V2。内置轻量 Vite/Three.js 可运行工程模板、建筑蓝图和 QA 清单。需在具有文件、终端、可选浏览器测试能力的环境中运行；插件本身不托管生成网页。",
-        "shortDescription": "球场3D生成 · V1验收后精修V2"
-      }
-    }
   },
   "keywords": [
     "stadium",
@@ -34,6 +15,25 @@
     "V2",
     "Codex"
   ],
-  "name": "stadium-architect-3d",
-  "version": "1.0.0"
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "StadiumArchitect 3D",
+        "shortDescription": "球场3D生成 · V1验收后精修V2",
+        "longDescription": "输入球队或球场名称，先构建具备真实建筑辨识度的可运行 Three.js V1 项目并测试；将可预览成果交给用户检查，在明确批准后才根据反馈精修 V2。内置轻量 Vite/Three.js 可运行工程模板、建筑蓝图和 QA 清单。需在具有文件、终端、可选浏览器测试能力的环境中运行；插件本身不托管生成网页。",
+        "developerName": "Plugin owner",
+        "category": "Developer Tools",
+        "capabilities": [
+          "Interactive"
+        ],
+        "logo": "./assets/icon.svg",
+        "composerIcon": "./assets/icon.svg",
+        "defaultPrompt": [
+          "生成皇家马德里伯纳乌球场的可运行 V1，先交给我验收，不要直接做 V2。",
+          "帮我用 StadiumArchitect 创建安联球场的 Three.js 交互网页 V1。",
+          "根据我的 V1 反馈修改球场；得到我批准后再进入 V2。"
+        ]
+      }
+    }
+  }
 }

@@ -6,20 +6,50 @@ import './style.css';
 // to the target stadium before presenting it as a stadium-specific V1.
 const app = document.querySelector('#app');
 app.innerHTML = `
-  <section class="header" aria-label="球场信息">
-    <div class="kicker">STADIUMARCHITECT · V1 STARTER</div>
+  <header class="header" aria-label="球场信息">
+    <p class="eyebrow">INTERACTIVE STADIUM</p>
     <h1>Stadium Preview</h1>
-    <p class="hint">通用几何底座 · 尚未针对真实球场进行还原</p>
-    <div class="status"><span id="mode">DAY</span> · <span id="camera-mode">EXTERIOR</span> · <span id="scene-state">loading</span></div>
-  </section>
-  <div class="footnote">FPS <span id="fps">--</span> · H 隐藏控制台</div>
-  <nav class="dock" aria-label="3D球场控制台">
-    <button type="button" data-view="exterior">外部全景</button>
-    <button type="button" data-view="pitch">球场内</button>
-    <button type="button" data-view="stand">看台视角</button>
-    <button type="button" data-view="reset">重置</button>
-    <button type="button" data-mode="day">白天</button>
-    <button type="button" data-mode="night">夜间</button>
+    <p class="hint">交互式建筑探索 · 通用演示场景</p>
+  </header>
+  <div class="top-actions">
+    <button type="button" class="icon-button" data-info-toggle aria-label="关于场景" aria-expanded="false" title="关于场景">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 7.5h.01"/></svg>
+    </button>
+  </div>
+  <aside class="info-panel" id="about-panel" hidden>
+    <h2>关于场景</h2>
+    <p>此页面是通用交互基座，不代表任何真实球场的精确建筑还原。要生成某座具体球场，请先研究其真实结构并替换建筑参数。</p>
+  </aside>
+  <div class="sr-only" aria-live="polite">
+    <span id="mode">DAY</span>
+    <span id="camera-mode">EXTERIOR</span>
+    <span id="scene-state">loading</span>
+    <span id="fps">--</span>
+  </div>
+  <nav class="dock" aria-label="球场视角与环境控制">
+    <div class="dock-group" role="group" aria-label="相机视角">
+      <button type="button" class="control is-active" data-view="exterior" aria-label="外部全景" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12 12 5l9 7-9 7-9-7Z"/><path d="M3 12v5l9 5 9-5v-5"/></svg><span>全景</span>
+      </button>
+      <button type="button" class="control" data-view="pitch" aria-label="球场内" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M12 5v14M3 9h3v6H3m18-6h-3v6h3"/><circle cx="12" cy="12" r="2.5"/></svg><span>草坪</span>
+      </button>
+      <button type="button" class="control" data-view="stand" aria-label="看台视角" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19h16M5 15h14M7 11h10M9 7h6"/></svg><span>看台</span>
+      </button>
+      <button type="button" class="control" data-view="reset" aria-label="重置视角" title="重置视角">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a8 8 0 1 1 2 6M4 4v7h7"/></svg><span>重置</span>
+      </button>
+    </div>
+    <span class="dock-divider" aria-hidden="true"></span>
+    <div class="dock-group" role="group" aria-label="环境模式">
+      <button type="button" class="control is-active" data-mode="day" aria-label="白天" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg><span>日间</span>
+      </button>
+      <button type="button" class="control" data-mode="night" aria-label="夜间" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 16.2A8.5 8.5 0 0 1 7.8 4a8.5 8.5 0 1 0 12.2 12.2Z"/></svg><span>夜间</span>
+      </button>
+    </div>
   </nav>`;
 
 const scene = new THREE.Scene();
@@ -56,6 +86,7 @@ function moveTo(name, animate=true){
   if(!animate){ camera.position.copy(destPos);orbit.target.copy(destTarget);orbit.update(); }
   traveling = animate;
   document.querySelector('#camera-mode').textContent = name.toUpperCase();
+  app.querySelectorAll('[data-view][aria-pressed]').forEach(btn=>{const active=btn.dataset.view===name;btn.setAttribute('aria-pressed',String(active));btn.classList.toggle('is-active',active);});
 }
 moveTo('exterior',false);
 orbit.addEventListener('start',()=>{ traveling=false; });
@@ -196,10 +227,14 @@ function setMode(next){
  renderer.toneMappingExposure=night?1.34:1.12;
  lightMat.emissiveIntensity=night?5:.15;
  document.querySelector('#mode').textContent=night?'NIGHT':'DAY';
+ app.querySelectorAll('[data-mode]').forEach(btn=>{const active=btn.dataset.mode===next;btn.setAttribute('aria-pressed',String(active));btn.classList.toggle('is-active',active);});
 }
 app.querySelectorAll('[data-view]').forEach(btn=>btn.addEventListener('click',()=>moveTo(btn.dataset.view==='reset'?'exterior':btn.dataset.view)));
 app.querySelectorAll('[data-mode]').forEach(btn=>btn.addEventListener('click',()=>setMode(btn.dataset.mode)));
-document.addEventListener('keydown',e=>{if(e.key.toLowerCase()==='h'&&!['INPUT','TEXTAREA'].includes(document.activeElement?.tagName))app.classList.toggle('hidden-ui')});
+const infoToggle=app.querySelector('[data-info-toggle]');
+const aboutPanel=app.querySelector('#about-panel');
+infoToggle.addEventListener('click',()=>{aboutPanel.hidden=!aboutPanel.hidden;infoToggle.setAttribute('aria-expanded',String(!aboutPanel.hidden));});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!aboutPanel.hidden){aboutPanel.hidden=true;infoToggle.setAttribute('aria-expanded','false');}if(e.key.toLowerCase()==='h'&&!['INPUT','TEXTAREA'].includes(document.activeElement?.tagName))app.classList.toggle('hidden-ui')});
 function resize(){camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight);}
 window.addEventListener('resize',resize);
 document.querySelector('#scene-state').textContent='ready';
