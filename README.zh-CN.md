@@ -1,33 +1,44 @@
 [English](README.md) | **简体中文**
 
-# Santiago Bernabéu 3D Experience
+<div align="center">
 
-[在线体验](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=zh) · [使用手册](docs/USER_GUIDE.zh-CN.md) · [制作过程](docs/DEVELOPMENT.zh-CN.md)
+![Santiago Bernabéu — A New Perspective](docs/showcase/bernabeu-header.svg)
 
-以翻新后的圣地亚哥·伯纳乌为原型的实时三维建筑探索作品。亲自控制镜头，从银色百叶外立面飞入看台，打开屋顶，观察六段草坪收纳，再把自己的机位导出为照片或视频。
+**走近银色立面，穿过屋顶，进入伯纳乌。**  
+可交互的圣地亚哥·伯纳乌球场三维体验
 
-![伯纳乌三维体验：实际运行画面](docs/images/exterior-zh.png)
+[![进入球场](docs/showcase/open-experience-zh.svg)](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=zh)
 
-这是基于 Three.js / WebGL 的可交互三维场景，`index.html` 为工程入口。建筑几何、座椅、草坪、机械结构和城市由代码生成，运行时不依赖 CDN。界面支持 **中文、English、Español**。
+[English](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=en) · [中文](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=zh) · [Español](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=es)
 
-> 本作品为独立的程序化建筑重建，与皇家马德里无隶属关系。机构、虚拟席位和城市经过简化，不是官方测绘模型、票务系统或施工数字孪生。
+</div>
 
-## 维护与下载
+> **正式网址:** [Santiago Bernabéu — A New Perspective](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=zh)  
+> 直接在浏览器中体验，无需下载和启动本地服务器。
 
-[维护流程](docs/MAINTENANCE.zh-CN.md) · [更新记录](CHANGELOG.md) · [稳定版下载](https://github.com/Chcccjj/bernabeu-3d-experience/releases) · [安全报告](SECURITY.md)
+[![球场实际运行画面](docs/images/exterior-zh.png)](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=zh)
 
-## 文档导航
+| 探索建筑 | 操作机构 | 创作与分享 |
+| :--- | :--- | :--- |
+| 环绕外观、进入看台、走进草坪，或跟随连续电影导览。 | 打开可伸缩屋顶，观察六块草坪托盘分段移动并收纳到地下。 | 切换昼夜与比赛日，选择虚拟座席，导出照片、录像并分享机位。 |
 
-每篇文档顶部均提供 **English | 简体中文** 切换入口。使用手册、制作过程和验证记录均有完整的中英文版本，文档之间的导航会保留当前阅读语言。
+基于 Three.js / WebGL，程序化生成建筑、座椅、草坪与机构。界面支持中文、英文和西班牙文。
 
-| 文档 | 内容 |
-| --- | --- |
-| [使用手册](docs/USER_GUIDE.zh-CN.md) | 安装运行、镜头操作、屋顶与草坪、选座步行、图片视频导出、分享和常见问题 |
-| [制作过程](docs/DEVELOPMENT.zh-CN.md) | 从参考研究、程序建模、材质光照到交互、三语与打包的实现过程 |
-| [验证记录](docs/VALIDATION.zh-CN.md) | 自动测试范围、实际浏览器验证和未覆盖的边界 |
-| [资源署名](public/ASSET-LICENSES.txt) | HDR 环境、依赖及第三方许可证出处 |
+### 快速导航
 
-在线体验：[中文](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=zh) · [English](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=en) · [Español](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=es)
+| 入口 | 内容 |
+| :--- | :--- |
+| [在线体验](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=zh) | 直接进入可交互球场 |
+| [使用手册](docs/USER_GUIDE.zh-CN.md) | 操作、拍照、录像、选座与分享 |
+| [制作过程](docs/DEVELOPMENT.zh-CN.md) | 参考研究、建模、光照与交互 |
+| [验证记录](docs/VALIDATION.zh-CN.md) | 已验证内容与实际限制 |
+| [下载](https://github.com/Chcccjj/bernabeu-3d-experience/releases) | 发布版本与离线文件 |
+| [维护说明](docs/MAINTENANCE.zh-CN.md) | 后续开发与发布流程 |
+
+本作品为独立的程序化建筑重建，非皇家马德里官方作品。机构、虚拟座席和周边城市经过简化。
+
+<details>
+<summary><strong>开发者资料：本地运行、功能细节、源码与部署</strong></summary>
 
 ## 立即运行
 
@@ -114,3 +125,16 @@ npm run preview        # 预览正式构建，通常使用 4173 端口
 本作品为独立的程序化建筑重建，非官方测绘模型或工程数字孪生。周边城市为概括场景，未逐栋测绘；通道为本作品设计的游览空间；屋顶折叠、草坪储存舱与机构经过简化，演示时长压缩，不能作为施工或设备操作依据。比赛日比分为展示内容。与皇家马德里无隶属关系。
 
 第三方资源与依赖声明保留在 `public/` 和 `dist/` 中。本仓库暂未指定原创源码的开源许可证。
+
+
+</details>
+
+[原始说明存档](docs/showcase/README.zh-CN-before-showcase-2026-11-02.md)
+
+---
+
+<div align="center">
+
+[进入球场 →](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=zh)
+
+</div>

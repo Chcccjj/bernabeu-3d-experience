@@ -1,33 +1,44 @@
 **English** | [简体中文](README.zh-CN.md)
 
-# Santiago Bernabéu 3D Experience
+<div align="center">
 
-[Live experience](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=en) · [User guide](docs/USER_GUIDE.md) · [Development process](docs/DEVELOPMENT.md)
+![Santiago Bernabéu — A New Perspective](docs/showcase/bernabeu-header.svg)
 
-Explore a real-time 3D interpretation of the renovated Santiago Bernabéu. Take control of the camera, fly past the silver louvered façade and into the stands, open the roof, watch six turf trays move underground, and turn your own viewpoints into photos or videos.
+**An architectural experience you can step inside.**  
+Santiago Bernabéu · Real-time 3D · Architecture &amp; interaction
 
-![Actual application screenshot in English](docs/images/exterior-en.png)
+[![Open the experience](docs/showcase/open-experience.svg)](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=en)
 
-The application uses **Three.js / WebGL**, with `index.html` as its entry point. Stadium geometry, seats, turf, mechanical structures and the surrounding city are generated in code. Runtime assets are local, with no CDN dependency. The interface supports **English, 中文 and Español**.
+[English](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=en) · [中文](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=zh) · [Español](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=es)
 
-> An independent procedural architectural reconstruction. The mechanisms, virtual seats and city are simplified. This project is not affiliated with Real Madrid and does not provide an official survey, ticketing service or construction digital twin.
+</div>
 
-## Maintenance
+> **Public website:** [Santiago Bernabéu — A New Perspective](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=en)  
+> Open directly in your browser. No download or local server needed.
 
-See [maintenance workflow](docs/MAINTENANCE.md), [release notes](CHANGELOG.md), [downloads](https://github.com/Chcccjj/bernabeu-3d-experience/releases), and [security reporting](SECURITY.md).
+[![Actual application screenshot](docs/images/exterior-en.png)](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=en)
 
-## Documentation
+| Explore | Transform | Create |
+| :--- | :--- | :--- |
+| Orbit the silver façade, enter the stands, walk the pitch or take a cinematic tour. | Operate the retractable roof and watch six turf trays travel into underground storage. | Switch day, night and match settings; choose virtual seats, export photos and video, and share viewpoints. |
 
-Each guide has an **English | 简体中文** link at the top. Navigation stays in the selected documentation language.
+Built with Three.js / WebGL. Architecture, seating, turf and mechanisms are generated in code. Available in English, Chinese and Spanish.
 
-| Guide | Contents | 中文 |
-| --- | --- | --- |
-| [User guide](docs/USER_GUIDE.md) | Setup, controls, roof and pitch, seating, walking, photo/video export, sharing and troubleshooting | [使用手册](docs/USER_GUIDE.zh-CN.md) |
-| [Development process](docs/DEVELOPMENT.md) | Reference research, procedural modeling, materials, lighting, interaction, localization and packaging | [制作过程](docs/DEVELOPMENT.zh-CN.md) |
-| [Validation scope](docs/VALIDATION.md) | Automated checks, actual browser verification and remaining limits | [验证记录](docs/VALIDATION.zh-CN.md) |
-| [Asset acknowledgements](public/ASSET-LICENSES.txt) | HDR environment, dependencies and third-party notices | — |
+### Find your way
 
-Live application: [English](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=en) · [中文](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=zh) · [Español](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=es)
+| Resource | What you will find |
+| :--- | :--- |
+| [Live experience](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=en) | Launch the interactive stadium |
+| [User guide](docs/USER_GUIDE.md) | Controls, photography, recording, seating and sharing |
+| [Development process](docs/DEVELOPMENT.md) | Research, modeling, lighting and interaction |
+| [Validation scope](docs/VALIDATION.md) | Verified behavior and remaining limits |
+| [Downloads](https://github.com/Chcccjj/bernabeu-3d-experience/releases) | Releases and offline files |
+| [Maintenance](docs/MAINTENANCE.md) | Ongoing development and releases |
+
+An independent procedural architectural interpretation, not affiliated with Real Madrid. Mechanisms, virtual seats and the surrounding city are simplified.
+
+<details>
+<summary><strong>Developer notes: local setup, features, source and deployment</strong></summary>
 
 ## Quick start
 
@@ -109,3 +120,16 @@ Reference index: [sbp structural information](https://www.sbp.de/en/project/sant
 The urban context is approximate, the tunnel is a visitor space designed for this experience, and the roof folding, storage chamber and transfer mechanism are simplified. Demonstration timings are compressed. The project has no affiliation with Real Madrid.
 
 Third-party notices remain in `public/` and `dist/`. No open-source license has yet been specified for the original project code.
+
+
+</details>
+
+[Original README archive](docs/showcase/README-before-showcase-2026-11-02.md)
+
+---
+
+<div align="center">
+
+[Step inside the Bernabéu →](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=en)
+
+</div>
