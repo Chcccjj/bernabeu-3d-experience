@@ -1,0 +1,23 @@
+import {readFileSync,mkdirSync,copyFileSync,writeFileSync,existsSync,readdirSync} from 'node:fs';
+import {fileURLToPath} from 'node:url';
+import {join} from 'node:path';
+import {createHash} from 'node:crypto';
+import {spawnSync} from 'node:child_process';
+import assert from 'node:assert/strict';
+
+const root=fileURLToPath(new URL('../',import.meta.url));
+const {version}=JSON.parse(readFileSync(join(root,'package.json'),'utf8'));
+assert.match(version,/^\d+\.\d+\.\d+$/);
+const output=join(root,'release-assets');
+mkdirSync(output,{recursive:true});
+assert.equal(readdirSync(output).length,0,'Use an empty release-assets directory to avoid mixing releases');
+assert.ok(existsSync(join(root,'dist/index.html')),'Run npm run check before packaging');
+assert.equal(readFileSync(join(root,'伯纳乌球场.html'),'utf8'),readFileSync(join(root,'dist/伯纳乌球场.html'),'utf8'));
+const stem=`bernabeu-3d-experience-${version}`;
+const offline=`${stem}.html`,archive=`${stem}-static.tar.gz`;
+copyFileSync(join(root,'伯纳乌球场.html'),join(output,offline));
+const tar=spawnSync('tar',['-czf',join(output,archive),'-C',join(root,'dist'),'.'],{encoding:'utf8'});
+assert.equal(tar.status,0,tar.stderr);
+const checksums=[offline,archive].map(name=>`${createHash('sha256').update(readFileSync(join(output,name))).digest('hex')}  ${name}`).join('\n')+'\n';
+writeFileSync(join(output,'SHA256SUMS'),checksums);
+console.log(`Packaged ${stem}: offline HTML, static site, SHA256SUMS`);

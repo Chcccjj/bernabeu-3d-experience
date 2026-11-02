@@ -4,21 +4,43 @@
 
 [Project home](../README.md) · [User guide](USER_GUIDE.md) · [Development process](DEVELOPMENT.md)
 
-These records cover project 2.2.0 and its pre-publication checks. Screenshots come from the running application. Automated checks, browser verification and compatibility targets are described separately.
+Current automated checks cover patch 2.2.1. On 2026-11-02 the production build was revalidated in a real Chromium browser, including actual image/video export and narrow-screen layouts. The 2026-10-31 sprint lacked browser access; its previous limitation is superseded only for the checks listed below. DOM tests themselves do not render WebGL or test media encoders.
 
 ## Automated checks
 
-Run `npm test` for 20 checks:
+Run `npm run check` for Lint, scoped strict type checking, 55 tests, production build and artifact/HTTP verification. Type checking covers the public state boundary in `src/features/state.js` using JSDoc and TypeScript; it does not cover the complete Three.js application. Run `npm audit --audit-level=moderate` separately for the complete dependency tree (0 known vulnerabilities at the end of this sprint).
+
+`npm test` includes:
 
 | File | Count | Coverage |
 | --- | --- | --- |
 | `tests/engineering.test.js` | 9 | Complete six-tray coverage and continuous textures, single-corridor transfers, underground stacking, continuous/reversible paths, bowl normals, perimeter sampling, camera boundaries and the tunnel opening |
-| `tests/experience.test.js` | 6 | Export dimensions and texture limits, shared-state validation, blocked/corrupt storage, walking regions, recording-container selection and adaptive-quality recovery |
+| `tests/experience.test.js` | 9 | Export dimensions and texture limits, shared-state validation, blocked/corrupt storage, walking regions, recording-container selection and adaptive-quality recovery |
 | `tests/i18n.test.js` | 5 | Complete translations and matching placeholders, language precedence, dynamic text/number formats, state-preserving language links and UI key coverage |
+| `tests/recorder.test.js` | 11 | Cancellation, backgrounding, capture/encoder failure, stale events, empty clips, timeout and disposal using controlled media doubles |
+| `tests/scene.test.js` | 8 | Export success/failure, resize isolation, fixed recording sizes, deferred quality, mechanism reversals and resource cleanup using real Three.js objects with a renderer double |
+| `tests/tools.test.js` | 8 | Happy DOM workbench, ARIA keyboard tabs, focus, localization retention, navigation races and clipboard fallback |
+| `tests/camera.test.js` | 2 | Real OrbitControls in Happy DOM: keyboard input routing, acceleration and lost-focus cleanup |
+| `tests/ambience.test.js` | 3 | Audio resume cancellation, failure/retry and disposal using a controlled AudioContext double |
 
 `npm run build` generates `dist/` and the self-contained HTML through a pure Node.js build, without Python.
 
-## Completed browser verification
+The artifact verifier checks that both offline HTML files are byte-identical, resources and HDR are embedded, licenses are present, bundled JavaScript parses, documentation targets exist, and Vite preview returns HTML/JS/CSS/offline files with correct HTTP status and MIME types. The preview server closes afterward. `.github/workflows/check.yml` runs these checks on Node 24 for PRs and main-branch updates. The GitHub check result for the exact PR commit is the authority for remote validation.
+
+## Browser verification — 2.2.1, 2026-11-02
+
+Production preview in the built-in Chromium browser, 1280 × 720 desktop and 390 × 844 / 320 × 640 narrow-screen viewports:
+
+- Actual WebGL scene loading; exterior/interior/virtual-seat views; day/night/match modes; roof opening/closing; six-tray pitch storage/restoration and the underground section.
+- 3840 × 2160 PNG export and narrow-screen 1536 × 2048 JPEG export, with dimensions inspected from the downloaded files.
+- All three real recording presets downloaded as H.264/AAC MP4: exterior 1920 × 1080 (14.999933 s), flight 1080 × 1920 (35.987500 s), roof 1920 × 1080 (14.996042 s). FFmpeg decoded the complete files without errors using the input time base; three sampled frames from each clip had distinct SHA-256 hashes. See [machine-readable media evidence](media-verification-2026-11-02.json).
+- Keyboard exploration tabs, seat visits, walking entry, bookmark save/delete, and a shared walk/match camera restored after a full reload.
+- Chinese, English, and Spanish switching; Spanish 320 px controls and photo panel remained reachable; document scroll width equaled viewport width at both narrow widths.
+- The inspected browser error/warning log was empty. Screenshots are retained in [maintenance evidence](images/maintenance-2026-11-02/).
+
+This verifies a Chromium desktop session and emulated narrow viewports. It does not establish Safari/Edge/mobile-device compatibility, sustained frame-rate guarantees, or all interrupted-encoder failure paths. Those failure paths are separately covered by controlled automated tests. The standalone HTML was also loaded via HTTP; no universal `file://` compatibility claim is made.
+
+## Historical browser verification (2.2.0)
 
 Chromium was used for desktop and 390 × 844 / 320 × 640 narrow-screen layouts:
 

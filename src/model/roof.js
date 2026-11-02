@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import {TAU,outline,geometry,beams,band,annulus,canvasTexture,instances,boxGeometry,box} from './geometry.js';
+import {TAU,outline,geometry,beams,band,annulus,instances,boxGeometry} from './geometry.js';
 import {facadePoint,facadeHeight} from './envelope.js';
 
 export function createRoof(m) {
@@ -46,7 +46,7 @@ export function createRoof(m) {
   const screen=band(58.1,40.6,53.5,58.6,screenMat,5,256,true);screen.name='360 degree continuous LED screen';group.add(screen);
   group.add(annulus(58.6,41.1,57.9,40.4,58.7,m.dark,{n:5}));
   group.add(annulus(58.6,41.1,57.9,40.4,53.4,m.dark,{n:5}));
-  const leaves=[],carriages=[];
+  const leaves=[];
   for(const side of [-1,1]){
     const leaf=new THREE.Group();leaf.name=side===1?'North folding membrane':'South folding membrane';
     const v=[],ix=[],u=[],folds=24;

@@ -37,7 +37,7 @@ export class BernabeuExperience {
     this.renderer.setPixelRatio(Math.min(Math.max(devicePixelRatio,1.25),1.5));
     this.director=new CameraDirector(this.camera,canvas,{onChange:onView,onTour,onInteract:onInteraction,reducedMotion:this.reduced});
     this.mechanisms={roof:0,pitch:0};this.roofClosed=false;this.pitchStored=false;
-    this.cutaway=false;this.exporting=false;this.recording=false;this.autoBudget={slow:0,fast:0};this.budgetTime=0;
+    this.cutaway=false;this.exporting=false;this.recording=false;this.navigationId=0;this.autoBudget={slow:0,fast:0};this.budgetTime=0;
     this.materials=createMaterials(this.renderer);this.envTargets=[];this.setupLighting();this.setupSky();
     this.scene.fog=new THREE.Fog(0xb9c2c5,540,1850);
     const target=new THREE.WebGLRenderTarget(1,1,{type:THREE.HalfFloatType,samples:4});
@@ -52,17 +52,23 @@ export class BernabeuExperience {
   }
   async init(){
     const report=(n,label)=>this.callbacks.onProgress?.(n,label);
-    report(.04,'loading.environment');await nextFrame();
-    const hdr=await new HDRLoader().loadAsync(hdrURL);const pmrem=new THREE.PMREMGenerator(this.renderer);
-    const environment=pmrem.fromEquirectangular(hdr);this.envTargets[0].dispose();this.envTargets[0]=environment;this.scene.environment=environment.texture;this.scene.environmentIntensity=.8;this.scene.environmentRotation.y=.7;hdr.dispose();pmrem.dispose();
-    report(.12,'loading.city');await nextFrame();this.city=createCity(this.materials);this.scene.add(this.city.group);
-    report(.23,'loading.skin');await nextFrame();this.envelope=createEnvelope(this.materials);this.scene.add(this.envelope.group);
-    report(.41,'loading.seats');await nextFrame();this.bowl=createBowl(this.materials);this.scene.add(this.bowl.group);
-    report(.64,'loading.pitch');await nextFrame();this.pitch=createPitch(this.materials,this.renderer);this.scene.add(this.pitch.group);
+    const checkActive=()=>{if(this.disposed)throw new DOMException('Experience disposed','AbortError');};
+    const step=async()=>{await nextFrame();checkActive();};
+    report(.04,'loading.environment');await step();
+    const hdr=await new HDRLoader().loadAsync(hdrURL);
+    if(this.disposed){hdr.dispose();checkActive();}
+    const pmrem=new THREE.PMREMGenerator(this.renderer);
+    try{
+      const environment=pmrem.fromEquirectangular(hdr);this.envTargets[0].dispose();this.envTargets[0]=environment;this.scene.environment=environment.texture;this.scene.environmentIntensity=.8;this.scene.environmentRotation.y=.7;
+    }finally{hdr.dispose();pmrem.dispose();}
+    report(.12,'loading.city');await step();this.city=createCity(this.materials);this.scene.add(this.city.group);
+    report(.23,'loading.skin');await step();this.envelope=createEnvelope(this.materials);this.scene.add(this.envelope.group);
+    report(.41,'loading.seats');await step();this.bowl=createBowl(this.materials);this.scene.add(this.bowl.group);
+    report(.64,'loading.pitch');await step();this.pitch=createPitch(this.materials,this.renderer);this.scene.add(this.pitch.group);
     this.details=createArchitecturalDetails(this.materials);this.scene.add(this.details.group);
-    report(.77,'loading.roof');await nextFrame();this.roof=createRoof(this.materials);this.scene.add(this.roof.group);this.roof.update(0);
-    report(.9,'loading.compile');await nextFrame();this.director.intro();
-    await this.renderer.compileAsync(this.scene,this.camera);this.composer.render();
+    report(.77,'loading.roof');await step();this.roof=createRoof(this.materials);this.scene.add(this.roof.group);this.roof.update(0);
+    report(.9,'loading.compile');await step();this.director.intro();
+    await this.renderer.compileAsync(this.scene,this.camera);checkActive();this.composer.render();
     report(1,'loading.ready');this.ready=true;this.last=performance.now();this.render();this.setQuality('auto');
     this.canvas.dataset.seats=this.bowl.seatCount;return this;
   }
@@ -113,14 +119,20 @@ export class BernabeuExperience {
     this.canvas.dataset.mode=mode;
   }
   setRoof(closed){
-    this.roofClosed=closed;this.roofTween?.kill();
-    return new Promise(resolve=>{this.roofTween=gsap.to(this.mechanisms,{roof:closed?1:0,duration:this.reduced?.1:7.5,ease:'power2.inOut',onComplete:()=>resolve(true),onInterrupt:()=>resolve(false)});});
+    if(this.roofClosed===closed&&this.roofPromise&&this.roofTween?.progress()<1)return this.roofPromise;
+    this.roofClosed=closed;this.roofTween?.kill();this.roofTween=null;this.roofPromise=null;
+    if(Math.abs(this.mechanisms.roof-(closed?1:0))<.0001)return Promise.resolve(true);
+    return this.roofPromise=new Promise(resolve=>{this.roofTween=gsap.to(this.mechanisms,{roof:closed?1:0,duration:this.reduced?.1:7.5,ease:'power2.inOut',onComplete:()=>resolve(true),onInterrupt:()=>resolve(false)});});
   }
   setPitch(stored){
-    this.pitchStored=stored;this.pitchTween?.kill();
-    return new Promise(resolve=>{this.pitchTween=gsap.to(this.mechanisms,{pitch:stored?1:0,duration:this.reduced?1.5:24,ease:'none',onComplete:()=>resolve(true),onInterrupt:()=>resolve(false)});});
+    if(this.pitchStored===stored&&this.pitchPromise&&this.pitchTween?.progress()<1)return this.pitchPromise;
+    this.pitchStored=stored;this.pitchTween?.kill();this.pitchTween=null;this.pitchPromise=null;
+    if(Math.abs(this.mechanisms.pitch-(stored?1:0))<.0001)return Promise.resolve(true);
+    return this.pitchPromise=new Promise(resolve=>{this.pitchTween=gsap.to(this.mechanisms,{pitch:stored?1:0,duration:this.reduced?1.5:24,ease:'none',onComplete:()=>resolve(true),onInterrupt:()=>resolve(false)});});
   }
   setQuality(value){
+    if(!['auto','high','performance'].includes(value)||this.disposed)return;
+    if(this.exporting||this.recording){this.pendingQuality=value;return;}
     this.quality=value;const low=value==='performance'||(value==='auto'&&(innerWidth<720||navigator.hardwareConcurrency<6));
     const ratio=low?1:value==='high'?Math.min(Math.max(devicePixelRatio,1.5),2):Math.min(Math.max(devicePixelRatio,1.25),1.5);
     this.renderer.setPixelRatio(ratio);this.composer.setPixelRatio(ratio);
@@ -135,15 +147,22 @@ export class BernabeuExperience {
     this.scene.fog.near=value?900:540;this.canvas.dataset.cutaway=String(value);
   }
   resize(){
+    if(this.disposed||this.exporting)return;
     const w=this.canvas.clientWidth||innerWidth,h=this.canvas.clientHeight||innerHeight;
     const width=this.recordingSize?.width||w,height=this.recordingSize?.height||h;
-    this.renderer.setSize(width,height,false);this.camera.aspect=width/height;this.camera.updateProjectionMatrix();this.composer?.setSize(width,height);this.ao?.setSize(Math.round(width/2),Math.round(height/2));
-    const ratio=this.renderer.getPixelRatio();this.fxaa?.uniforms.resolution.value.set(1/(w*ratio),1/(h*ratio));
+    this.setRenderSize(width,height);
+  }
+  setRenderSize(width,height){
+    this.renderer.setSize(width,height,false);this.camera.aspect=width/height;this.camera.updateProjectionMatrix();this.composer?.setSize(width,height);this.ao?.setSize(Math.ceil(width/2),Math.ceil(height/2));
+    const ratio=this.renderer.getPixelRatio();this.fxaa?.uniforms.resolution.value.set(1/(width*ratio),1/(height*ratio));
+  }
+  applyPendingQuality(){
+    if(this.pendingQuality){const value=this.pendingQuality;this.pendingQuality=null;this.setQuality(value);}
   }
   async exportImage({format='16:9',longEdge=3840,mime='image/png'}={}){
     if(this.exporting||this.recording)throw new LocalizedError('errors.exportBusy');
     const limit=Math.min(this.renderer.capabilities.maxTextureSize,innerWidth<720?2048:4096);
-    const size=outputSize(format,longEdge,limit),ratio=this.renderer.getPixelRatio(),aspect=this.camera.aspect;
+    const size=outputSize(format,longEdge,limit),ratio=this.renderer.getPixelRatio();
     const ao=this.ao.enabled,bloom=this.bloom.enabled,fxaa=this.fxaa.enabled;
     const lods=[];this.scene.traverse(o=>{if(o.isLOD){lods.push([o,o.autoUpdate,o.levels.map(l=>l.object.visible)]);o.autoUpdate=false;}});
     // A still image can afford the complete louvers and seat geometry even when
@@ -152,26 +171,28 @@ export class BernabeuExperience {
     const controlsEnabled=this.director.controls.enabled;
     this.exporting=true;this.director.controls.enabled=false;
     try{
-      this.renderer.setPixelRatio(1);this.composer.setPixelRatio(1);this.renderer.setSize(size.width,size.height,false);this.composer.setSize(size.width,size.height);this.ao.setSize(Math.ceil(size.width/2),Math.ceil(size.height/2));
-      this.camera.aspect=size.width/size.height;this.camera.updateProjectionMatrix();this.ao.enabled=true;this.bloom.enabled=bloom;this.fxaa.enabled=false;
+      this.renderer.setPixelRatio(1);this.composer.setPixelRatio(1);this.setRenderSize(size.width,size.height);this.ao.enabled=true;this.bloom.enabled=bloom;this.fxaa.enabled=false;
       this.composer.render();
       const blobPromise=new Promise((resolve,reject)=>this.canvas.toBlob(blob=>blob?resolve(blob):reject(new LocalizedError('errors.image')),mime,.96));
       const blob=await blobPromise;
       return {blob,...size,mime};
     }finally{
-      this.renderer.setPixelRatio(ratio);this.composer.setPixelRatio(ratio);this.camera.aspect=aspect;this.camera.updateProjectionMatrix();this.ao.enabled=ao;this.bloom.enabled=bloom;this.fxaa.enabled=fxaa;
+      if(!this.disposed){this.renderer.setPixelRatio(ratio);this.composer.setPixelRatio(ratio);}
+      this.ao.enabled=ao;this.bloom.enabled=bloom;this.fxaa.enabled=fxaa;
       for(const [lod,auto,visibility] of lods){lod.autoUpdate=auto;lod.levels.forEach((l,i)=>l.object.visible=visibility[i]);}
-      this.director.controls.enabled=controlsEnabled;this.exporting=false;this.resize();this.composer.render();
+      this.director.controls.enabled=controlsEnabled;this.exporting=false;
+      if(!this.disposed){this.applyPendingQuality();this.resize();if(!this.contextIsLost)this.composer.render();}
     }
   }
   beginRecording(format){
     if(this.recording||this.exporting)throw new LocalizedError('errors.recordBusy');
     this.recording=true;this.recordingRatio=this.renderer.getPixelRatio();this.recordingSize=outputSize(format,innerWidth<720?1280:1920,2048);
-    this.renderer.setPixelRatio(1);this.composer.setPixelRatio(1);this.resize();return this.recordingSize;
+    try{this.renderer.setPixelRatio(1);this.composer.setPixelRatio(1);this.resize();return this.recordingSize;}
+    catch(error){this.endRecording();throw error;}
   }
   endRecording(){
     if(!this.recording)return;this.recording=false;this.recordingSize=null;
-    this.renderer.setPixelRatio(this.recordingRatio);this.composer.setPixelRatio(this.recordingRatio);this.resize();
+    this.renderer.setPixelRatio(this.recordingRatio);this.composer.setPixelRatio(this.recordingRatio);this.applyPendingQuality();this.resize();
   }
   render(now=performance.now()){
     if(this.disposed||this.contextIsLost)return;this.frame=requestAnimationFrame(this.render);
@@ -197,9 +218,13 @@ export class BernabeuExperience {
   }
   screenshot(){this.composer.render();return this.canvas.toDataURL('image/png');}
   dispose(){
+    if(this.disposed)return;
     this.disposed=true;cancelAnimationFrame(this.frame);this.lightingTween?.kill();this.roofTween?.kill();this.pitchTween?.kill();this.director.dispose();window.removeEventListener('resize',this.resize);this.canvas.removeEventListener('webglcontextlost',this.contextLost);this.canvas.removeEventListener('webglcontextrestored',this.contextRestored);
     const geos=new Set(),mats=new Set(),textures=new Set();
-    this.scene.traverse(o=>{if(o.geometry)geos.add(o.geometry);for(const m of (Array.isArray(o.material)?o.material:[o.material]))if(m){mats.add(m);for(const value of Object.values(m))if(value?.isTexture)textures.add(value);}});
+    const collectMaterial=m=>{if(m){mats.add(m);for(const value of Object.values(m))if(value?.isTexture)textures.add(value);}};
+    Object.values(this.materials).forEach(collectMaterial);
+    if(this.pitch?.grassTex)textures.add(this.pitch.grassTex);
+    this.scene.traverse(o=>{if(o.geometry)geos.add(o.geometry);if(o.isInstancedMesh)o.dispose();for(const m of (Array.isArray(o.material)?o.material:[o.material]))collectMaterial(m);});
     for(const g of geos)g.dispose();for(const m of mats)m.dispose();for(const t of textures)t.dispose();this.envTargets.forEach(t=>t.dispose());this.composer.passes.forEach(p=>p.dispose?.());this.composer.dispose();this.sun.shadow.dispose();this.renderer.dispose();
   }
 }

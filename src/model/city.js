@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import {box,boxGeometry,instances,random,canvasTexture,beams,annulus,textTexture} from './geometry.js';
+import {box,boxGeometry,instances,random,canvasTexture,beams} from './geometry.js';
 
 export function createCity(materials) {
   const group=new THREE.Group();group.name='Madrid urban context';const r=random(1947), m=materials;

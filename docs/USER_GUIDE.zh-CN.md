@@ -12,7 +12,7 @@
 
 ### 开发运行
 
-安装 Node.js 22.12 或更新版本，然后执行：
+安装 Node.js 24+，或 22.x 的 22.13 及以上版本，然后执行：
 
 ```sh
 git clone https://github.com/Chcccjj/bernabeu-3d-experience.git

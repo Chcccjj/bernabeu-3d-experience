@@ -5,7 +5,7 @@ import {initializeLocalization,setText,setAttributeText} from './i18n/index.js';
 import './i18n/language.css';
 
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-let experience,experienceTools,toastTimer,requestId=0,uiVisible=true;
+let experience,experienceTools,toastTimer,uiVisible=true;
 const canvas=$('#scene');
 const disposeLocalization=initializeLocalization();
 const views=['interior','pitch','tour','free','seat','walk','hotspot','study'];
@@ -39,16 +39,17 @@ function syncRoof(){
   $('#roof-toggle').setAttribute('aria-checked',String(experience.roofClosed));setAttributeText($('#roof-toggle'),'aria-label',experience.roofClosed?'roof.open':'roof.close');
 }
 async function requestView(view){
-  if(!experience?.ready)return;if(experienceTools&&experienceTools.recorder.state!=='idle'){toast('toast.stopRecording');return;}experienceTools?.close(false);experience.setCutaway(false);const token=++requestId;
+  if(!experience?.ready)return;if(experience.exporting){toast('errors.exportBusy');return;}if(experienceTools&&experienceTools.recorder.state!=='idle'){toast('toast.stopRecording');return;}experienceTools?.close(false);experience.setCutaway(false);const token=++experience.navigationId;
   const p=experience.camera.position,inside=p.y<64&&Math.abs(p.x)<115&&Math.abs(p.z)<98;
   const needsOpening=view==='tour'||(['interior','pitch'].includes(view)!==inside);
-  if(needsOpening&&experience.roofClosed){
-    toast('toast.openRoof');const completed=experience.setRoof(false);syncRoof();await completed;if(token!==requestId)return;
+  if(needsOpening&&(experience.roofClosed||experience.mechanisms.roof>.001)){
+    toast('toast.openRoof');const completed=experience.setRoof(false);syncRoof();const opened=await completed;if(!opened||token!==experience.navigationId)return;
   }
   if(view==='tour')experience.director.tour();else experience.director.setView(view);
   if(innerWidth<700){$('#settings-panel').classList.add('panel-hidden');$('#settings-toggle').setAttribute('aria-expanded','false');}
 }
 function hideUI(visible){
+  if(experience?.exporting){toast('errors.exportBusy');return;}
   if(!visible&&experienceTools?.active){
     if(experienceTools.recorder.state!=='idle'){toast('toast.recordingVisible');return;}
     experienceTools.close(false);
@@ -58,13 +59,13 @@ function hideUI(visible){
 async function fullscreen(){
   try{if(document.fullscreenElement)await document.exitFullscreen();else if(document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen();else toast('toast.fullscreenMenu');}catch{toast('toast.fullscreenUnavailable');}
 }
-function showError(key){$('#loader').classList.add('completed');document.body.classList.add('is-ready');$('#error').hidden=false;setText($('#error-detail'),key);$$('#interface button,#interface select:not([data-language])').forEach(b=>b.disabled=true);}
+function showError(key){if(experience)experience.ready=false;experienceTools?.dispose();experienceTools=null;$('#loader').classList.add('completed');document.body.classList.add('is-ready');$('#error').hidden=false;setText($('#error-detail'),key);$$('#interface button,#interface select:not([data-language])').forEach(b=>b.disabled=true);}
 
 $$('button[data-view]').forEach(b=>b.addEventListener('click',()=>requestView(b.dataset.view)));
 function reflectMode(mode){$$('button[data-mode]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.mode===mode)));setText($('#scene-label'),'indicator.'+mode);setText($('#announcement'),`mode.${mode}Announcement`);}
 $$('button[data-mode]').forEach(b=>b.addEventListener('click',()=>{if(!experience?.ready)return;experience.setMode(b.dataset.mode);reflectMode(b.dataset.mode);}));
 $('#hero-tour').addEventListener('click',()=>requestView('tour'));
-$('#roof-toggle').addEventListener('click',()=>{if(!experience?.ready)return;++requestId;experience.director.cancel();experience.setRoof(!experience.roofClosed);syncRoof();});
+$('#roof-toggle').addEventListener('click',()=>{if(!experience?.ready)return;if(experience)++experience.navigationId;experience.director.cancel();experience.setRoof(!experience.roofClosed);syncRoof();});
 $('#pitch-toggle').addEventListener('click',()=>{
   if(!experience?.ready)return;if(experience.director.mode==='walk')requestView('interior');const store=!experience.pitchStored;experience.setPitch(store);$('#pitch-toggle').setAttribute('aria-pressed',String(store));setAttributeText($('#pitch-toggle'),'aria-label',store?'pitch.restore':'pitch.store');
   toast(store?'toast.storePitch':'toast.restorePitch');
@@ -88,10 +89,10 @@ $('#info-button').addEventListener('click',()=>$('#about').showModal());$('#clos
 $('#about').addEventListener('click',e=>{if(e.target===$('#about')){const rect=e.target.getBoundingClientRect();if(e.clientX<rect.left||e.clientX>rect.right||e.clientY<rect.top||e.clientY>rect.bottom)e.target.close();}});
 $('#retry').addEventListener('click',()=>location.reload());
 document.addEventListener('keydown',e=>{
-  if(/INPUT|SELECT|TEXTAREA/.test(e.target.tagName)||$('#about').open)return;
+  if(e.repeat||e.ctrlKey||e.metaKey||e.altKey||e.target.isContentEditable||/INPUT|SELECT|TEXTAREA/.test(e.target.tagName)||$('#about').open)return;
   if(e.code==='KeyH'){e.preventDefault();hideUI(!uiVisible);}
   if(e.code==='KeyF'){e.preventDefault();fullscreen();}
-  if(e.code==='Escape'){++requestId;experience?.director.cancel();if(!uiVisible)hideUI(true);}
+  if(e.code==='Escape'){if(experience)++experience.navigationId;experience?.director.cancel();if(!uiVisible)hideUI(true);}
   if(e.code==='Home'){e.preventDefault();requestView('exterior');}
 });
 document.addEventListener('experience-error',e=>showError(e.detail));
@@ -107,7 +108,7 @@ async function boot(){
     $('#loader').classList.add('completed');document.body.classList.add('is-ready');
     window.bernabeuExperience=experience;
     experienceTools=new ExperienceTools(experience,{toast,onMode:reflectMode,syncRoof});window.bernabeuTools=experienceTools;
-  }catch(error){console.error('Bernabéu initialization:',error);experience?.dispose();showError('errors.initialization');}
+  }catch(error){if(experience?.disposed)return;console.error('Bernabéu initialization:',error);experience?.dispose();showError('errors.initialization');}
 }
 boot();
 window.addEventListener('pagehide',e=>{if(!e.persisted){disposeLocalization();experienceTools?.dispose();experience?.dispose();}});

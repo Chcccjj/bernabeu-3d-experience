@@ -1,0 +1,92 @@
+[
+  {
+    "file": "Bernabeu-1920x1080.mp4",
+    "bytes": 17094916,
+    "sha256": "92858c5b42afc31120c60da645c11585296e5c2a72545463a271b461da70bbe8",
+    "ffprobe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "aac",
+          "avg_frame_rate": "0/0"
+        },
+        {
+          "codec_name": "h264",
+          "width": 1920,
+          "height": 1080,
+          "avg_frame_rate": "13470000/449747"
+        }
+      ],
+      "format": {
+        "duration": "14.999933"
+      }
+    },
+    "decode_errors": [],
+    "sample_frame_sha256": [
+      "fc20c10e1aebb755ff8c17122b288857599e3ed68eb791b57a5224ff1e7f9bde",
+      "4eec01d29cf259a72fe3897cd3944d7ed61b59ae7b33872f0a10a77058940119",
+      "a0b7037eaa9e6806f2a3a442dda37982ff8f9066a7e18c49302e55a857d33181"
+    ]
+  },
+  {
+    "file": "Bernabeu-1080x1920.mp4",
+    "bytes": 41160915,
+    "sha256": "bdc6a51c79846588cbed893fc60f043e79b40ca5b5c4ebe59c39856537d27b47",
+    "ffprobe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "aac",
+          "avg_frame_rate": "0/0"
+        },
+        {
+          "codec_name": "h264",
+          "width": 1080,
+          "height": 1920,
+          "avg_frame_rate": "10780000/359201"
+        }
+      ],
+      "format": {
+        "duration": "35.987500"
+      }
+    },
+    "decode_errors": [],
+    "sample_frame_sha256": [
+      "abb02d5839591d666cb69f4e45e7ce094499cd5c3e0992c7cb7e051b76aaa986",
+      "9755792ebf0f272431771e9067d08d218905aa5b95c5e6ea32fa95fe5d546ad2",
+      "51fabf917d4a8539efe7e7c68868d344ebaef3fe78d54305ff6a21269e064e16"
+    ]
+  },
+  {
+    "file": "Bernabeu-1920x1080 (1).mp4",
+    "bytes": 12543126,
+    "sha256": "69a5566ab2354a5050dd136143725567b2f6575b307e43112b8dfc0e5061c793",
+    "ffprobe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "aac",
+          "avg_frame_rate": "0/0"
+        },
+        {
+          "codec_name": "h264",
+          "width": 1920,
+          "height": 1080,
+          "avg_frame_rate": "13440000/447679"
+        }
+      ],
+      "format": {
+        "duration": "14.996042"
+      }
+    },
+    "decode_errors": [],
+    "sample_frame_sha256": [
+      "b3a0b510929604b9572206b45d40ddaed58b2b44d2044e5f1aa23c24e8edc7b8",
+      "331eae4a15068213455f9f374eb4708bbffceebe854e14e51179ae87cf0161e7",
+      "eb15553d070bf39f5af3117cadc9a996c051da5bdc2037b0db1f66ddf6d1e9e5"
+    ]
+  }
+]

@@ -10,5 +10,11 @@ node_modules/
 *.tar
 github-export/
 
-# Account-specific Sites deployment binding
+# Local experiments and account-specific deployment configuration
 .openai/hosting.json
+release-assets/
+anfield/
+camp-nou/
+old-trafford/
+comparisons/
+plugin-upgrades/

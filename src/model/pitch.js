@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import {box,boxGeometry,beams,instances,canvasTexture,random,geometry,band,annulus,textTexture} from './geometry.js';
+import {box,beams,canvasTexture,random,geometry,band,textTexture} from './geometry.js';
 import {openTunnel} from './details.js';
 
 export const TRAY_COUNT=6;
@@ -21,7 +21,7 @@ export function createPitch(m,renderer) {
   box(group,apronMat,0,.59,38.2,105,.92,8.4);
   const floorTex=canvasTexture(1024,512,(c,w,h)=>{c.fillStyle='#aaa99e';c.fillRect(0,0,w,h);c.strokeStyle='#92958c';c.lineWidth=1;for(let x=0;x<w;x+=64){c.beginPath();c.moveTo(x,0);c.lineTo(x,h);c.stroke();}for(let y=0;y<h;y+=64){c.beginPath();c.moveTo(0,y);c.lineTo(w,y);c.stroke();}});
   const eventFloor=new THREE.Mesh(new THREE.PlaneGeometry(105,68),new THREE.MeshStandardMaterial({map:floorTex,roughness:.92}));eventFloor.rotation.x=-Math.PI/2;eventFloor.position.y=.15;group.add(eventFloor);
-  const slot=box(group,m.dark,0,.2,STORAGE_Z,108,.07,11.5);
+  box(group,m.dark,0,.2,STORAGE_Z,108,.07,11.5);
   const hatch=new THREE.Group();hatch.position.set(0,1.04,STORAGE_Z-5.75);box(hatch,apronMat,0,-.065,5.75,108,.13,11.5);group.add(hatch);
   const rails=[];for(const x of [-48,-32,-16,0,16,32,48])rails.push([[x,.3,-45.9],[x,.3,35]]);beams(group,rails,m.silverDark,.055,4);
   const grassTex=canvasTexture(2100,1360,(c,w,h)=>{
