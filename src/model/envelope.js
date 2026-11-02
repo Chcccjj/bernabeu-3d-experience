@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import {TAU,outline,normalAt,geometry,band,annulus,box,boxGeometry,instances,perimeter,beams,textTexture,canvasTexture} from './geometry.js';
+import {TAU,outline,normalAt,geometry,band,annulus,box,boxGeometry,instances,perimeter,textTexture,canvasTexture} from './geometry.js';
 
 export const facadeHeight = (t,f=1) => (2.1*Math.sin(t+.5)+1.45*Math.sin(2*t-1)+.7*Math.cos(3*t)) * f;
 export function facadePoint(t,f) {

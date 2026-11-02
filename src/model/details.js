@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import {box,boxGeometry,instances,beams,textTexture,outline,TAU} from './geometry.js';
+import {box,boxGeometry,instances,textTexture} from './geometry.js';
 
 export function createArchitecturalDetails(m){
   const group=new THREE.Group();group.name='Entrance pavilion, public realm and player tunnel';
