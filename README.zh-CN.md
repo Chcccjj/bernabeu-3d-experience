@@ -12,6 +12,10 @@
 
 > 本作品为独立的程序化建筑重建，与皇家马德里无隶属关系。机构、虚拟席位和城市经过简化，不是官方测绘模型、票务系统或施工数字孪生。
 
+## 维护与下载
+
+[维护流程](docs/MAINTENANCE.zh-CN.md) · [更新记录](CHANGELOG.md) · [稳定版下载](https://github.com/Chcccjj/bernabeu-3d-experience/releases) · [安全报告](SECURITY.md)
+
 ## 文档导航
 
 每篇文档顶部均提供 **English | 简体中文** 切换入口。使用手册、制作过程和验证记录均有完整的中英文版本，文档之间的导航会保留当前阅读语言。
@@ -27,7 +31,7 @@
 
 ## 立即运行
 
-使用 Node.js 22.12 或更新版本：
+使用 Node.js 24+，或 22.x 的 22.13 及以上版本：
 
 ```sh
 git clone https://github.com/Chcccjj/bernabeu-3d-experience.git
@@ -41,7 +45,8 @@ npm run dev
 另附 **[伯纳乌球场.html](伯纳乌球场.html)**：完整离线单文件，包含代码、样式及 HDR 环境资源。下载原始文件后可尝试直接打开；若浏览器限制本地文件，请通过本地 HTTP 服务器访问。工程版 `index.html` 需要通过开发或预览服务器访问。GitHub 的文件预览页不会执行这个应用。
 
 ```sh
-npm test                # 20 项工程、交互状态与三语完整性测试
+npm test                # 55 项工程、生命周期、DOM 与三语测试
+npm run check           # Lint、核心状态类型、测试、构建和产物/HTTP 检查
 npm run build          # 生成 dist/，包含单文件离线版
 npm run preview        # 预览正式构建，通常使用 4173 端口
 ```

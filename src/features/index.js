@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import {canvasTexture} from '../model/geometry.js';
 import {CAMERA_VIEWS} from '../camera.js';
-import {FORMATS,outputSize,encodeView,decodeView,readBookmarks,chooseRecordingType} from './state.js';
+import {FORMATS,encodeView,decodeView,readBookmarks,chooseRecordingType} from './state.js';
 import {Ambience} from './ambience.js';
 import {SceneRecorder} from './recorder.js';
 import './features.css';
@@ -90,7 +90,7 @@ const template=`
 
 export class ExperienceTools {
   constructor(engine,{toast,onMode,syncRoof}={}){
-    this.engine=engine;this.toast=toast||(()=>{});this.onMode=onMode;this.syncRoof=syncRoof;this.urls=new Set();this.action=0;this.active=null;this.exploreTab='seats';this.bookmarks=readBookmarks(this.storage());
+    this.engine=engine;this.toast=toast||(()=>{});this.onMode=onMode;this.syncRoof=syncRoof;this.urls=new Set();this.engine.navigationId??=0;this.active=null;this.exploreTab='seats';this.bookmarks=readBookmarks(this.storage());
     this.root=document.createElement('div');this.root.id='upgrade-ui';this.root.innerHTML=template;document.querySelector('#experience').append(this.root);
     this.$=s=>this.root.querySelector(s);this.$$=s=>[...this.root.querySelectorAll(s)];
     bindStaticUI(this.root);setText(this.$('#drawer-title'),'tool.photoTitle');
@@ -99,17 +99,17 @@ export class ExperienceTools {
     this.bind();this.createMarkers();this.updateSeat(true);this.renderBookmarks();this.syncSection();
     this.unsubscribeLanguage=onLanguageChange(()=>{this.syncPhoto();if(this.active==='share')this.updateLink();});
     this.resize=()=>{this.syncExportLimits();if(this.active==='photo'||this.active==='video')this.fitFrame();};window.addEventListener('resize',this.resize);this.syncExportLimits();
-    this.key=e=>{if(e.key==='Escape'&&this.active)this.close();};document.addEventListener('keydown',this.key);
+    this.key=e=>{if(e.key==='Escape'&&this.active){e.stopImmediatePropagation();this.close();}};document.addEventListener('keydown',this.key);
     this.pointerDown=e=>{this.pointer=[e.clientX,e.clientY];};this.pointerUp=e=>this.pick(e);engine.canvas.addEventListener('pointerdown',this.pointerDown);engine.canvas.addEventListener('pointerup',this.pointerUp);
     this.previousCamera=engine.camera.position.clone();engine.onFrame=()=>this.update();
     const shared=decodeView(location.hash);if(shared)this.restore(shared);
     this.hashChange=()=>{const view=decodeView(location.hash);if(view)this.restore(view);};window.addEventListener('hashchange',this.hashChange);
-    const type=typeof MediaRecorder==='undefined'?null:chooseRecordingType(t=>MediaRecorder.isTypeSupported(t));
+    const type=this.recorder.supported()?chooseRecordingType(t=>MediaRecorder.isTypeSupported(t)):null;
     setText(this.$('#video-capability'),type?'video.supported':'video.unsupported',{format:type?.startsWith('video/mp4')?'MP4':'WebM'});this.$('#record-start').disabled=!type;
   }
   storage(){try{return window.localStorage;}catch{return {getItem:()=>null,setItem:()=>{throw new LocalizedError('errors.storage');}};}}
   reportError(error,selector){
-    const key=error.key||'errors.detail',params=error.params||{message:error.message||String(error)};
+    const key=error?.key||'errors.detail',params=error?.params||{message:error?.message||String(error)};
     if(selector)setText(this.$(selector),key,params);this.toast(key,params);
   }
   bind(){
@@ -123,7 +123,16 @@ export class ExperienceTools {
     this.$('#export-photo').addEventListener('click',()=>this.photo());
     this.$('#record-start').addEventListener('click',()=>this.recorder.start({format:this.$('#video-format').value,preset:this.$('#video-preset').value,audio:this.$('#video-audio').checked}).catch(e=>this.reportError(e,'#video-status')));
     this.$('#record-stop').addEventListener('click',()=>this.recorder.stop());
-    this.$$('[data-tab]').forEach(b=>b.addEventListener('click',()=>this.selectTab(b.dataset.tab)));
+    const tabs=this.$$('[data-tab]');
+    tabs.forEach((button,index)=>{
+      const panel=this.$(`[data-explore="${button.dataset.tab}"]`);button.id=`explore-tab-${button.dataset.tab}`;panel.id=`explore-panel-${button.dataset.tab}`;
+      button.setAttribute('aria-controls',panel.id);panel.setAttribute('role','tabpanel');panel.setAttribute('aria-labelledby',button.id);
+      button.addEventListener('click',()=>this.selectTab(button.dataset.tab));
+      button.addEventListener('keydown',event=>{
+        const next=event.key==='Home'?0:event.key==='End'?tabs.length-1:event.key==='ArrowRight'?(index+1)%tabs.length:event.key==='ArrowLeft'?(index+tabs.length-1)%tabs.length:null;
+        if(next===null)return;event.preventDefault();this.selectTab(tabs[next].dataset.tab);tabs[next].focus();
+      });
+    });
     this.$$('[data-row]').forEach(b=>b.addEventListener('click',()=>{this.$('#seat-row').value=b.dataset.row;this.updateSeat(true);}));
     this.$$('[data-sector]').forEach(b=>b.addEventListener('click',()=>{this.sector=b.dataset.sector;this.updateSeat(true);}));
     this.$('#seat-row').addEventListener('input',()=>this.updateSeat(true));this.$('#seat-number').addEventListener('change',()=>this.updateSeat());
@@ -139,12 +148,12 @@ export class ExperienceTools {
   }
   open(panel){
     if(this.active===panel){this.close();return;}
-    if(this.recorder.state!=='idle'){this.toast('toast.stopRecording');return;}
+    if(this.busy())return;
     if(this.active)this.close(false);
     this.active=panel;this.drawer.hidden=false;document.body.classList.add('feature-panel-open');this.$$('.experience-drawer [data-panel]').forEach(s=>s.hidden=s.dataset.panel!==panel);
     setText(this.$('#drawer-title'),`tool.${panel}Title`);
     this.$$('[data-tool]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.tool===panel)));
-    this.engine.director.cancel();
+    ++this.engine.navigationId;this.engine.director.cancel();
     if(panel==='photo'||panel==='video'){
       this.studioPrevious={fov:this.engine.camera.fov,exposure:this.engine.renderer.toneMappingExposure};
       document.body.classList.add('studio-active');document.querySelector('#interface').inert=true;
@@ -152,10 +161,18 @@ export class ExperienceTools {
     }
     if(panel==='share')this.updateLink();
     if(panel==='explore')this.selectTab(this.exploreTab);
+    this.$('#close-drawer').focus({preventScroll:true});
+  }
+  busy(){
+    if(this.disposed)return true;
+    if(this.engine.exporting){this.toast('errors.exportBusy');return true;}
+    if(this.recorder.state!=='idle'){this.toast('toast.stopRecording');return true;}
+    return false;
   }
   close(focus=true){
+    if(this.engine.exporting){this.toast('errors.exportBusy');return;}
     if(this.recorder.state!=='idle'){this.recorder.stop();this.toast('video.finishing');return;}
-    const old=this.active;this.active=null;this.action++;this.drawer.hidden=true;this.frame.hidden=true;this.markers.visible=false;
+    const old=this.active;this.active=null;this.engine.navigationId++;this.drawer.hidden=true;this.frame.hidden=true;this.markers.visible=false;
     document.body.classList.remove('feature-panel-open','studio-active');document.querySelector('#interface').inert=document.body.classList.contains('ui-hidden');
     this.engine.canvas.style.cssText='';
     if(this.studioPrevious){this.engine.camera.fov=this.studioPrevious.fov;this.engine.camera.updateProjectionMatrix();this.engine.renderer.toneMappingExposure=this.studioPrevious.exposure;this.studioPrevious=null;}
@@ -181,17 +198,19 @@ export class ExperienceTools {
     for(const option of select.options)option.disabled=Number(option.value)>limit;
     if(select.selectedOptions[0].disabled)select.value=[...select.options].find(option=>!option.disabled).value;
   }
-  async openRoof(){if(this.engine.roofClosed){const done=await this.engine.setRoof(false);this.syncRoof?.();return done;}return true;}
+  async openRoof(){if(this.engine.roofClosed||this.engine.mechanisms.roof>.001){const done=await this.engine.setRoof(false);this.syncRoof?.();return done;}return true;}
   async preset(id){
-    const p=PRESETS[id],token=++this.action;this.engine.setCutaway(false);this.mode(p.mode);if(!await this.openRoof()||token!==this.action)return;
+    if(this.busy()||!PRESETS[id])return;
+    const p=PRESETS[id],token=++this.engine.navigationId;this.engine.setCutaway(false);this.mode(p.mode);if(!await this.openRoof()||token!==this.engine.navigationId)return;
     const wide=['aerial','night'].includes(id),framing=wide?Math.max(1,Math.min(1.75,.82/this.engine.camera.aspect)):1;
     const pose={...p,position:p.position.map((n,i)=>i===1?n*(1+(framing-1)*.62):n*framing)};
-    await this.engine.director.moveTo(pose,{mode:wide?'exterior':'hotspot'});if(token===this.action)this.syncPhoto();
+    await this.engine.director.moveTo(pose,{mode:wide?'exterior':'hotspot'});if(token===this.engine.navigationId)this.syncPhoto();
   }
   mode(mode){this.engine.setMode(mode);this.ambience.update(mode);this.onMode?.(mode);}
   objectURL(blob){const url=URL.createObjectURL(blob);this.urls.add(url);return url;}
   releaseURL(url){if(url){URL.revokeObjectURL(url);this.urls.delete(url);}}
   async photo(){
+    if(this.busy())return;
     const button=this.$('#export-photo'),status=this.$('#photo-status');button.disabled=true;setText(status,'photo.rendering');this.engine.director.cancel();
     try{
       const result=await this.engine.exportImage({format:this.$('#photo-format').value,longEdge:Number(this.$('#photo-size').value),mime:this.$('#photo-mime').value});
@@ -209,6 +228,7 @@ export class ExperienceTools {
       this.$('#record-preview').pause();this.$('#record-preview').hidden=true;this.$('#video-download').hidden=true;
       setText(this.$('#video-status'),'video.preparing');
     }
+    if(state==='idle')setText(this.$('#video-status'),'video.note');
     if(state==='idle'&&this.videoURL){this.$('#record-preview').hidden=false;this.$('#video-download').hidden=false;}
     if(state==='encoding')setText(this.$('#video-status'),'video.encoding');
   }
@@ -219,7 +239,7 @@ export class ExperienceTools {
     setText(this.$('#video-status'),result.reason?'video.resultReason':'video.result',{width:result.width,height:result.height,seconds:Math.round(result.duration*10)/10,size:Math.round(result.blob.size/1048576*10)/10,reason:{key:result.reason}});
   }
   selectTab(tab){
-    this.exploreTab=tab;this.$$('[data-tab]').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.tab===tab)));this.$$('[data-explore]').forEach(s=>s.hidden=s.dataset.explore!==tab);
+    this.exploreTab=tab;this.$$('[data-tab]').forEach(b=>{const selected=b.dataset.tab===tab;b.setAttribute('aria-selected',String(selected));b.tabIndex=selected?0:-1;});this.$$('[data-explore]').forEach(s=>s.hidden=s.dataset.explore!==tab);
     this.markers.visible=this.active==='explore'&&tab==='hotspots';
     if(tab==='section')this.syncSection();
   }
@@ -235,11 +255,11 @@ export class ExperienceTools {
     setText(this.$('#seat-status'),'seats.selected',{row,seat:number,count:ids.length});
   }
   async goSeat(seat){
-    if(!seat)return;const token=++this.action;this.engine.setCutaway(false);
-    if(!await this.openRoof()||token!==this.action)return;
+    if(!seat||this.busy())return;const token=++this.engine.navigationId;this.engine.setCutaway(false);
+    if(!await this.openRoof()||token!==this.engine.navigationId)return;
     this.highlightSeat(seat.id);const front=new THREE.Vector3(-Math.sin(seat.rot),0,-Math.cos(seat.rot)),[x,y,z]=seat.p;
     await this.engine.director.moveTo({position:[x+front.x*.08,y+1.2,z+front.z*.08],target:[0,1.7,0],fov:68},{mode:'seat'});
-    if(token===this.action){const params={row:seat.row,seat:seat.number};setText(this.$('#seat-status'),'seats.viewing',params);this.toast('seats.toast',params);}
+    if(token===this.engine.navigationId){const params={row:seat.row,seat:seat.number};setText(this.$('#seat-status'),'seats.viewing',params);this.toast('seats.toast',params);}
   }
   highlightSeat(id){
     for(const mesh of [this.engine.bowl.nearSeats,this.engine.bowl.farSeats]){
@@ -249,16 +269,18 @@ export class ExperienceTools {
     for(const mesh of [this.engine.bowl.nearSeats,this.engine.bowl.farSeats]){mesh.setColorAt(id,new THREE.Color(0xe6bf71));mesh.instanceColor.needsUpdate=true;}
   }
   async walk(guided){
-    const token=++this.action;this.engine.setCutaway(false);if(this.engine.pitchStored)await this.engine.setPitch(false);
-    if(token!==this.action||!await this.openRoof()||token!==this.action)return;
+    if(this.busy())return;
+    const token=++this.engine.navigationId;this.engine.setCutaway(false);if(this.engine.pitchStored||this.engine.mechanisms.pitch>.001)await this.engine.setPitch(false);
+    if(token!==this.engine.navigationId||!await this.openRoof()||token!==this.engine.navigationId)return;
     this.toast(guided?'routes.enterGuided':'routes.enterFree');
     if(guided)this.engine.director.walkTour();else this.engine.director.moveTo({position:[-38,2.8,-8],target:[10,12,0],fov:70},{mode:'walk'});
     if(innerWidth<760)this.close(false);
   }
   async section(value){
+    if(this.busy())return;const token=++this.engine.navigationId;
     this.engine.director.cancel();this.engine.setCutaway(value);this.syncSection();
     if(value)await this.engine.director.moveTo(HOTSPOTS.at(-1).view,{mode:'study'});
-    else {await this.openRoof();await this.engine.director.moveTo(CAMERA_VIEWS.exterior,{mode:'exterior'});}
+    else {if(!await this.openRoof()||token!==this.engine.navigationId)return;await this.engine.director.moveTo(CAMERA_VIEWS.exterior,{mode:'exterior'});}
   }
   syncSection(){
     const value=this.engine.cutaway,p=this.engine.mechanisms.pitch,moving=Math.abs(p-(this.engine.pitchStored?1:0))>.001,key=`${value}-${this.engine.pitchStored}-${moving}-${Math.round(p*100)}`;
@@ -274,9 +296,10 @@ export class ExperienceTools {
     });this.raycaster=new THREE.Raycaster();
   }
   async hotspot(id){
-    const p=HOTSPOTS.find(h=>h.id===id),token=++this.action;if(!p)return;
+    if(this.busy())return;
+    const p=HOTSPOTS.find(h=>h.id===id),token=++this.engine.navigationId;if(!p)return;
     const heading=document.createElement('h3'),body=document.createElement('p');setText(heading,p.title);setText(body,p.text);this.$('#hotspot-info').replaceChildren(heading,body);
-    this.engine.setCutaway(!!p.section);if(!p.section&&(!await this.openRoof()||token!==this.action))return;
+    this.engine.setCutaway(!!p.section);if(!p.section&&(!await this.openRoof()||token!==this.engine.navigationId))return;
     await this.engine.director.moveTo(p.view,{mode:p.section?'study':'hotspot'});
   }
   pick(event){
@@ -294,7 +317,8 @@ export class ExperienceTools {
   async copy(){
     this.updateLink();const input=this.$('#view-link');
     try{if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(input.value);this.toast('share.copied');return;}}catch{/* Use a visible, selectable fallback. */}
-    input.focus();input.select();if(document.execCommand('copy'))this.toast('share.copied');else this.toast('share.manual');
+    input.focus();input.select();let copied=false;try{copied=!!document.execCommand?.('copy');}catch{/* Keep the input selected for manual copying. */}
+    this.toast(copied?'share.copied':'share.manual');
   }
   saveView(){
     const name=this.$('#bookmark-name').value.trim()||t('share.defaultName',{number:this.bookmarks.length+1});
@@ -311,14 +335,14 @@ export class ExperienceTools {
     if(!this.bookmarks.length){const empty=document.createElement('p');setText(empty,'share.empty');list.append(empty);}
   }
   async restore(view){
-    const token=++this.action;this.engine.director.cancel();this.mode(view.m);this.engine.setCutaway(view.x);
-    if(view.r&&!view.x)await this.engine.setRoof(false);
-    else if(this.engine.roofClosed&&!view.x)await this.engine.setRoof(false);
-    if(token!==this.action)return;
+    if(this.busy())return;
+    const token=++this.engine.navigationId;this.engine.director.cancel();this.mode(view.m);this.engine.setCutaway(view.x);
+    if(!view.x&&!await this.openRoof())return;
+    if(token!==this.engine.navigationId)return;
     this.toast('share.restoring');
-    if(this.engine.pitchStored!==view.g||Math.abs(this.engine.mechanisms.pitch-(view.g?1:0))>.001)await this.engine.setPitch(view.g);if(token!==this.action)return;
+    if(this.engine.pitchStored!==view.g||Math.abs(this.engine.mechanisms.pitch-(view.g?1:0))>.001)await this.engine.setPitch(view.g);if(token!==this.engine.navigationId)return;
     const arrived=await this.engine.director.moveTo({position:view.p,target:view.t,fov:view.f},{mode:view.x?'study':view.c});
-    if(arrived&&token===this.action){if(view.r)await this.engine.setRoof(true);if(token!==this.action)return;this.syncRoof?.();this.syncSection();this.toast('share.restored');}
+    if(arrived&&token===this.engine.navigationId){if(view.r)await this.engine.setRoof(true);if(token!==this.engine.navigationId)return;this.syncRoof?.();this.syncSection();this.toast('share.restored');}
   }
   update(){
     const e=this.engine,inside=e.camera.position.y<64&&Math.abs(e.camera.position.x)<115&&Math.abs(e.camera.position.z)<98;
@@ -328,7 +352,8 @@ export class ExperienceTools {
     if(this.active==='explore'&&this.exploreTab==='section')this.syncSection();
   }
   dispose(){
-    this.action++;this.unsubscribeLanguage?.();this.recorder.dispose();this.ambience.dispose();for(const url of this.urls)URL.revokeObjectURL(url);
+    if(this.disposed)return;this.disposed=true;
+    this.engine.navigationId++;this.unsubscribeLanguage?.();this.recorder.dispose();this.ambience.dispose();for(const url of this.urls)URL.revokeObjectURL(url);
     window.removeEventListener('resize',this.resize);window.removeEventListener('hashchange',this.hashChange);document.removeEventListener('keydown',this.key);this.engine.canvas.removeEventListener('pointerdown',this.pointerDown);this.engine.canvas.removeEventListener('pointerup',this.pointerUp);this.engine.onFrame=null;this.root.remove();
   }
 }

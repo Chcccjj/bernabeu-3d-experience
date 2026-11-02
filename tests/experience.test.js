@@ -24,6 +24,25 @@ test('blocked browser storage and corrupt bookmarks are recoverable',()=>{
   assert.deepEqual(readBookmarks({getItem(){throw new Error('SecurityError');}}),[]);
   for(const value of ['null','{}','[null]','not-json'])assert.deepEqual(readBookmarks({getItem:()=>value}),[]);
 });
+test('a corrupt bookmark does not erase valid neighbors and valid entries fill the eight-slot budget',()=>{
+  const view={v:1,p:[20,40,60],t:[0,10,0]};
+  const list=[null,{},false,...Array.from({length:10},(_,i)=>({name:'View '+i,view}))];
+  const result=readBookmarks({getItem:()=>JSON.stringify(list)});
+  assert.equal(result.length,8);assert.equal(result[0].name,'View 0');assert.equal(result[7].name,'View 7');
+});
+test('normalization rejects camera targets collapsed by bounds and does not coerce string flags',()=>{
+  assert.equal(normalizeView({v:1,p:[700,40,0],t:[800,40,0]}),null);
+  const view=normalizeView({v:1,p:[0,40,0],t:[0,10,0],f:Infinity,r:'false',g:'true',x:1});
+  assert.equal(view.f,50);assert.equal(view.r,false);assert.equal(view.g,false);assert.equal(view.x,false);
+});
+test('output sizing handles inherited format names and unusually small device limits',()=>{
+  assert.deepEqual(outputSize('__proto__',3840),{width:3840,height:2160});
+  for(const limit of [2,127,255,1024])for(const format of Object.keys({'16:9':1,'9:16':1,'3:4':1,'1:1':1})){
+    const size=outputSize(format,Infinity,limit);
+    assert.ok(size.width>=2&&size.height>=2);assert.ok(Math.max(size.width,size.height)<=limit);
+    assert.equal(size.width%2,0);assert.equal(size.height%2,0);
+  }
+});
 test('walk domain contains tunnel and pitch, excludes seats, walls and goal nets',()=>{
   assert.ok(walkable(-82,0));assert.ok(walkable(-58,-8));assert.ok(walkable(0,0));
   assert.equal(walkable(-85,0),false);assert.equal(walkable(-75,3),false);assert.equal(walkable(0,39),false);

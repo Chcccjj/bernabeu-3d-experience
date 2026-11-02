@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
-import {TAU,outline,normalAt,geometry,perimeter,annulus,band,instances,boxGeometry,beams,canvasTexture,random} from './geometry.js';
+import {TAU,outline,normalAt,geometry,perimeter,annulus,band,instances,boxGeometry,beams,random} from './geometry.js';
 import {openTunnel} from './details.js';
 
 export function createBowl(m) {
@@ -37,7 +37,7 @@ export function createBowl(m) {
     group.add(annulus(a+1.4,b+1.4,a-.2,b-.2,y-.15,m.concrete,{n:3}));
     group.add(band(a-.3,b-.3,y+.1,y+1.4,m.glass,3,256,true));
     const pts=perimeter(a-.32,b-.32,180,3);
-    pts.forEach(({p,t},i)=>{const q=pts[(i+1)%pts.length].p;rails.push([[p.x,y+1.45,p.z],[q.x,y+1.45,q.z]]);if(i%2===0)posts.push([[p.x,y,p.z],[p.x,y+1.45,p.z]]);});
+    pts.forEach(({p},i)=>{const q=pts[(i+1)%pts.length].p;rails.push([[p.x,y+1.45,p.z],[q.x,y+1.45,q.z]]);if(i%2===0)posts.push([[p.x,y,p.z],[p.x,y+1.45,p.z]]);});
   });
   const treadMesh=new THREE.Mesh(mergeGeometries(steps),m.bowl);treadMesh.receiveShadow=true;group.add(treadMesh);
   const riserMesh=new THREE.Mesh(mergeGeometries(risers),m.bowl);riserMesh.receiveShadow=true;group.add(riserMesh);steps.forEach(g=>g.dispose());risers.forEach(g=>g.dispose());
@@ -53,7 +53,7 @@ export function createBowl(m) {
     group.add(annulus(a+2,b+2,a-1,b-1,y-.3,m.concrete,{n:3}));
     group.add(band(a,b,y,y+2,m.glass,3,256,true));
     group.add(annulus(a+.8,b+.8,a-.4,b-.4,y+2.1,m.steel,{n:3}));
-    const mullions=perimeter(a-.07,b-.07,220,3).map(({p,t})=>({p:[p.x,y+1,p.z],s:[.07,2,.08],r:[0,Math.atan2(p.x,p.z),0]}));instances(group,boxGeometry,m.steel,mullions);
+    const mullions=perimeter(a-.07,b-.07,220,3).map(({p})=>({p:[p.x,y+1,p.z],s:[.07,2,.08],r:[0,Math.atan2(p.x,p.z),0]}));instances(group,boxGeometry,m.steel,mullions);
   }
   // Radial supporting frames can be read through the undercroft glazing.
   const structure=[];

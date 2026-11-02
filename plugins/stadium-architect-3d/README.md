@@ -29,7 +29,7 @@ Upload the resulting ZIP in Plugin Creator, subject to account and workspace sup
 
 ```bash
 cd plugins/stadium-architect-3d/assets/starter-v1
-npm install
+npm ci --ignore-scripts
 npm run dev
 ```
 

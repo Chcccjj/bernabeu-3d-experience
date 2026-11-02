@@ -12,7 +12,7 @@ Open the [Bernabéu 3D Experience](https://bernabeu-architecture-studio.justllam
 
 ### Development server
 
-Install Node.js 22.12 or newer, then run:
+Install Node.js 24+ (or 22.x starting at 22.13), then run:
 
 ```sh
 git clone https://github.com/Chcccjj/bernabeu-3d-experience.git

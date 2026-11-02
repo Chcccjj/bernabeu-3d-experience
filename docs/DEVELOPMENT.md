@@ -119,3 +119,7 @@ The GitHub repository contains a current source snapshot, production output, act
 This is a procedural architectural visualization. Proportions and spatial relationships follow reference material and visual judgment, without official BIM, survey point clouds or equipment-control data. The city is approximate, the tunnel is a visitor route designed for this experience, and the roof connections and underground system are simplified.
 
 Future work could improve component detail, urban context and mechanical constraints when suitable data and permissions are available, and expand testing across Safari, Edge and mobile GPUs. These are future directions.
+
+## Local maintenance checks
+
+Run `npm run check` to combine Lint, scoped strict state typing, lifecycle/DOM/geometry tests, the build and artifact/HTTP validation. Recording runs own their tracks and callbacks; a shared navigation counter invalidates delayed camera actions. Photo rendering owns a temporary size until encoding ends. See [current verification boundaries](VALIDATION.md) and the sprint log in `PROGRESS.md`.

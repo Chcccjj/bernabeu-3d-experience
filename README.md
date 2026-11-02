@@ -12,6 +12,10 @@ The application uses **Three.js / WebGL**, with `index.html` as its entry point.
 
 > An independent procedural architectural reconstruction. The mechanisms, virtual seats and city are simplified. This project is not affiliated with Real Madrid and does not provide an official survey, ticketing service or construction digital twin.
 
+## Maintenance
+
+See [maintenance workflow](docs/MAINTENANCE.md), [release notes](CHANGELOG.md), [downloads](https://github.com/Chcccjj/bernabeu-3d-experience/releases), and [security reporting](SECURITY.md).
+
 ## Documentation
 
 Each guide has an **English | 简体中文** link at the top. Navigation stays in the selected documentation language.
@@ -27,7 +31,7 @@ Live application: [English](https://bernabeu-architecture-studio.justllama33.cha
 
 ## Quick start
 
-Requires **Node.js 22.12 or newer**.
+Requires **Node.js 24+ (or 22.x starting at 22.13)**.
 
 ```sh
 git clone https://github.com/Chcccjj/bernabeu-3d-experience.git
@@ -41,7 +45,8 @@ Open the address printed by Vite, normally `http://127.0.0.1:5173/`. Installing 
 The included **[伯纳乌球场.html](伯纳乌球场.html)** is a self-contained offline edition containing JavaScript, CSS and the HDR environment. Download the raw file to use it. If your browser restricts local files, serve it over HTTP. The project's `index.html` needs a development or preview server; GitHub's file preview does not execute the application.
 
 ```sh
-npm test          # 20 engineering, interaction-state and localization tests
+npm test          # 55 engineering, lifecycle, DOM and localization checks
+npm run check     # lint, scoped types, tests, build and artifact/HTTP checks
 npm run build     # dist/ plus the self-contained offline HTML edition
 npm run preview   # production preview, normally on port 4173
 ```

@@ -16,9 +16,11 @@ export class CameraDirector {
     this.controls=new OrbitControls(camera,canvas);this.controls.enableDamping=true;this.controls.dampingFactor=.065;this.controls.rotateSpeed=.52;this.controls.zoomSpeed=.65;this.controls.panSpeed=.65;this.controls.screenSpacePanning=true;
     this.controls.target.set(0,23,0);this.mode='exterior';this.keys=new Set();this.moving=false;this.tourProgress=0;this.installLimits();
     this.startHandler=()=>{this.cancel();this.onInteract?.();};this.controls.addEventListener('start',this.startHandler);
-    this.keydown=(e)=>{if(/INPUT|SELECT|TEXTAREA/.test(e.target.tagName))return;this.keys.add(e.code);if(['free','walk'].includes(this.mode)&&['KeyW','KeyA','KeyS','KeyD','KeyQ','KeyE','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space'].includes(e.code))e.preventDefault();};
+    this.keydown=(e)=>{if(e.ctrlKey||e.metaKey||e.altKey||e.target.isContentEditable||e.target.closest?.('button,a,input,select,textarea,dialog,[role=tab]'))return;this.keys.add(e.code);if(['free','walk'].includes(this.mode)&&['KeyW','KeyA','KeyS','KeyD','KeyQ','KeyE','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space'].includes(e.code))e.preventDefault();};
     this.keyup=(e)=>this.keys.delete(e.code);this.blur=()=>this.keys.clear();
     window.addEventListener('keydown',this.keydown);window.addEventListener('keyup',this.keyup);window.addEventListener('blur',this.blur);
+    this.visibility=()=>{if(document.hidden)this.keys.clear();};
+    document.addEventListener('visibilitychange',this.visibility);document.addEventListener('focusin',this.blur);
   }
   installLimits(){
     const c=this.controls;
@@ -107,7 +109,7 @@ export class CameraDirector {
     if(['free','walk'].includes(this.mode)&&!this.moving){
       const velocity=new THREE.Vector3(),forward=this.controls.target.clone().sub(this.camera.position).normalize(),right=forward.clone().cross(this.camera.up).normalize();
       const walking=this.mode==='walk';if(walking){forward.y=0;forward.normalize();}
-      const speed=(walking?(this.keys.has('ShiftLeft')?3.6:1.9):(this.keys.has('ShiftLeft')?65:27))*dt;
+      const speed=(walking?((this.keys.has('ShiftLeft')||this.keys.has('ShiftRight'))?3.6:1.9):((this.keys.has('ShiftLeft')||this.keys.has('ShiftRight'))?65:27))*dt;
       if(this.keys.has('KeyW')||this.keys.has('ArrowUp'))velocity.add(forward);
       if(this.keys.has('KeyS')||this.keys.has('ArrowDown'))velocity.sub(forward);
       if(this.keys.has('KeyD')||this.keys.has('ArrowRight'))velocity.add(right);
@@ -144,5 +146,5 @@ export class CameraDirector {
     }
     return true;
   }
-  dispose(){this.cancel();this.controls.removeEventListener('start',this.startHandler);this.controls.dispose();window.removeEventListener('keydown',this.keydown);window.removeEventListener('keyup',this.keyup);window.removeEventListener('blur',this.blur);}
+  dispose(){this.cancel();this.controls.removeEventListener('start',this.startHandler);this.controls.dispose();window.removeEventListener('keydown',this.keydown);window.removeEventListener('keyup',this.keyup);window.removeEventListener('blur',this.blur);document.removeEventListener('visibilitychange',this.visibility);document.removeEventListener('focusin',this.blur);}
 }

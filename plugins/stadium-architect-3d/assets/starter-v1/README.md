@@ -3,7 +3,7 @@
 这是**通用可运行基座**，不代表任何特定真实球场的精确还原。生成具体球场前，必须依据官方与建筑参考修改轮廓、立面、看台和屋顶。
 
 ```bash
-npm install
+npm ci --ignore-scripts
 npm run dev
 npm run build
 ```
