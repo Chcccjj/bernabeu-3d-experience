@@ -30,7 +30,9 @@ Open `http://127.0.0.1:8774/` for source development, or `http://127.0.0.1:8774/
 python3 scripts/export-html.py --output dist/index.html
 ```
 
-Node.js 22+ can run the source checks with the local loader, for example:
+From the repository root, `npm ci --ignore-scripts` then `npm run check:companion` checks source syntax, vendored dependency hashes, both HTML module graphs and the model ZIP, then runs 9 current-source checks in a temporary copy. Python 3 is required; no extra Python packages are needed. `npm run check` includes this alongside the Bernabéu checks.
+
+Node.js 22+ can also run individual source checks with the local loader, for example:
 
 ```sh
 node --experimental-loader ./scripts/local-loader.mjs scripts/check-visit-i18n.mjs
@@ -40,6 +42,8 @@ node --experimental-loader ./scripts/local-loader.mjs scripts/check-matchday-lif
 The architectural models are in `models/Etihad-2026-editable-models.zip` (also available in `dist/models/`). Extract into `models/` before running checks that reopen the raw GLB files. Historical geometry-comparison checks refer to the original source history; their saved reports are provided for provenance.
 
 ## Scope and evidence
+
+The separate north-step audit currently reports a band crossing at aisle 0 after updating its seat-sector selector. This integration preserves the model and records that finding in [the integration scope](../docs/ETIHAD-INTEGRATION.md); it is not a new architectural-clearance approval.
 
 The pitch is 105 × 68 metres. The model uses metres, but fitted building/stand dimensions are **not a survey-certified full-stadium 1:1 reconstruction**. Distant city blocks, crowd routes, parking operations and football are illustrative. The research archive retains its original Chinese commentary. See [sources.md](sources.md), [model notes](models/README.md) and [validation](validation/).
 

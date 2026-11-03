@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="260" viewBox="0 0 1280 260" role="img" aria-labelledby="title desc">
+<title id="title">Stadium Experiences</title><desc id="desc">Santiago Bernabéu and Etihad Stadium, two interactive architectural experiences.</desc>
+<rect width="1280" height="260" rx="22" fill="#101d2b"/>
+<g fill="none" stroke="#91aabd" stroke-width="1.5" opacity=".5">
+<path d="M920 112c0-27 103-49 174-25s68 62-7 77-167-4-167-30v-22z"/><path d="M920 123c23 41 195 43 218-3m-218 14c23 41 195 43 218-3m-218 14c23 41 195 43 218-3"/>
+<ellipse cx="1030" cy="110" rx="56" ry="17"/><ellipse cx="821" cy="157" rx="70" ry="26"/><path d="M751 157v27q70 50 140 0v-27m-129-4-8-69 42 55m85 12 9-72-42 60m-88 9 63 5 69-5"/>
+</g>
+<text x="54" y="57" fill="#b6c3ca" font-family="Arial,sans-serif" font-size="13" letter-spacing="3">INTERACTIVE ARCHITECTURE</text>
+<text x="50" y="128" fill="#f4f1e8" font-family="Arial,sans-serif" font-size="50" font-weight="600">Stadium Experiences</text>
+<text x="54" y="176" fill="#b8ccda" font-family="Arial,sans-serif" font-size="18">Santiago Bernabéu · Etihad Stadium</text>
+<path d="M54 209h72" stroke="#bda77a" stroke-width="2"/>
+<text x="143" y="214" fill="#b6c3ca" font-family="Arial,sans-serif" font-size="12" letter-spacing="2">EXPLORE · TRANSFORM · CREATE</text>
+</svg>

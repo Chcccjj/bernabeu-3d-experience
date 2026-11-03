@@ -62,6 +62,8 @@
 
 ## 证据与限制
 
+本次仓库整合更新了北看台检查的座椅分区选择器，通道带探测报出 `Egress band crosses aisle 0`。模型保持原样，该项作为待复核问题保留，详见[整合记录](../docs/ETIHAD-INTEGRATION.md)，不作为本轮新的建筑净空验收。
+
 A：草坪 105 × 68 米及下挖约 6 米有官方/工程依据。
 B：原结构12桅杆、8坡道塔、76前拉索与新北看台59排有来源；2026改建如何保留每个旧构件仍需最新版图纸核对。
 C：外轮廓、层高、酒店及翼楼尺寸、座席布置、灯位、道路及停车场按公开影像初步拟合，尚未全部量测校准。三层环廊暂定标高为 0.82 / 9 / 20.1 米；原工程有三层环廊与约 7.6 米柱网的依据，这不等于这些标高已经证实。
@@ -70,13 +72,15 @@ C：外轮廓、层高、酒店及翼楼尺寸、座席布置、灯位、道路�
 
 ## 构建与检查
 
+从仓库根目录执行 `npm ci --ignore-scripts` 后，可用 `npm run check:companion` 检查源码语法、第三方哈希、两份 HTML 的模块图和模型 ZIP，并在临时副本中执行 9 个当前源码检查。需要 Python 3，无额外 Python 依赖。根目录的 `npm run check` 同时覆盖伯纳乌与本项目。历史提交对比脚本保留作来源记录，不在当前仓库假装重跑。
+
 ```
 python3 scripts/build-research.py
 python3 scripts/export-html.py --output dist/index.html
 cp research.html dist/research.html
 cp -R assets/. dist/assets/
 node --experimental-loader ./scripts/local-loader.mjs ./scripts/check-model.mjs
-node --experimental-loader ./scripts/local-loader.mjs ./scripts/check-aisles.mjs
+node --experimental-loader ./scripts/local-loader.mjs ./scripts/check-seats.mjs
 ```
 
 几何改变后，先执行 `node --experimental-loader ./scripts/local-loader.mjs ./scripts/export-master.mjs`，再更新 `models/Etihad-2026-editable-models.zip` 并复制 ZIP 与清单到 `dist/models/`。原始 GLB 保留本地、不加入部署；网页提供压缩包下载。

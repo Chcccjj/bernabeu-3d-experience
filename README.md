@@ -2,40 +2,41 @@
 
 <div align="center">
 
-![Santiago Bernabéu — A New Perspective](docs/showcase/bernabeu-header.svg)
+![Interactive stadium architecture — Santiago Bernabéu and Etihad Stadium](docs/showcase/stadium-experiences.svg)
 
-**An architectural experience you can step inside.**  
-Santiago Bernabéu · Real-time 3D · Architecture &amp; interaction
+**Two stadiums. Two architectural identities.**<br>
+Explore architecture in real time — enter the stands, change the light and find your own perspective.
 
-[![Open the experience](docs/showcase/open-experience.svg)](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=en)
-
-[English](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=en) · [中文](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=zh) · [Español](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=es)
+[**Explore Bernabéu**](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=en) · [**Explore Etihad**](https://etihad-architecture-atlas.chenvance.chatgpt.site/?lang=en)
 
 </div>
 
-> **Public website:** [Santiago Bernabéu — A New Perspective](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=en)  
-> Open directly in your browser. No download or local server needed.
+## Choose your stadium
 
-[![Actual application screenshot](docs/images/exterior-en.png)](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=en)
-
-| Explore | Transform | Create |
-| :--- | :--- | :--- |
-| Orbit the silver façade, enter the stands, walk the pitch or take a cinematic tour. | Operate the retractable roof and watch six turf trays travel into underground storage. | Switch day, night and match settings; choose virtual seats, export photos and video, and share viewpoints. |
-
-Built with Three.js / WebGL. Architecture, seating, turf and mechanisms are generated in code. Available in English, Chinese and Spanish.
-
-### Find your way
-
-| Resource | What you will find |
+| Santiago Bernabéu | Etihad Stadium |
 | :--- | :--- |
-| [Live experience](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=en) | Launch the interactive stadium |
-| [User guide](docs/USER_GUIDE.md) | Controls, photography, recording, seating and sharing |
-| [Development process](docs/DEVELOPMENT.md) | Research, modeling, lighting and interaction |
-| [Validation scope](docs/VALIDATION.md) | Verified behavior and remaining limits |
-| [Downloads](https://github.com/Chcccjj/bernabeu-3d-experience/releases) | Releases and offline files |
-| [Maintenance](docs/MAINTENANCE.md) | Ongoing development and releases |
+| [![Bernabéu: actual exterior screenshot](docs/images/exterior-en.png)](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=en) | [![Etihad: actual campus screenshot supplied with the project](etihad-stadium/previews/v14-campus-people.png)](https://etihad-architecture-atlas.chenvance.chatgpt.site/?lang=en) |
+| **Madrid · Real Madrid** | **Manchester · Manchester City** |
+| Silver lamella façade, retractable roof and six-tray turf storage. | Mast-and-cable fixed roof, spiral circulation towers and the expanded north stand. |
+| Cinematic camera journeys, pitch walking, virtual seats, photos/video and viewpoint sharing. | Architectural layers, editable models, city/parking activity, matchday demonstration and photos/video. |
+| **[Open the experience](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=en)** · [Offline HTML](伯纳乌球场.html) | **[Open the experience](https://etihad-architecture-atlas.chenvance.chatgpt.site/?lang=en)** · [Offline HTML](Etihad%20Stadium.html) |
+| [User guide](docs/USER_GUIDE.md) · [Source](src/) · [Validation](docs/VALIDATION.md) | [User guide & source](etihad-stadium/README.md) · [Models](etihad-stadium/models/README.md) · [Validation records](etihad-stadium/validation/) |
 
-An independent procedural architectural interpretation, not affiliated with Real Madrid. Mechanisms, virtual seats and the surrounding city are simplified.
+**Interface languages:** Bernabéu — [English](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=en), [中文](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=zh), [Español](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=es). Etihad — [English](https://etihad-architecture-atlas.chenvance.chatgpt.site/?lang=en), [中文](https://etihad-architecture-atlas.chenvance.chatgpt.site/?lang=zh), [Español](https://etihad-architecture-atlas.chenvance.chatgpt.site/?lang=es), [Français](https://etihad-architecture-atlas.chenvance.chatgpt.site/?lang=fr), [日本語](https://etihad-architecture-atlas.chenvance.chatgpt.site/?lang=ja).
+
+The public links open the running experiences. GitHub previews HTML as source: use **Download raw file** to save an offline edition, then open it in a WebGL-capable browser. A local HTTP server may be needed under stricter browser policies. Etihad's research and model download links in the root HTML use its public Site.
+
+## Explore the repository
+
+| Resource | Contents |
+| :--- | :--- |
+| [Bernabéu development](docs/DEVELOPMENT.md) | Research, geometry, lighting and interaction |
+| [Etihad project](etihad-stadium/README.md) | Standalone source, local run/build instructions, models and evidence |
+| [StadiumArchitect plugin](plugins/stadium-architect-3d/README.md) | Reusable stadium-authoring workflow and starter |
+| [Release downloads](https://github.com/Chcccjj/bernabeu-3d-experience/releases) | Published Bernabéu releases and checksums |
+| [Maintenance](docs/MAINTENANCE.md) · [Integration record](docs/ETIHAD-INTEGRATION.md) | Checks, contribution scope and repository integration |
+
+Both are independent procedural interpretations, with fitted geometry and simplified mechanisms or activity. Neither is an official ticketing, survey or engineering model, and this repository is not affiliated with either club. The screenshots above are existing application captures, not new rendering evidence from this integration.
 
 <details>
 <summary><strong>Developer notes: local setup, features, source and deployment</strong></summary>
@@ -124,23 +125,8 @@ Third-party notices remain in `public/` and `dist/`. No open-source license has 
 
 </details>
 
-[Original README archive](docs/showcase/README-before-showcase-2026-11-02.md)
+[Original Bernabéu README archive](docs/showcase/README-before-showcase-2026-11-02.md)
 
 ---
 
-<div align="center">
-
-[Step inside the Bernabéu →](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=en)
-
-</div>
-
-
-## Companion scene: Etihad Stadium
-
-The Manchester City companion experience is now included in this repository as **Etihad Stadium (V14)**.
-
-- [Open Etihad Stadium](https://etihad-architecture-atlas.chenvance.chatgpt.site/?lang=en)
-- [Etihad source, build and editable models](etihad-stadium/README.md)
-- [Download/open the standalone HTML](Etihad%20Stadium.html)
-
-The Santiago Bernabéu source and experience above remain independent.
+[Explore Bernabéu](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=en) · [Explore Etihad](https://etihad-architecture-atlas.chenvance.chatgpt.site/?lang=en)

@@ -9,10 +9,11 @@
     "preview": "vite preview --host 127.0.0.1",
     "test": "node --import ./tests/register.mjs --test tests/*.test.js",
     "lint": "eslint .",
-    "check": "npm run lint && npm run typecheck && npm test && npm run build && npm run verify:build",
+    "check": "npm run lint && npm run typecheck && npm test && npm run build && npm run verify:build && npm run check:companion",
     "typecheck": "tsc -p tsconfig.json",
     "verify:build": "node tools/verify-build.mjs",
-    "package:release": "node tools/package-release.mjs"
+    "package:release": "node tools/package-release.mjs",
+    "check:companion": "node tools/check-companion.mjs"
   },
   "dependencies": {
     "gsap": "3.15.0",
