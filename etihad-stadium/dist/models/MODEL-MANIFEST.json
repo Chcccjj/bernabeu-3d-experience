@@ -1,0 +1,186 @@
+{
+  "units": "metres",
+  "spec": {
+    "units": "metres",
+    "project": "Etihad Stadium 2026 architectural master model",
+    "northDrawingControl": {
+      "units": "metres",
+      "referenceOnly": true,
+      "kind": "drawing elevation control; not floor construction geometry",
+      "datum": {
+        "absolutePitchFFL": 54.999,
+        "modelPitchY": -5.18,
+        "originAbsoluteElevation": 60.179,
+        "formula": "local Y = drawing FFL - 60.179"
+      },
+      "levels": [
+        {
+          "id": "L00",
+          "label": "主环廊",
+          "absoluteFFL": 60.65,
+          "localY": 0.471
+        },
+        {
+          "id": "L01",
+          "label": "俱乐部层",
+          "absoluteFFL": 65.45,
+          "localY": 5.271
+        },
+        {
+          "id": "L02",
+          "label": "上层环廊",
+          "absoluteFFL": 70.13,
+          "localY": 9.951
+        },
+        {
+          "id": "L03",
+          "label": "设备层",
+          "absoluteFFL": 77.6,
+          "localY": 17.421
+        },
+        {
+          "id": "L03M",
+          "label": "设备夹层",
+          "absoluteFFL": 82.175,
+          "localY": 21.996
+        },
+        {
+          "id": "L04",
+          "label": "套房层",
+          "absoluteFFL": 89.65,
+          "localY": 29.471
+        },
+        {
+          "id": "L05",
+          "label": "空中酒吧",
+          "absoluteFFL": 93.15,
+          "localY": 32.971
+        },
+        {
+          "id": "RF",
+          "label": "屋面基准",
+          "absoluteFFL": 98.1,
+          "localY": 37.921
+        }
+      ],
+      "source": {
+        "councilRecord": "https://arcusbe.manchester.gov.uk/pr/s/detail/a1DSl000007GPxsMAG?c__r=Arcus_BE_Public_Register",
+        "drawings": [
+          "NSE-POP-NS-ZZ-DR-A-000301-P04",
+          "NSE-POP-NS-ZZ-DR-A-000302-P04",
+          "NSE-POP-NS-ZZ-DR-A-000310-C05"
+        ],
+        "status": "2025 approved application attachments; not 2026 as-built survey"
+      },
+      "limits": "Only FFL elevations are checked. Control rectangles are not floor outlines. Existing massing, tiers and three generic concourses still require calibration."
+    },
+    "verified": {
+      "pitchWidth": 68,
+      "pitchLength": 105,
+      "pitchBelowOriginalGround": 6,
+      "originalMasts": 12,
+      "originalTowerSupportedMasts": 8,
+      "originalGroundSupportedMasts": 4,
+      "originalTensionRingStrands": 4,
+      "originalForestays": 76,
+      "originalRampTowers": 8,
+      "originalMaxMastHeight": 65,
+      "originalRadialGrid": 7.6,
+      "originalRafterWidth": 0.3,
+      "originalRafterMaxDepth": 0.9,
+      "originalPurlinCentres": 4,
+      "originalRoofLinerDepth": 0.15,
+      "originalTranslucentEdgeDepth": 10,
+      "northUpperRows": 59
+    },
+    "provisional": {
+      "northHeadframes": "two photographed headframes with circular leg brace; coordinates, sections and roof railing are photographic fits",
+      "mastProfile": "photographic cigar fit; diameters and tower cap elevation not surveyed",
+      "retainedMasts2026": 10,
+      "retainedForestays2026": 66,
+      "retainedMastEvidence": "B - the south pair of 2003 grounded masts is retained (8 tower + 2 ground); the north pair is superseded by the 2026 north-stand headframes and its fans are therefore not modelled",
+      "tensionRingPath": "four-strand original topology; path fitted just outside the opening edge, 2026 retained route not surveyed",
+      "roofOuterHalfWidth": 139,
+      "roofOuterHalfLength": 144,
+      "concourseLevels": [
+        0.82,
+        9,
+        20.1
+      ],
+      "lightPositions": "photographic fit, not a verified 2026 fixture schedule",
+      "seatCoordinates": "procedural fit with shared aisle clearance and outward seat backs, not a certified seat survey",
+      "allConcourseLevels": "must be calibrated to current sections before interior construction"
+    },
+    "sources": {
+      "originalStructure": "https://www.arup.com/globalassets/downloads/arup-journal/the-arup-journal-2003-issue-1.pdf",
+      "northStand": "https://beta.mancity.com/news/club/stadium-relabelling-announcement-63886266",
+      "ledUpgrade": "https://www.mancity.com/meta/g1cd0fui/supporter-charter-22-23.pdf"
+    }
+  },
+  "files": {
+    "Etihad-2026-architectural-master.glb": {
+      "bytes": 93182160,
+      "sha256": "1d5d703b87f54cde7b74df4e953b30ab3981b81aab33baa8e27e8cbbe2caa7a3",
+      "nodes": 421,
+      "boundsMetres": {
+        "min": [
+          -141.51217651367188,
+          -5.800000190734863,
+          -231.89999389648438
+        ],
+        "max": [
+          141.51217651367188,
+          72.94999694824219,
+          141.5500030517578
+        ]
+      },
+      "extensions": [
+        "KHR_materials_emissive_strength",
+        "EXT_mesh_gpu_instancing"
+      ],
+      "referenceOnly": false
+    },
+    "Etihad-2026-concourse-shells.glb": {
+      "bytes": 9381264,
+      "sha256": "f1a5c9174e8079b74063ef886dbcfcbae5cb697edd08755d0cd96c83f3c81203",
+      "nodes": 43,
+      "boundsMetres": {
+        "min": [
+          -116.85418406315415,
+          -5.800000190734863,
+          -134.8000030517578
+        ],
+        "max": [
+          116.85418406315415,
+          35.85499954223633,
+          137.02561146777336
+        ]
+      },
+      "extensions": [
+        "KHR_materials_emissive_strength"
+      ],
+      "referenceOnly": false
+    },
+    "Etihad-2026-north-datum-control.glb": {
+      "bytes": 12172,
+      "sha256": "f306ae75bad0b8a7dfd0f02510e116ba81849fa9b921d8552481af14965c7ccb",
+      "nodes": 18,
+      "boundsMetres": {
+        "min": [
+          -60,
+          -5.179999828338623,
+          -163
+        ],
+        "max": [
+          60,
+          37.92100143432617,
+          -100
+        ]
+      },
+      "extensions": [
+        "KHR_materials_unlit"
+      ],
+      "referenceOnly": true
+    }
+  }
+}

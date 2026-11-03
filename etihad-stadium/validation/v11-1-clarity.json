@@ -1,0 +1,27 @@
+{
+  "issue": "User reported blurry architecture and cluttered/sluggish movement",
+  "changes": [
+    "removed automatic .85/.7 resolution fallback",
+    "fixed pixel ratio up to1.25; manual performance mode stays >=1",
+    "direct rendering with optional post-processing disabled",
+    "cached repeated HUD updates and static mesh matrices",
+    "FOV interpolation and eased first-person look",
+    "removed opening zoom and default redundant HUD",
+    "three default view buttons; other modes retained in drawer"
+  ],
+  "browser": {
+    "display": [
+      1280,
+      720
+    ],
+    "drawingBuffer": [
+      1600,
+      900
+    ],
+    "pixelRatio": 1.25,
+    "fpsSample": 35,
+    "warningErrors": 0,
+    "checked": "load, drag, wheel zoom, spectator transition"
+  },
+  "geometry": "unchanged; original V11 GLB retained"
+}

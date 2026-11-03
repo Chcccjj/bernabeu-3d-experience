@@ -1,0 +1,11 @@
+{
+  "version": "V12",
+  "seats": 62368,
+  "instanceTranslationsMatched": 62368,
+  "stateValidation": "roundtrip and 10 invalid inputs passed",
+  "cityBuildings": 3591,
+  "cityDrawObjects": 19,
+  "cityCampusExclusion": "passed",
+  "navigation100Footprints": "passed",
+  "cityExportExcluded": true
+}

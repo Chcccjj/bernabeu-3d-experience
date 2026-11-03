@@ -1,0 +1,9 @@
+{
+  "sourceCommit": "c127fb89d1a62a8a3d7cb20b6d9041fde76c13b4",
+  "steps": 2813,
+  "seats": 62624,
+  "stepsWithProjectedSeatIntrusion": 2757,
+  "projectedSeatStepPairs": 3757,
+  "method": "SAT audit of actual rendered schematic seat bases and tread footprints at matching rows; measured before the shared aisle-axis correction",
+  "limitation": "Model-only findings, not a statement about the real stadium."
+}

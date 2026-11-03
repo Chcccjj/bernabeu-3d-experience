@@ -1,0 +1,8 @@
+{
+  "input": "/Users/vance/Desktop/Etihad-2026-V10-package.zip",
+  "htmlSha256": "e9ddf56d9e2572e4c7ac0794ac5235b2ba030500cc4b538a0e47e1fc315f3e57",
+  "modules": 42,
+  "normalizedModuleDifferences": [],
+  "baselineCommit": "a138dd1ed573e64f96d8e11b26783ed5f884d074",
+  "normalization": "bare Three and relative vs lw import paths only"
+}

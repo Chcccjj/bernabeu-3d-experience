@@ -1,0 +1,16 @@
+{
+  "fixedCameraCrowdCrop": [
+    800,
+    220,
+    1260,
+    600
+  ],
+  "pixels": 174800,
+  "pixelsChangedOver12": 27004,
+  "fraction": 0.1545,
+  "meanAbsoluteRGB": [
+    5.108621281464531,
+    4.940760869565217,
+    5.201784897025171
+  ]
+}

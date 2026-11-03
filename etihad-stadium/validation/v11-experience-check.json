@@ -1,0 +1,26 @@
+{
+  "baseline": "V10 42 modules normalized identical",
+  "architectureLayers": 18,
+  "areaMetres2": 235000,
+  "seats": 62368,
+  "screens": 3,
+  "crowdCount": 53433,
+  "tourSamples": 1001,
+  "tourMinimumEyeY": -3.48,
+  "roofAperture": "passed",
+  "navigationBounds": "passed",
+  "eventProtectionBounds": {
+    "min": [
+      -33.985000133514404,
+      -5.18,
+      -52.485000133514404
+    ],
+    "max": [
+      33.985000133514404,
+      10.844999994039537,
+      52.485000133514404
+    ]
+  },
+  "eventRestore": "passed",
+  "pbrMaterialFactory": true
+}

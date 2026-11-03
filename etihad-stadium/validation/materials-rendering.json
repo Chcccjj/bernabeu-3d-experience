@@ -1,0 +1,35 @@
+{
+  "scope": "materials, folded roof seams, daylight/night lighting, orthographic plan render",
+  "primarySources": [
+    "https://www.kalzip.com/en/references/etihad-stadium-manchester/",
+    "https://www.arup.com/globalassets/downloads/arup-journal/the-arup-journal-2003-issue-1.pdf",
+    "https://populous.com/showcases/etihad-stadium-expansion"
+  ],
+  "browserVerified": [
+    "exported page with 36 embedded modules",
+    "day and night hero at previous 2x pose",
+    "north facade daylight",
+    "orthographic plan then perspective home restored",
+    "390x844 orthographic plan and controls",
+    "no captured error or warning before final check"
+  ],
+  "artifacts": [
+    "../previews/Etihad-2026-materials-day.png",
+    "../previews/Etihad-2026-materials-night.png",
+    "../previews/Etihad-2026-plan-day.png"
+  ],
+  "geometry": {
+    "triangles": 4387819,
+    "outerAreaAdded": false,
+    "seats": 61102,
+    "steps": 2654,
+    "seatIntrusions": 0,
+    "glbReimport": "3 passed"
+  },
+  "limits": [
+    "material values and seam layout are visual fits",
+    "not an as-built survey",
+    "several views checked, no claim of all-angle or physical-device validation",
+    "browser download-event bridge timed out; clean render page screenshots supplied instead"
+  ]
+}

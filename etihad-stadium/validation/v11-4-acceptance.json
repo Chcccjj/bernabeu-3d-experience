@@ -1,0 +1,65 @@
+{
+  "version": "V11.4",
+  "boundaryRepair": "fitted north/side ribbon cheek fascia and continuous upper trim",
+  "geometryUnits": "metres",
+  "seats": 62368,
+  "siteArea": 235000,
+  "runtimeSeatSectors": 16,
+  "pixelRatioCap": 1.25,
+  "browser": "local in-app Chromium, not Google Chrome",
+  "baselineCorner": {
+    "viewport": [
+      1280,
+      720
+    ],
+    "buffer": [
+      1600,
+      900
+    ],
+    "fps": 47,
+    "triangles": 4459245
+  },
+  "optimizedCorner": {
+    "viewport": [
+      1280,
+      720
+    ],
+    "buffer": [
+      1600,
+      900
+    ],
+    "steadySamples": [
+      60,
+      60,
+      60,
+      60,
+      60,
+      60
+    ],
+    "dragSamples": [
+      60,
+      60
+    ],
+    "triangles": 1936379
+  },
+  "exportedPageRecheck": {
+    "dragSamples": [
+      61,
+      60
+    ],
+    "steadySamples": [
+      57,
+      60,
+      60
+    ],
+    "errors": 0
+  },
+  "limitations": [
+    "Short local samples; not a guarantee for every device, view or browser",
+    "Junction dimensions remain C fitted"
+  ],
+  "automation": "disabled",
+  "crowdCount": 53433,
+  "boundaryVerticesChecked": 768,
+  "crossingSeatMeshes": 0
+}

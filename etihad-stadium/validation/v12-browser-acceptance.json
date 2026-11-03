@@ -1,0 +1,34 @@
+{
+  "version": "V12",
+  "dateShanghai": "2026-11-03",
+  "localPage": "http://127.0.0.1:8774/dist/index.html",
+  "browser": "Codex IAB on this Mac",
+  "checks": {
+    "cityDayNightAndTwoDraggedAngles": "passed",
+    "consoleWarningsErrors": [],
+    "mobile390x844Tools": "passed",
+    "photoPNG1152x2048": "actual file exported in prior phase",
+    "photoJPEG1024x1024": "actual file exported and visually inspected",
+    "filmLandscapeMP4": "1280x720, 14.9833s actual file from prior phase",
+    "filmPortraitMP4": "720x1280, 14.984267s video metadata verified",
+    "recordResizeOwnership": "1280x720 recording preserved on 390x844 resize; stop restored 487x1055 backing buffer / 390x844 CSS at DPR1.25",
+    "bookmarkRestore": "two saved cameras restored; share camera numeric position matched",
+    "shareHashReload": "camera position error 0 after full reload",
+    "seatPicker": "pointer click hit virtual row1 model seat157; form visit also verified",
+    "architectureHotspot": "standard pitch card changed view and description",
+    "sectionCitySwitchRestore": "mobile controls operated, complete building restored"
+  },
+  "limitations": [
+    "Procedural distant context is C fitted, not surveyed Manchester",
+    "Finite city field, not streamed infinite geography",
+    "No all-device 60 FPS guarantee or physical phone test",
+    "Unresolved stadium section and structural dimensions remain C; this feature release does not certify 1:1 completeness"
+  ],
+  "geometryChecks": [
+    "v12-studio-check.json",
+    "v12-architecture-preservation.json",
+    "seat-junction-check.json",
+    "pitch-depth-check.json",
+    "v11-export-check.json"
+  ]
+}

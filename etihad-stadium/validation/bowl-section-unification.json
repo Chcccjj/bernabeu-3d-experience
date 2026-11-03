@@ -1,0 +1,82 @@
+{
+  "scope": "Shared fitted bowl section parameters; physical calibration remains pending",
+  "geometryUnchanged": true,
+  "seats": 61102,
+  "steps": 2654,
+  "layerGeometrySignatures": {
+    "site": {
+      "objects": 33,
+      "sha256": "61f0a57b232b312004f7e5e19685a253ee644af0911d1b2ceb8cf2d17d558676"
+    },
+    "pitch": {
+      "objects": 13,
+      "sha256": "a6cd0dfc5fa7ec727fc21f0446eaacb1be7f0a1da004064f62b2873fe7a7edbf"
+    },
+    "bowl": {
+      "objects": 4,
+      "sha256": "72b952e9e440fe3f8dfcfc2154cb5b0758deacd00a203e52c68adabe7bbe0016"
+    },
+    "seats": {
+      "objects": 12,
+      "sha256": "c351bf2db33f8c0aee658a93fce2a8f9c042e30095d21d2913dd5962fea52bf9"
+    },
+    "facade": {
+      "objects": 8,
+      "sha256": "17ee302281ccd7d70e881f12921269f3c0ad7e96315f3157ea0c423e853b6656"
+    },
+    "ramps": {
+      "objects": 4,
+      "sha256": "728517d72796d8f7e93623cfb534db540233335893570aa26d8b0df09638e817"
+    },
+    "steel": {
+      "objects": 79,
+      "sha256": "7b9040059c73b681d3e7ba97adf589a2d50c216bce5785eaac51d3b0a9e155bd"
+    },
+    "cables": {
+      "objects": 20,
+      "sha256": "d8a678912468a0a834c303cd22c095323ab7046d76800342723d792ba0df2b07"
+    },
+    "roof": {
+      "objects": 8,
+      "sha256": "4d2abbfb4f495ace3a27b75d9608491cbf9e2a4a1028b024016f63e757d6ce56"
+    },
+    "north": {
+      "objects": 6,
+      "sha256": "808c5264ef757d7228e6627930dd5d54d045b649a958fb9c62d37be2bc8e1396"
+    },
+    "hotel": {
+      "objects": 11,
+      "sha256": "de3147bb53d382f97adab356abc0de8a200b1a9b4248b88524282b3e1a9b8451"
+    },
+    "canopy": {
+      "objects": 2,
+      "sha256": "82aaffd78b27568dbcd3ba3d8d5bd1bb809b5958283f783b7ceb568d2c757b92"
+    },
+    "structure": {
+      "objects": 14,
+      "sha256": "76e4f6f5df87200f9f8955de29aa719b3557e45e7a203adf8e4823fea284e94d"
+    },
+    "level0": {
+      "objects": 6,
+      "sha256": "fd98aecbbe4474940a0c2cd7d23b19e065d23c827aa01cc953fac9fd3f6ad827"
+    },
+    "level1": {
+      "objects": 6,
+      "sha256": "a191a820364463a35cb134a7a48f9e698931af8d4cb07f3a2db4eb1fed79147f"
+    },
+    "level2": {
+      "objects": 6,
+      "sha256": "a5ca7912a0cedaaa6f3a6dd709232618d8a861df65e31e9d0c112ad0d3f8df79"
+    },
+    "lighting": {
+      "objects": 3,
+      "sha256": "04e0fec2476d60cfc5531d02e77197fc2944f200adcb94545d3d40b4e7d113ed"
+    },
+    "services": {
+      "objects": 2,
+      "sha256": "52d8ebc020ce3596ebddd218891df979f97104401afa575c03631dbba256164a"
+    }
+  },
+  "baselineSourceCommit": "cf8f63f4498a817b66885cc0397c993cbf9a6512",
+  "purpose": "Refactor preservation record, not a restriction on future intentional calibration changes"
+}

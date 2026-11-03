@@ -1,0 +1,34 @@
+{
+  "browser": "Codex in-app browser on this Mac",
+  "desktop": "verified at available viewport",
+  "mobile": "390x844 verified; override reset",
+  "observedFps": "26-60 across tested views, dependent on this environment; not a device guarantee",
+  "checks": [
+    "loading reaches 100 and disappears",
+    "four camera modes with smooth transitions",
+    "pitch and spectator sight lines",
+    "full cinematic tour completes at east stand",
+    "WASD movement and drag look",
+    "mobile direction controls",
+    "day/night/match mode and demo scoreboard",
+    "53,338 instanced spectators on match only",
+    "event cover and stage within pitch; restore",
+    "roof separation and restoration controls",
+    "18-layer architecture drawer",
+    "hide UI and restore",
+    "no captured browser errors or warnings"
+  ],
+  "limitations": [
+    "No independent Chrome/Safari/Edge or hardware benchmark",
+    "Geometry and material fits are not as-built certification",
+    "Interior rooms remain future work"
+  ],
+  "previews": [
+    "v11-exterior-day.png",
+    "v11-pitch-free.png",
+    "v11-matchday-stand.png",
+    "v11-roof-structure.png",
+    "v11-event-setup.png",
+    "v11-mobile-navigation.png"
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "weightedTriangles": 4387819,
+  "geometryRatio": 2.366604155104185,
+  "area": 235000,
+  "areaRatio": 1,
+  "layers": 18,
+  "seats": 61102,
+  "seatFrames": 61102,
+  "floors": [
+    {
+      "id": "level0",
+      "elevation": 0.82,
+      "innerOffset": 25,
+      "evidence": "C"
+    },
+    {
+      "id": "level1",
+      "elevation": 9,
+      "innerOffset": 44,
+      "evidence": "C"
+    },
+    {
+      "id": "level2",
+      "elevation": 20.1,
+      "innerOffset": 55,
+      "evidence": "C"
+    }
+  ],
+  "pitch": {
+    "width": 68,
+    "length": 105,
+    "level": -5.18,
+    "evidence": "A"
+  },
+  "groundDifference": 6,
+  "vertices": 2077613,
+  "roofTopNormals": 2304,
+  "roofDownNormals": 0,
+  "glbResults": {
+    "Etihad-2026-architectural-master.glb": {
+      "bytes": 72299104,
+      "nodes": 240,
+      "sizeMetres": [
+        296.6099853515625,
+        78.16000080108643,
+        394.3000030517578
+      ],
+      "reimport": "passed"
+    },
+    "Etihad-2026-concourse-shells.glb": {
+      "bytes": 7571428,
+      "nodes": 36,
+      "sizeMetres": [
+        233.7083681263083,
+        49.785000801086426,
+        271.8256145195312
+      ],
+      "reimport": "passed"
+    },
+    "Etihad-2026-north-datum-control.glb": {
+      "bytes": 12172,
+      "nodes": 18,
+      "sizeMetres": [
+        120,
+        43.101001262664795,
+        63
+      ],
+      "referenceOnly": true,
+      "reimport": "passed"
+    }
+  },
+  "roofAssemblyTopology": {
+    "towerSupportedMasts": 8,
+    "groundSupportedMasts": 4,
+    "tensionRingStrands": 4,
+    "profileCheck": "passed",
+    "northHeadframes": 2,
+    "northRingBraceContacts": "passed"
+  },
+  "northDatumControl": {
+    "planes": 8,
+    "originAbsoluteElevation": 60.179,
+    "pitchMapping": "passed",
+    "referenceOnly": true
+  },
+  "externalAreaAdded": false,
+  "researchImages": 22
+}

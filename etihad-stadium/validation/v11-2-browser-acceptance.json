@@ -1,0 +1,27 @@
+{
+  "release": "V11.2",
+  "checked": "2026-11-02",
+  "northStairs": {
+    "view": "?render=northstairs&time=day",
+    "aisleBandOpening": "visually clear after orbit drag",
+    "treadNosing": "solid two-step intervals, shared geometry",
+    "screenshots": [
+      "previews/v11-2-north-steps.png",
+      "previews/v11-2-overview.png"
+    ]
+  },
+  "defaultView": {
+    "viewport": [
+      1280,
+      720
+    ],
+    "drawingBuffer": [
+      1600,
+      900
+    ],
+    "controls": "three primary actions; drawer closed",
+    "consoleWarnings": [],
+    "consoleErrors": []
+  },
+  "limits": "Local IAB check; no all-device FPS or surveyed dimension claim"
+}

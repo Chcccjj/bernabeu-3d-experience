@@ -1,0 +1,37 @@
+[
+  {
+    "level": "log",
+    "message": "[bowl-detail] {\"ledRibbons\":4,\"ledSegments\":659,\"ledTexts\":52,\"ledPerimeter\":1,\"concourseBands\":3,\"vomitories\":29,\"portalSteps\":87,\"portalRails\":112,\"blockSigns\":29,\"aisleNosings\":2179,\"exitSigns\":22,\"tunnel\":1,\"tunnelClubSigns\":2,\"gantry\":1,\"gantryCameras\":3,\"sideCameras\":2,\"dugouts\":2,\"dugoutScreens\":2,\"photographerClusters\":14,\"northBands\":2,\"primitives\":3231}",
+    "timestamp": "2026-11-02T12:07:24.034Z"
+  },
+  {
+    "level": "info",
+    "message": "ETIHAD_PERF {\"fps\":57,\"calls\":285,\"triangles\":1936377,\"pixelRatio\":1.25}",
+    "timestamp": "2026-11-02T12:07:28.482Z"
+  },
+  {
+    "level": "info",
+    "message": "ETIHAD_PERF {\"fps\":60,\"calls\":285,\"triangles\":1936377,\"pixelRatio\":1.25}",
+    "timestamp": "2026-11-02T12:07:32.481Z"
+  },
+  {
+    "level": "info",
+    "message": "ETIHAD_QA {\"fps\":60,\"pixelRatio\":1.25,\"canvas\":[1407,925],\"viewport\":[1126,740],\"drawCalls\":285,\"geometry\":{\"meshes\":1957,\"triangles\":1936377,\"area\":235000,\"systems\":18,\"seatFrames\":0,\"floors\":[{\"id\":\"level0\",\"elevation\":0.82,\"innerOffset\":25,\"evidence\":\"C\"},{\"id\":\"level1\",\"elevation\":9,\"innerOffset\":44,\"evidence\":\"C\"},{\"id\":\"level2\",\"elevation\":20.1,\"innerOffset\":55,\"evidence\":\"C\"}]},\"seatCount\":62565,\"spawnFailures\":0,\"people\":[{\"id\":0,\"mode\":\"taking-photo\",\"position\":[-147,0.8276369143982851,120],\"visible\":true,\"spawnFailed\":false},{\"id\":1,\"mode\":\"socializing\",\"position\":[-148,0.8208461926765515,123],\"visible\":true,\"spawnFailed\":false},{\"id\":2,\"mode\":\"taking-photo\",\"position\":[35,0.8235707938735151,153],\"visible\":true,\"spawnFailed\":false}],\"vehicles\":[{\"type\":\"bus\",\"position\":[218,0.84,101.6327158904583],\"speed\":6.720000000000001,\"heading\":3.141592653589793,\"mode\":\"driving\",\"s\":91.68251475595036,\"lap\":0,\"committed\":true,\"visible\":true},{\"type\":\"car\",\"position\":[218,0.84,-86.77407782772832],\"speed\":8.039282598346473,\"heading\":3.141592653589793,\"mode\":\"driving\",\"s\":280.73933978403517,\"lap\":0,\"committed\":true,\"visible\":true}]}",
+    "timestamp": "2026-11-02T12:07:36.481Z"
+  },
+  {
+    "level": "info",
+    "message": "ETIHAD_PERF {\"fps\":60,\"calls\":285,\"triangles\":1936377,\"pixelRatio\":1.25}",
+    "timestamp": "2026-11-02T12:07:36.481Z"
+  },
+  {
+    "level": "info",
+    "message": "ETIHAD_DRAG {\"fps\":61,\"frames\":9,\"seconds\":0.15,\"pixelRatio\":1.25}",
+    "timestamp": "2026-11-02T12:07:39.152Z"
+  },
+  {
+    "level": "info",
+    "message": "ETIHAD_DRAG {\"fps\":60,\"frames\":9,\"seconds\":0.15,\"pixelRatio\":1.25}",
+    "timestamp": "2026-11-02T12:07:39.333Z"
+  }
+]

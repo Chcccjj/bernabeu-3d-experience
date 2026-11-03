@@ -2,40 +2,41 @@
 
 <div align="center">
 
-![Santiago Bernabéu — A New Perspective](docs/showcase/bernabeu-header.svg)
+![互动球场建筑体验：伯纳乌与伊蒂哈德](docs/showcase/stadium-experiences.svg)
 
-**走近银色立面，穿过屋顶，进入伯纳乌。**  
-可交互的圣地亚哥·伯纳乌球场三维体验
+**两座球场，两种建筑语言。**<br>
+环绕建筑，走进看台，切换光影，找到属于你的视角。
 
-[![进入球场](docs/showcase/open-experience-zh.svg)](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=zh)
-
-[English](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=en) · [中文](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=zh) · [Español](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=es)
+[**进入伯纳乌**](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=zh) · [**进入伊蒂哈德**](https://etihad-architecture-atlas.chenvance.chatgpt.site/?lang=zh)
 
 </div>
 
-> **正式网址:** [Santiago Bernabéu — A New Perspective](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=zh)  
-> 直接在浏览器中体验，无需下载和启动本地服务器。
+## 选择球场
 
-[![球场实际运行画面](docs/images/exterior-zh.png)](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=zh)
-
-| 探索建筑 | 操作机构 | 创作与分享 |
-| :--- | :--- | :--- |
-| 环绕外观、进入看台、走进草坪，或跟随连续电影导览。 | 打开可伸缩屋顶，观察六块草坪托盘分段移动并收纳到地下。 | 切换昼夜与比赛日，选择虚拟座席，导出照片、录像并分享机位。 |
-
-基于 Three.js / WebGL，程序化生成建筑、座椅、草坪与机构。界面支持中文、英文和西班牙文。
-
-### 快速导航
-
-| 入口 | 内容 |
+| 圣地亚哥·伯纳乌 | 伊蒂哈德球场 |
 | :--- | :--- |
-| [在线体验](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=zh) | 直接进入可交互球场 |
-| [使用手册](docs/USER_GUIDE.zh-CN.md) | 操作、拍照、录像、选座与分享 |
-| [制作过程](docs/DEVELOPMENT.zh-CN.md) | 参考研究、建模、光照与交互 |
-| [验证记录](docs/VALIDATION.zh-CN.md) | 已验证内容与实际限制 |
-| [下载](https://github.com/Chcccjj/bernabeu-3d-experience/releases) | 发布版本与离线文件 |
-| [维护说明](docs/MAINTENANCE.zh-CN.md) | 后续开发与发布流程 |
+| [![伯纳乌实际外观画面](docs/images/exterior-zh.png)](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=zh) | [![伊蒂哈德项目附带的实际校园画面](etihad-stadium/previews/v14-campus-people.png)](https://etihad-architecture-atlas.chenvance.chatgpt.site/?lang=zh) |
+| **马德里 · 皇家马德里** | **曼彻斯特 · 曼彻斯特城** |
+| 连续银色百叶、可伸缩屋顶与六段草坪收纳。 | 桅杆拉索固定屋盖、螺旋交通塔与北看台扩建。 |
+| 电影运镜、草坪步行、虚拟选座、拍照录像与机位分享。 | 建筑分层、可编辑模型、城市停车与人流、比赛日演示和拍照录像。 |
+| **[在线体验](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=zh)** · [离线 HTML](伯纳乌球场.html) | **[在线体验](https://etihad-architecture-atlas.chenvance.chatgpt.site/?lang=zh)** · [离线 HTML](Etihad%20Stadium.html) |
+| [使用手册](docs/USER_GUIDE.zh-CN.md) · [源码](src/) · [验证记录](docs/VALIDATION.zh-CN.md) | [使用说明与源码](etihad-stadium/README.zh-CN.md) · [模型](etihad-stadium/models/README.md) · [验证资料](etihad-stadium/validation/) |
 
-本作品为独立的程序化建筑重建，非皇家马德里官方作品。机构、虚拟座席和周边城市经过简化。
+**界面语言：** 伯纳乌支持 [中文](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=zh)、[English](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=en)、[Español](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=es)。伊蒂哈德支持 [中文](https://etihad-architecture-atlas.chenvance.chatgpt.site/?lang=zh)、[English](https://etihad-architecture-atlas.chenvance.chatgpt.site/?lang=en)、[Español](https://etihad-architecture-atlas.chenvance.chatgpt.site/?lang=es)、[Français](https://etihad-architecture-atlas.chenvance.chatgpt.site/?lang=fr)、[日本語](https://etihad-architecture-atlas.chenvance.chatgpt.site/?lang=ja)。
+
+在线链接直接进入运行中的体验。GitHub 会把 HTML 显示为源码；请使用 **Download raw file（下载原始文件）** 保存离线版，再在支持 WebGL 的浏览器中打开。浏览器策略较严格时可通过本地 HTTP 服务器访问。根目录伊蒂哈德 HTML 中的资料及模型下载链接使用其公开网站。
+
+## 仓库导航
+
+| 资料 | 内容 |
+| :--- | :--- |
+| [伯纳乌制作过程](docs/DEVELOPMENT.zh-CN.md) | 研究、建模、光照与交互 |
+| [伊蒂哈德项目](etihad-stadium/README.zh-CN.md) | 独立源码、本地运行与构建、模型及验证资料 |
+| [StadiumArchitect 插件](plugins/stadium-architect-3d/README.md) | 可复用球场创作流程与基础工程 |
+| [发布下载](https://github.com/Chcccjj/bernabeu-3d-experience/releases) | 已发布的伯纳乌版本与校验和 |
+| [维护说明](docs/MAINTENANCE.zh-CN.md) · [整合记录](docs/ETIHAD-INTEGRATION.md) | 检查流程、协作范围和仓库整合 |
+
+两项作品均为独立的程序化建筑诠释，包含影像拟合及简化机构或活动演示，不作为官方票务、测绘或工程依据，与两家俱乐部无隶属关系。上方截图来自项目已有运行记录，不是本轮整合重新渲染的验收画面。
 
 <details>
 <summary><strong>开发者资料：本地运行、功能细节、源码与部署</strong></summary>
@@ -129,12 +130,8 @@ npm run preview        # 预览正式构建，通常使用 4173 端口
 
 </details>
 
-[原始说明存档](docs/showcase/README.zh-CN-before-showcase-2026-11-02.md)
+[原始伯纳乌中文说明归档](docs/showcase/README.zh-CN-before-showcase-2026-11-02.md)
 
 ---
 
-<div align="center">
-
-[进入球场 →](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=zh)
-
-</div>
+[进入伯纳乌](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=zh) · [进入伊蒂哈德](https://etihad-architecture-atlas.chenvance.chatgpt.site/?lang=zh)

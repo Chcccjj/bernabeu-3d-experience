@@ -28,3 +28,6 @@ The Bernabéu application is maintained independently from `anfield/`, `camp-nou
 Keep code history and release downloads. Recover a bad update through a new revert PR; do not force-push `main`. Sites publication is a separate production step: preserve the existing site ID and audience and deploy the verified source/build pair. Keep the prior Sites version available for rollback.
 
 Source licensing remains an owner decision. Existing third-party asset and software notices must be preserved; maintenance does not automatically grant a new license to original code.
+
+
+The Etihad companion lives in `etihad-stadium/`; `npm run check:companion` verifies it in a temporary copy, including offline module parity, vendor hashes, model ZIP reimports and current-source checks. Python 3 is required. Historical Git comparisons depend on the original Site history and remain provenance records. Keep both English/Chinese repository homepages in sync when adding a stadium.

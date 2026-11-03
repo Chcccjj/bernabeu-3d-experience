@@ -1,0 +1,17 @@
+{
+  "package": "three",
+  "version": "0.180.0",
+  "license": "MIT",
+  "files": [
+    {
+      "path": "vendor/three/examples/jsm/exporters/GLTFExporter.js",
+      "source": "https://raw.githubusercontent.com/mrdoob/three.js/r180/examples/jsm/exporters/GLTFExporter.js",
+      "sha256": "e7c29444454eb321b39e4c8b3062944f4fd5299a0e7483e9cb8c0594cdec829f"
+    },
+    {
+      "path": "vendor/three/examples/jsm/loaders/GLTFLoader.js",
+      "source": "https://raw.githubusercontent.com/mrdoob/three.js/r180/examples/jsm/loaders/GLTFLoader.js",
+      "sha256": "67ac5551fdafa6e349bd80c8f8e5e39c136d6b2fb1ad647db9abb21dc86f9e4a"
+    }
+  ]
+}
