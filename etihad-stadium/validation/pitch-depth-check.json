@@ -1,0 +1,41 @@
+{
+  "probes": [
+    {
+      "x": 1,
+      "z": 2,
+      "topY": -5.135,
+      "nextY": -5.48,
+      "clearance": 0.34500000000000064
+    },
+    {
+      "x": -20,
+      "z": 20,
+      "topY": -5.135,
+      "nextY": -5.48,
+      "clearance": 0.34500000000000064
+    },
+    {
+      "x": 20,
+      "z": -20,
+      "topY": -5.135,
+      "nextY": -5.48,
+      "clearance": 0.34500000000000064
+    },
+    {
+      "x": -30,
+      "z": -45,
+      "topY": -5.135,
+      "nextY": -5.48,
+      "clearance": 0.34500000000000064
+    },
+    {
+      "x": 30,
+      "z": 45,
+      "topY": -5.135,
+      "nextY": -5.48,
+      "clearance": 0.34500000000000064
+    }
+  ],
+  "nearPlane": "clamp(distanceToOrbitTarget * .01, .35, 24)",
+  "exposedFieldOwner": "regulation_turf_continuous_surface"
+}

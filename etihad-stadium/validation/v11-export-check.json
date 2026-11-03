@@ -1,0 +1,59 @@
+{
+  "Etihad-2026-architectural-master.glb": {
+    "bytes": 93182160,
+    "sha256": "1d5d703b87f54cde7b74df4e953b30ab3981b81aab33baa8e27e8cbbe2caa7a3",
+    "meshes": 388,
+    "instances": 124872,
+    "reimport": "passed",
+    "boundsMetres": {
+      "min": [
+        -141.51217651367188,
+        -5.800000190734863,
+        -231.89999389648438
+      ],
+      "max": [
+        141.51217651367188,
+        72.94999694824219,
+        141.5500030517578
+      ]
+    }
+  },
+  "Etihad-2026-concourse-shells.glb": {
+    "bytes": 9381264,
+    "sha256": "f1a5c9174e8079b74063ef886dbcfcbae5cb697edd08755d0cd96c83f3c81203",
+    "meshes": 35,
+    "instances": 0,
+    "reimport": "passed",
+    "boundsMetres": {
+      "min": [
+        -116.85418406315415,
+        -5.800000190734863,
+        -134.8000030517578
+      ],
+      "max": [
+        116.85418406315415,
+        35.85499954223633,
+        137.02561146777336
+      ]
+    }
+  },
+  "Etihad-2026-north-datum-control.glb": {
+    "bytes": 12172,
+    "sha256": "f306ae75bad0b8a7dfd0f02510e116ba81849fa9b921d8552481af14965c7ccb",
+    "meshes": 0,
+    "instances": 0,
+    "reimport": "passed",
+    "boundsMetres": {
+      "min": [
+        -60,
+        -5.179999828338623,
+        -163
+      ],
+      "max": [
+        60,
+        37.92100143432617,
+        -100
+      ]
+    }
+  }
+}

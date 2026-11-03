@@ -1,0 +1,28 @@
+{
+  "change": "home camera magnification",
+  "beforeZoom": 1,
+  "afterZoom": 2,
+  "linearProjectionRatio": 2,
+  "unchanged": [
+    "metre geometry",
+    "stadium footprint",
+    "GLB dimensions",
+    "non-home viewpoints"
+  ],
+  "desktop": {
+    "viewport": [
+      1280,
+      720
+    ],
+    "targetPlane50mBeforePixels": 137.15643469292124,
+    "targetPlane50mAfterPixels": 274.3128693858425,
+    "observedScalePixelsAfterReset": 274.3125
+  },
+  "browserChecks": [
+    "exported page initial home",
+    "desktop overview then reset to home",
+    "390x844 home and overview",
+    "no captured error or warning"
+  ],
+  "scope": "Projection doubled at unchanged camera pose. The close view crops the stadium; the overview preset preserves full-building access. This does not claim physical dimensions were doubled."
+}

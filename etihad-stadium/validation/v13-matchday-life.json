@@ -1,0 +1,17 @@
+{
+  "version": "V13",
+  "simulationSeconds": 360,
+  "gates": 9,
+  "arrivalPeople": 1296,
+  "parkingCars": 6,
+  "parkingAdmissions": 3,
+  "parkingDepartures": 6,
+  "maxSimultaneouslyManeuvering": 1,
+  "carClearanceChecks": 172225,
+  "driverClearanceChecks": 458658,
+  "minimumPlayerDistance": 1.3499999999999965,
+  "maxBallAbsZ": 53.45000000000001,
+  "goals": 10,
+  "matchAndDayTransitions": "passed",
+  "pause": "passed"
+}

@@ -1,0 +1,29 @@
+{
+  "version": "V14",
+  "dateShanghai": "2026-11-03",
+  "checks": {
+    "languages": [
+      "zh",
+      "en",
+      "es",
+      "fr",
+      "ja"
+    ],
+    "staticChineseSourceStringsCovered": 249,
+    "translationRows": 285,
+    "enStaticUntranslatedChinese": 0,
+    "languageRefresh": "ja persisted via URL and local preference",
+    "languageChangePreservesScore": "Man City 1:0 Man United",
+    "mobile390x844": "Japanese navigation, structure controls and language selector inspected",
+    "outsideScore": "0:0 remained while examining language tools outside",
+    "insideGoal": "initial 曼城0:0曼联 then 曼城1:0曼联 observed",
+    "goalLatch": "360s simulation reports one goal only",
+    "crowds": "456 nearby visitors plus finite arrivals; no short-range route reset",
+    "consoleErrorsWarnings": []
+  },
+  "limits": [
+    "Research archive source commentary remains Chinese",
+    "Camera-space timing and authored crowd routes are illustrative",
+    "Physical-device and every-view performance are not certified"
+  ]
+}

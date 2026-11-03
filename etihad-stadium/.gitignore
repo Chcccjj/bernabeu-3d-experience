@@ -1,0 +1,7 @@
+.DS_Store
+.openai/local/
+*.tar.gz
+node_modules/
+
+models/*.glb
+operations/

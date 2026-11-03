@@ -1,0 +1,11 @@
+{
+  "method": "SAT overlap of actual rendered seat bases and actual 100 mm step plate footprints at corresponding rows; model-only circulation fit audit",
+  "steps": 2654,
+  "seats": 61102,
+  "checkedBacks": 61102,
+  "wrongFacingBacks": 0,
+  "stepsWithProjectedSeatIntrusion": 0,
+  "projectedSeatStepPairs": 0,
+  "samples": [],
+  "limitation": "This is an audit of the schematic model, not a statement about the real stadium."
+}

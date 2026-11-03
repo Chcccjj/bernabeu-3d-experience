@@ -1,0 +1,42 @@
+{
+  "boundary": {
+    "zBelow": -75,
+    "halfWidth": 74,
+    "evidence": "C fitted junction"
+  },
+  "areaMetres2": 235000,
+  "seats": 62368,
+  "formerGapWorldSpaceProbes": 78,
+  "junctionReturns": {
+    "panels": 151,
+    "evidence": "C fitted closure between existing profiles"
+  },
+  "turf": {
+    "surfaceMetres": [
+      68,
+      105
+    ],
+    "textureTileMetres": 2,
+    "bladeHeightMetres": [
+      0.021,
+      0.045
+    ],
+    "nearTufts": 76800,
+    "leavesPerTuft": 3,
+    "nearDrawCalls": 1,
+    "nearRadiusMetres": 13,
+    "stableWorldTileMetres": 3,
+    "evidence": "B photo appearance; C grass species, pile and mowing width"
+  },
+  "checks": [
+    "polygon area partition across both cut planes",
+    "independent fixed world-space raycasts across former void",
+    "shared replacement/seat boundary",
+    "near grass on / far grass off",
+    "68 x 105 m surface retained"
+  ],
+  "limitations": [
+    "North and side profiles remain C fitted",
+    "transition is a model repair, not surveyed seating or egress certification"
+  ]
+}

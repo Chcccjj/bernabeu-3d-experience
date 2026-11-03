@@ -1,0 +1,3 @@
+// Camera-space attendance, independent of the demo's running clock.
+export function isInsideStadium(p){if(!p||p.y< -5.5||p.y>55)return false;const legacy=Math.pow(Math.abs(p.x)/115.6,2/.78)+Math.pow(Math.abs(p.z)/134.6,2/.78)<1;const north=Math.abs(p.x)<98&&p.z< -90&&p.z> -170;return legacy||north;}
+export function createVisitScore(){let seconds=0,scored=false;return {update(dt,inside,paused=false){if(!scored&&inside&&!paused){seconds=Math.min(15,seconds+Math.max(0,dt));if(seconds>=15-1e-8){seconds=15;scored=true;}}return scored;},reset(){seconds=0;scored=false;},get seconds(){return seconds;},get scored(){return scored;},get score(){return scored?[1,0]:[0,0];}};}

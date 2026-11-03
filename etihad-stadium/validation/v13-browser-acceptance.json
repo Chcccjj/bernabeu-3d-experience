@@ -1,0 +1,32 @@
+{
+  "version": "V13",
+  "dateShanghai": "2026-11-03",
+  "page": "dist/index.html",
+  "checks": {
+    "matchToggleAndDirectMatchCamera": "passed",
+    "nineGateArrivalQueues": "rendered; timed flow toward portal fronts",
+    "dailyParkingDayMode": "rendered cars, drivers and open/close barriers outside matchday",
+    "matchdayCrowdMotion": "same-camera settled crowd screenshots B/C changed 15.45% of sampled pixels over RGB threshold12; shared GPU clock",
+    "derby": "blue/red 11 a side, referee and rolling ball rendered; score advances and kickoff repeats",
+    "mobile390x844": "match score, 3 observation buttons and scene actions remain separate; day mode hides HUD",
+    "consoleErrorWarn": [],
+    "shortMatchViewFPS": [
+      57,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60
+    ],
+    "pixelRatio": 1.25,
+    "matchViewDrawCalls": 458,
+    "matchViewTriangles": 6170701
+  },
+  "limitations": [
+    "finite scripted match, not live data or full football AI",
+    "arrival/parking layouts and rates illustrative C",
+    "performance samples apply only to this Mac/IAB and tested view",
+    "original unresolved 1:1 architectural calibration still applies"
+  ]
+}

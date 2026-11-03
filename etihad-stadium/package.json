@@ -1,0 +1,14 @@
+{
+  "name": "etihad-stadium",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Etihad Stadium 2026 source-grounded architectural master model",
+  "scripts": {
+    "dev": "python3 scripts/serve.py",
+    "build": "python3 scripts/export-html.py"
+  },
+  "dependencies": {
+    "three": "0.180.0"
+  }
+}

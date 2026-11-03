@@ -1,0 +1,35 @@
+{
+  "release": "V11.3",
+  "date": "2026-11-02",
+  "views": [
+    "corner day and orbit drag",
+    "turf day and orbit drag",
+    "turf night",
+    "turfplan day",
+    "default overview"
+  ],
+  "viewport": [
+    1280,
+    720
+  ],
+  "drawingBuffer": [
+    1600,
+    900
+  ],
+  "pixelRatio": 1.25,
+  "consoleErrors": [],
+  "consoleWarnings": [],
+  "localShortSamples": {
+    "oldTurfFPS": 25,
+    "newTurfFPS": 24,
+    "note": "single local short samples, not GPU timings or cross-device benchmark"
+  },
+  "previews": [
+    "v11-3-junction.png",
+    "v11-3-turf.png",
+    "v11-3-turf-night.png",
+    "v11-3-turf-plan.png",
+    "v11-3-overview.png"
+  ],
+  "limits": "North profiles and joint remain C fitted. No mobile/device performance claim; no automation restarted."
+}

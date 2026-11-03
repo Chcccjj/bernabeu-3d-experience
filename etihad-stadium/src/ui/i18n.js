@@ -1,0 +1,15 @@
+import {LANGUAGES,translateText} from './translations.js';
+export function createI18n(){
+ let language='zh';try{language=new URLSearchParams(location.search).get('lang')||localStorage.getItem('etihad-language-v1')||'zh';}catch{}if(!LANGUAGES[language])language='zh';
+ const picker=document.createElement('label');picker.className='language-picker';picker.dataset.noTranslate='true';picker.innerHTML='<span aria-hidden="true">◎</span><select id="language-select" aria-label="Language / 语言">'+Object.entries(LANGUAGES).map(([code,name])=>`<option value="${code}">${name}</option>`).join('')+'</select>';document.body.appendChild(picker);
+ const textSources=new WeakMap(),attributeSources=new WeakMap(),pending=new Set();let scheduled=false,disposed=false;
+ const skip=el=>!el||el.closest('script,style,[data-no-translate],textarea');
+ function text(node){if(skip(node.parentElement))return;let r=textSources.get(node);if(!r||node.data!==r.last){r={base:node.data,last:node.data};textSources.set(node,r);}const value=translateText(r.base,language);r.last=value;if(node.data!==value)node.data=value;}
+ function attributes(el){if(skip(el))return;let records=attributeSources.get(el);if(!records){records={};attributeSources.set(el,records);}for(const name of ['aria-label','title','placeholder']){const value=el.getAttribute(name);if(value===null)continue;let r=records[name];if(!r||value!==r.last)r=records[name]={base:value,last:value};const next=translateText(r.base,language);r.last=next;if(value!==next)el.setAttribute(name,next);}}
+ function walk(root){if(root.nodeType===3){text(root);return;}if(root.nodeType!==1||skip(root))return;attributes(root);for(const node of root.childNodes)walk(node);}
+ const options={subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['aria-label','title','placeholder']};
+ const observer=new MutationObserver(records=>{for(const r of records)pending.add(r.type==='childList'?r.target:r.target);if(!scheduled){scheduled=true;queueMicrotask(()=>{scheduled=false;if(disposed)return;observer.disconnect();for(const node of pending)if(node.isConnected)walk(node);pending.clear();observer.observe(document.body,options);});}});
+ function apply(code,persist=true){if(!LANGUAGES[code])return;language=code;observer.disconnect();walk(document.body);document.documentElement.lang={zh:'zh-CN',en:'en',es:'es',fr:'fr',ja:'ja'}[code];document.body.dataset.language=code;document.title=translateText('伊蒂哈德 · 建筑档案',code);picker.querySelector('select').value=code;if(persist){try{localStorage.setItem('etihad-language-v1',code);}catch{}try{const url=new URL(location.href);url.searchParams.set('lang',code);history.replaceState(null,'',url);}catch{}}observer.observe(document.body,options);document.dispatchEvent(new CustomEvent('etihad:language',{detail:code}));}
+ picker.querySelector('select').onchange=e=>apply(e.target.value);apply(language,false);
+ return {t:text=>translateText(text,language),get language(){return language;},setLanguage:apply,dispose(){disposed=true;observer.disconnect();picker.remove();}};
+}

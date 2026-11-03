@@ -1,0 +1,15 @@
+{
+  "version": "V14",
+  "languages": [
+    "zh",
+    "en",
+    "es",
+    "fr",
+    "ja"
+  ],
+  "translationRows": 285,
+  "capturedUIStrings": 249,
+  "untranslatedEnglishStrings": [],
+  "visitTimer": "outside/inside/paused/reset/one goal passed",
+  "arrivalMonotonicNoRespawn": "144 supporters x 2000 time samples passed"
+}

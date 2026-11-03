@@ -1,0 +1,71 @@
+{
+  "units": "metres",
+  "referenceOnly": true,
+  "kind": "drawing elevation control; not floor construction geometry",
+  "datum": {
+    "absolutePitchFFL": 54.999,
+    "modelPitchY": -5.18,
+    "originAbsoluteElevation": 60.179,
+    "formula": "local Y = drawing FFL - 60.179"
+  },
+  "levels": [
+    {
+      "id": "L00",
+      "label": "主环廊",
+      "absoluteFFL": 60.65,
+      "localY": 0.471
+    },
+    {
+      "id": "L01",
+      "label": "俱乐部层",
+      "absoluteFFL": 65.45,
+      "localY": 5.271
+    },
+    {
+      "id": "L02",
+      "label": "上层环廊",
+      "absoluteFFL": 70.13,
+      "localY": 9.951
+    },
+    {
+      "id": "L03",
+      "label": "设备层",
+      "absoluteFFL": 77.6,
+      "localY": 17.421
+    },
+    {
+      "id": "L03M",
+      "label": "设备夹层",
+      "absoluteFFL": 82.175,
+      "localY": 21.996
+    },
+    {
+      "id": "L04",
+      "label": "套房层",
+      "absoluteFFL": 89.65,
+      "localY": 29.471
+    },
+    {
+      "id": "L05",
+      "label": "空中酒吧",
+      "absoluteFFL": 93.15,
+      "localY": 32.971
+    },
+    {
+      "id": "RF",
+      "label": "屋面基准",
+      "absoluteFFL": 98.1,
+      "localY": 37.921
+    }
+  ],
+  "source": {
+    "councilRecord": "https://arcusbe.manchester.gov.uk/pr/s/detail/a1DSl000007GPxsMAG?c__r=Arcus_BE_Public_Register",
+    "drawings": [
+      "NSE-POP-NS-ZZ-DR-A-000301-P04",
+      "NSE-POP-NS-ZZ-DR-A-000302-P04",
+      "NSE-POP-NS-ZZ-DR-A-000310-C05"
+    ],
+    "status": "2025 approved application attachments; not 2026 as-built survey"
+  },
+  "limits": "Only FFL elevations are checked. Control rectangles are not floor outlines. Existing massing, tiers and three generic concourses still require calibration."
+}

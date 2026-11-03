@@ -1,0 +1,88 @@
+{
+  "sourceCommit": "a8c8a13cd26c1ab38bb2144689e59d24620c5932",
+  "method": "SAT broad phase followed by actual seat-shell/underframe triangle-vs-step-box checks on North rows; actual emitted step-box dimensions audited; egress-band gaps raycast; no as-built egress claim",
+  "rows": 59,
+  "seats": 25302,
+  "baselineSingleStepFootprints": {
+    "treads": 486,
+    "conflicts": 0,
+    "seatPairs": 0,
+    "exact3dPairs": 0,
+    "examples": []
+  },
+  "arcLengthAlternative": {
+    "treads": 486,
+    "conflicts": 0,
+    "seatPairs": 0,
+    "exact3dPairs": 0,
+    "examples": []
+  },
+  "halfRowCandidate": {
+    "treads": 956,
+    "conflicts": 25,
+    "seatPairs": 25,
+    "exact3dPairs": 0,
+    "examples": [
+      {
+        "row": 0.5,
+        "aisle": 3,
+        "hits": 1,
+        "position": [
+          24.321241526697634,
+          -87.6129468996927
+        ]
+      },
+      {
+        "row": 2.5,
+        "aisle": 4,
+        "hits": 1,
+        "position": [
+          39.557954566886295,
+          -85.15129465899938
+        ]
+      },
+      {
+        "row": 2.5,
+        "aisle": 34,
+        "hits": 1,
+        "position": [
+          -49.062028154995396,
+          -79.6379057912604
+        ]
+      },
+      {
+        "row": 3.5,
+        "aisle": 2,
+        "hits": 1,
+        "position": [
+          9.862340029492707,
+          -89.715
+        ]
+      },
+      {
+        "row": 7.5,
+        "aisle": 3,
+        "hits": 1,
+        "position": [
+          26.308092564581028,
+          -92.03737908593757
+        ]
+      }
+    ]
+  },
+  "generated": {
+    "treads": 956,
+    "landings": 8,
+    "nosings": 964,
+    "geometryBoxAudit": "passed",
+    "bandAislesClear": 9,
+    "bandProbe": "actual mesh raycasts at 3 lateral positions and 2 heights per aisle"
+  },
+  "finding": "No demonstrated aisle-axis defect: bundled Three CurvePath.getPoint already traverses constituent curves by arc length (three.core.js33649-33665). Both current and getPointAt alternatives have zero conservative footprint conflicts. Do not change axes based only on API name differences.",
+  "limits": [
+    "Seat-shell bounds include empty shape regions",
+    "Original clearances and aisle count remain fitted",
+    "Half-row broad-phase footprints and triangle-vs-step checks cover seat shells and underframes; portal/railing collisions and real clearances remain unverified",
+    "Source geometry inspected headlessly; candidate SAT boxes match the emitted solids; no as-built or compliance claim"
+  ]
+}

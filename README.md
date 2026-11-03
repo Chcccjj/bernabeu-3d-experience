@@ -133,3 +133,14 @@ Third-party notices remain in `public/` and `dist/`. No open-source license has 
 [Step inside the Bernabéu →](https://bernabeu-architecture-studio.justllama33.chatgpt.site/?lang=en)
 
 </div>
+
+
+## Companion scene: Etihad Stadium
+
+The Manchester City companion experience is now included in this repository as **Etihad Stadium (V14)**.
+
+- [Open Etihad Stadium](https://etihad-architecture-atlas.chenvance.chatgpt.site/?lang=en)
+- [Etihad source, build and editable models](etihad-stadium/README.md)
+- [Download/open the standalone HTML](Etihad%20Stadium.html)
+
+The Santiago Bernabéu source and experience above remain independent.
