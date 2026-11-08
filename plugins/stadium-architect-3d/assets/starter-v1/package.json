@@ -10,7 +10,7 @@
     "test": "playwright test"
   },
   "dependencies": {
-    "three": "0.180.0"
+    "three": "0.187.0"
   },
   "devDependencies": {
     "@playwright/test": "1.55.1",
